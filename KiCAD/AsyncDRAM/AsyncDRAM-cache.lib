@@ -51,11 +51,11 @@ X A3 9 -350 -350 100 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# power_+5V
+# Power_+5V
 #
-DEF power_+5V #PWR 0 0 Y Y 1 F P
+DEF Power_+5V #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5V" 0 140 50 H V C CNN
+F1 "Power_+5V" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -66,11 +66,11 @@ X +5V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# power_GND
+# Power_GND
 #
-DEF power_GND #PWR 0 0 Y Y 1 F P
+DEF Power_GND #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND" 0 -150 50 H V C CNN
+F1 "Power_GND" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
