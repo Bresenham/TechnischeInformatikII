@@ -1,4 +1,4 @@
-1183279692760714
+1184851340872637
 CapacitorSMD
 CP_Elec_3x5.3
 SMT capacitor, aluminium electrolytic, 3x5.3, Cornell Dubilier Electronics 
@@ -4843,6 +4843,13 @@ LED
 0
 2
 2
+MyLibrary
+MT6205B
+
+
+0
+196
+196
 ResistorSMD
 R_0201_0603Metric
 Resistor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf), generated with kicad-footprint-generator
