@@ -72,12 +72,12 @@ $EndComp
 $Comp
 L MyLibrary:KM44C256BP-8 KM44256_1
 U 1 1 5DA9F5FC
-P 5250 1600
-F 0 "KM44256_1" H 5250 2200 50  0000 C CNN
-F 1 "KM44C256BP-8" H 5250 1000 50  0000 C CNN
-F 2 "DIP:DIP-20_W7.62mm" H 5200 1700 50  0001 C CNN
-F 3 "" H 5200 1700 50  0001 C CNN
-	1    5250 1600
+P 3300 1350
+F 0 "KM44256_1" H 3300 1950 50  0000 C CNN
+F 1 "KM44C256BP-8" H 3300 750 50  0000 C CNN
+F 2 "DIP:DIP-20_W7.62mm" H 3250 1450 50  0001 C CNN
+F 3 "" H 3250 1450 50  0001 C CNN
+	1    3300 1350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -161,35 +161,35 @@ Wire Wire Line
 $Comp
 L Power:+5V #PWR0105
 U 1 1 5DAAF45B
-P 4750 2050
-F 0 "#PWR0105" H 4750 1900 50  0001 C CNN
-F 1 "+5V" V 4650 2000 50  0000 L CNN
-F 2 "" H 4750 2050 50  0001 C CNN
-F 3 "" H 4750 2050 50  0001 C CNN
-	1    4750 2050
+P 2800 1800
+F 0 "#PWR0105" H 2800 1650 50  0001 C CNN
+F 1 "+5V" V 2700 1750 50  0000 L CNN
+F 2 "" H 2800 1800 50  0001 C CNN
+F 3 "" H 2800 1800 50  0001 C CNN
+	1    2800 1800
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	4750 2050 4900 2050
+	2800 1800 2950 1800
 $Comp
 L Power:GND #PWR0106
 U 1 1 5DAAFE76
-P 5950 1150
-F 0 "#PWR0106" H 5950 900 50  0001 C CNN
-F 1 "GND" V 6050 1100 50  0000 C CNN
-F 2 "" H 5950 1150 50  0001 C CNN
-F 3 "" H 5950 1150 50  0001 C CNN
-	1    5950 1150
+P 4000 900
+F 0 "#PWR0106" H 4000 650 50  0001 C CNN
+F 1 "GND" V 4100 850 50  0000 C CNN
+F 2 "" H 4000 900 50  0001 C CNN
+F 3 "" H 4000 900 50  0001 C CNN
+	1    4000 900 
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	5600 1150 5950 1150
+	3650 900  4000 900 
 $Comp
 L Power:+5V #PWR0107
 U 1 1 5DAB1081
 P 950 2150
 F 0 "#PWR0107" H 950 2000 50  0001 C CNN
-F 1 "+5V" V 965 2278 50  0000 L CNN
+F 1 "+5V" V 1000 2200 50  0000 L CNN
 F 2 "" H 950 2150 50  0001 C CNN
 F 3 "" H 950 2150 50  0001 C CNN
 	1    950  2150
@@ -200,7 +200,7 @@ L Power:GND #PWR0108
 U 1 1 5DAB36DC
 P 1600 600
 F 0 "#PWR0108" H 1600 350 50  0001 C CNN
-F 1 "GND" H 1605 427 50  0000 C CNN
+F 1 "GND" V 1550 650 50  0000 C CNN
 F 2 "" H 1600 600 50  0001 C CNN
 F 3 "" H 1600 600 50  0001 C CNN
 	1    1600 600 
@@ -212,7 +212,7 @@ U 1 1 5DABEB11
 P 3300 3100
 F 0 "ATM809_1" H 3300 3800 50  0000 C CNN
 F 1 "ATmega809" H 3300 950 50  0000 C CNN
-F 2 "" H 3250 3200 50  0001 C CNN
+F 2 "QFP:TQFP-48_7x7mm_P0.5mm" H 3250 3200 50  0001 C CNN
 F 3 "" H 3250 3200 50  0001 C CNN
 	1    3300 3100
 	1    0    0    -1  
@@ -310,78 +310,6 @@ Wire Wire Line
 	1650 5750 1650 5800
 Wire Wire Line
 	1200 5750 1100 5750
-Wire Wire Line
-	4900 1650 2550 1650
-Wire Wire Line
-	2550 1650 2550 3050
-Wire Wire Line
-	2550 3050 2650 3050
-Wire Wire Line
-	4900 1750 2450 1750
-Wire Wire Line
-	2450 1750 2450 3150
-Wire Wire Line
-	2450 3150 2650 3150
-Wire Wire Line
-	4900 1850 2350 1850
-Wire Wire Line
-	2350 1850 2350 3250
-Wire Wire Line
-	2350 3250 2650 3250
-Wire Wire Line
-	4900 1950 2250 1950
-Wire Wire Line
-	2250 1950 2250 3350
-Wire Wire Line
-	2250 3350 2650 3350
-Wire Wire Line
-	5600 2050 6250 2050
-Wire Wire Line
-	6250 2050 6250 900 
-Wire Wire Line
-	6250 900  2150 900 
-Wire Wire Line
-	2150 900  2150 1800
-Wire Wire Line
-	2150 3450 2650 3450
-Wire Wire Line
-	5600 1950 6350 1950
-Wire Wire Line
-	6350 1950 6350 800 
-Wire Wire Line
-	6350 800  2050 800 
-Wire Wire Line
-	2050 800  2050 1700
-Wire Wire Line
-	2050 3550 2650 3550
-Wire Wire Line
-	5600 1850 6450 1850
-Wire Wire Line
-	6450 1850 6450 700 
-Wire Wire Line
-	6450 700  1950 700 
-Wire Wire Line
-	1950 700  1950 1600
-Wire Wire Line
-	1950 3650 2650 3650
-Wire Wire Line
-	5600 1750 6550 1750
-Wire Wire Line
-	6550 1750 6550 600 
-Wire Wire Line
-	6550 600  1850 600 
-Wire Wire Line
-	1850 600  1850 1500
-Wire Wire Line
-	1850 3750 2650 3750
-Wire Wire Line
-	5600 1650 6650 1650
-Wire Wire Line
-	6650 1650 6650 500 
-Wire Wire Line
-	6650 500  1750 500 
-Wire Wire Line
-	1750 500  1750 1400
 Wire Wire Line
 	1750 3850 2650 3850
 Connection ~ 4100 4900
@@ -483,61 +411,6 @@ Wire Wire Line
 Wire Wire Line
 	3750 5750 3750 5800
 Wire Wire Line
-	2550 3050 800  3050
-Wire Wire Line
-	800  3050 800  1400
-Wire Wire Line
-	800  1400 900  1400
-Connection ~ 2550 3050
-Wire Wire Line
-	900  1500 700  1500
-Wire Wire Line
-	700  1500 700  3150
-Wire Wire Line
-	700  3150 2450 3150
-Connection ~ 2450 3150
-Wire Wire Line
-	2350 3250 600  3250
-Wire Wire Line
-	600  3250 600  1600
-Wire Wire Line
-	600  1600 900  1600
-Connection ~ 2350 3250
-Wire Wire Line
-	900  1700 500  1700
-Wire Wire Line
-	500  1700 500  3350
-Wire Wire Line
-	500  3350 2250 3350
-Connection ~ 2250 3350
-Wire Wire Line
-	2150 1800 1600 1800
-Connection ~ 2150 1800
-Wire Wire Line
-	2150 1800 2150 3450
-Wire Wire Line
-	1600 1700 2050 1700
-Connection ~ 2050 1700
-Wire Wire Line
-	2050 1700 2050 3550
-Wire Wire Line
-	1600 1600 1950 1600
-Connection ~ 1950 1600
-Wire Wire Line
-	1950 1600 1950 3650
-Wire Wire Line
-	1600 1500 1850 1500
-Connection ~ 1850 1500
-Wire Wire Line
-	1850 1500 1850 3750
-Wire Wire Line
-	1600 1400 1750 1400
-Connection ~ 1750 1400
-Wire Wire Line
-	1750 1400 1750 3850
-Text Notes 3000 7100 0    50   ~ 0
-(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9)
-Wire Wire Line
 	900  1800 850  1800
 Wire Wire Line
 	850  1800 850  2150
@@ -581,22 +454,22 @@ Wire Wire Line
 	4200 2650 3950 2650
 Wire Wire Line
 	4200 2550 3950 2550
-Text GLabel 4650 1150 0    50   Input ~ 0
+Text GLabel 2700 900  0    50   Input ~ 0
 D0
 Wire Wire Line
-	4900 1150 4650 1150
-Text GLabel 4650 1250 0    50   Input ~ 0
+	2950 900  2700 900 
+Text GLabel 2700 1000 0    50   Input ~ 0
 D1
 Wire Wire Line
-	4900 1250 4650 1250
-Text GLabel 6000 1350 2    50   Input ~ 0
+	2950 1000 2700 1000
+Text GLabel 4050 1100 2    50   Input ~ 0
 D2
 Wire Wire Line
-	6000 1350 5600 1350
-Text GLabel 6000 1250 2    50   Input ~ 0
+	4050 1100 3650 1100
+Text GLabel 4050 1000 2    50   Input ~ 0
 D3
 Wire Wire Line
-	6000 1250 5600 1250
+	4050 1000 3650 1000
 Text GLabel 750  900  0    50   Input ~ 0
 D4
 Text GLabel 750  1000 0    50   Input ~ 0
@@ -605,14 +478,10 @@ Wire Wire Line
 	750  900  900  900 
 Wire Wire Line
 	900  1000 750  1000
-Text GLabel 2300 1100 2    50   Input ~ 0
+Text GLabel 1800 1100 2    50   Input ~ 0
 D6
-Wire Wire Line
-	2300 1100 1600 1100
-Text GLabel 2300 1000 2    50   Input ~ 0
+Text GLabel 1800 1000 2    50   Input ~ 0
 D7
-Wire Wire Line
-	2300 1000 1600 1000
 $Comp
 L Connectors_Generic:Conn_01x02 J4
 U 1 1 5DD828A4
@@ -719,4 +588,182 @@ Wire Wire Line
 	1000 4400 950  4400
 Wire Wire Line
 	1000 4300 950  4300
+Text GLabel 2700 1400 0    50   Input ~ 0
+A0
+Text GLabel 2450 2850 1    50   Input ~ 0
+A1
+Text GLabel 2350 2850 1    50   Input ~ 0
+A2
+Text GLabel 2250 2850 1    50   Input ~ 0
+A3
+Text GLabel 2150 2850 1    50   Input ~ 0
+A4
+Text GLabel 1950 2850 1    50   Input ~ 0
+A6
+Text GLabel 1850 2850 1    50   Input ~ 0
+A7
+Text GLabel 4050 1400 2    50   Input ~ 0
+A8
+Wire Wire Line
+	2700 1400 2950 1400
+Text GLabel 2550 2850 1    50   Input ~ 0
+A0
+Wire Wire Line
+	2550 3050 2550 2850
+Wire Wire Line
+	2550 3050 2650 3050
+Text GLabel 2700 1500 0    50   Input ~ 0
+A1
+Wire Wire Line
+	2700 1500 2950 1500
+Wire Wire Line
+	2450 3150 2450 2850
+Wire Wire Line
+	2450 3150 2650 3150
+Text GLabel 2700 1600 0    50   Input ~ 0
+A2
+Wire Wire Line
+	2700 1600 2950 1600
+Wire Wire Line
+	2350 2850 2350 3250
+Wire Wire Line
+	2350 3250 2650 3250
+Text GLabel 2700 1700 0    50   Input ~ 0
+A3
+Wire Wire Line
+	2700 1700 2950 1700
+Wire Wire Line
+	2250 2850 2250 3350
+Wire Wire Line
+	2250 3350 2650 3350
+Text GLabel 750  1400 0    50   Input ~ 0
+A0
+Text GLabel 750  1500 0    50   Input ~ 0
+A1
+Text GLabel 750  1600 0    50   Input ~ 0
+A2
+Text GLabel 750  1700 0    50   Input ~ 0
+A3
+Wire Wire Line
+	750  1400 900  1400
+Wire Wire Line
+	750  1500 900  1500
+Wire Wire Line
+	750  1600 900  1600
+Wire Wire Line
+	750  1700 900  1700
+Text GLabel 4050 1800 2    50   Input ~ 0
+A4
+Wire Wire Line
+	3650 1800 4050 1800
+Wire Wire Line
+	2150 2850 2150 3450
+Wire Wire Line
+	2150 3450 2650 3450
+Text GLabel 4050 1700 2    50   Input ~ 0
+A5
+Wire Wire Line
+	4050 1700 3650 1700
+Text GLabel 2050 2850 1    50   Input ~ 0
+A5
+Wire Wire Line
+	2050 2850 2050 3550
+Wire Wire Line
+	2050 3550 2650 3550
+Text GLabel 4050 1600 2    50   Input ~ 0
+A6
+Wire Wire Line
+	4050 1600 3650 1600
+Wire Wire Line
+	1950 2850 1950 3650
+Wire Wire Line
+	1950 3650 2650 3650
+Text GLabel 4050 1500 2    50   Input ~ 0
+A7
+Wire Wire Line
+	4050 1500 3650 1500
+Wire Wire Line
+	1850 2850 1850 3750
+Wire Wire Line
+	1850 3750 2650 3750
+Wire Wire Line
+	4050 1400 3650 1400
+Text GLabel 1750 2850 1    50   Input ~ 0
+A8
+Wire Wire Line
+	1750 2850 1750 3850
+Text GLabel 1800 1800 2    50   Input ~ 0
+A4
+Wire Wire Line
+	1800 1800 1600 1800
+Text GLabel 1800 1700 2    50   Input ~ 0
+A5
+Text GLabel 1800 1600 2    50   Input ~ 0
+A6
+Text GLabel 1800 1500 2    50   Input ~ 0
+A7
+Text GLabel 1800 1400 2    50   Input ~ 0
+A8
+Wire Wire Line
+	1800 1400 1600 1400
+Wire Wire Line
+	1800 1500 1600 1500
+Wire Wire Line
+	1800 1600 1600 1600
+Wire Wire Line
+	1800 1700 1600 1700
+Wire Wire Line
+	1800 1000 1600 1000
+Wire Wire Line
+	1800 1100 1600 1100
+Text Notes 3000 7100 0    50   ~ 0
+(A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8)
+Text GLabel 4500 3350 2    50   Input ~ 0
+~RAS
+Text GLabel 4750 3450 2    50   Input ~ 0
+~CAS
+Text GLabel 5000 3550 2    50   Input ~ 0
+~OE
+Wire Wire Line
+	4500 3350 3950 3350
+Wire Wire Line
+	4750 3450 3950 3450
+Wire Wire Line
+	5000 3550 3950 3550
+Text GLabel 5200 3650 2    50   Input ~ 0
+~W
+Wire Wire Line
+	5200 3650 3950 3650
+Text GLabel 2750 1200 0    50   Input ~ 0
+~RAS
+Wire Wire Line
+	2750 1200 2950 1200
+Text GLabel 2550 1100 0    50   Input ~ 0
+~W
+Text GLabel 4200 1200 2    50   Input ~ 0
+~CAS
+Text GLabel 4400 1300 2    50   Input ~ 0
+~OE
+Text GLabel 800  1200 0    50   Input ~ 0
+~RAS
+Wire Wire Line
+	800  1200 900  1200
+Text GLabel 600  1100 0    50   Input ~ 0
+~W
+Wire Wire Line
+	600  1100 900  1100
+Wire Wire Line
+	2550 1100 2950 1100
+Text GLabel 1950 1200 2    50   Input ~ 0
+~CAS
+Wire Wire Line
+	1950 1200 1600 1200
+Text GLabel 2150 1300 2    50   Input ~ 0
+~OE
+Wire Wire Line
+	2150 1300 1600 1300
+Wire Wire Line
+	4200 1200 3650 1200
+Wire Wire Line
+	4400 1300 3650 1300
 $EndSCHEMATC
