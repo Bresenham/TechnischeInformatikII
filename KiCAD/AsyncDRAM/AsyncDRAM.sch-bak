@@ -355,16 +355,6 @@ F 3 "~" H 3300 5650 50  0001 C CNN
 	1    3300 5650
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3950 4700 4250 4700
-Wire Wire Line
-	4250 4700 4250 5350
-Wire Wire Line
-	4250 5350 3000 5350
-Wire Wire Line
-	3000 5350 3000 5550
-Wire Wire Line
-	3000 5550 3100 5550
 $Comp
 L Power:+5V #PWR0113
 U 1 1 5DC495AA
@@ -766,4 +756,12 @@ Wire Wire Line
 	1600 5750 1600 5800
 Wire Wire Line
 	650  5750 900  5750
+Text GLabel 3000 5550 0    50   Input ~ 0
+UPDI
+Wire Wire Line
+	3000 5550 3100 5550
+Text GLabel 4100 4700 2    50   Input ~ 0
+UPDI
+Wire Wire Line
+	4100 4700 3950 4700
 $EndSCHEMATC
