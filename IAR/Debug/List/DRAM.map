@@ -1,0 +1,243 @@
+################################################################################
+#                                                                              #
+#      IAR Universal Linker V6.6.1.103                                         #
+#                                                                              #
+#           Link time     =  20/Dec/2019  21:25:24                             #
+#           Target CPU    =  A90                                               #
+#           List file     =  C:\Users\test\Documents\Studium\TechnischeInforma #
+#                            tikIIProject\IAR\Debug\List\DRAM.map              #
+#           Output file 1 =  C:\Users\test\Documents\Studium\TechnischeInforma #
+#                            tikIIProject\IAR\Debug\Exe\DRAM.d90               #
+#                            Format: ubrof10                                   #
+#                            UBROF version 10.0.6                              #
+#                            Using library modules for C-SPY (-rt)             #
+#           Command line  =  -f C:\Users\test\AppData\Local\Temp\EW72AD.tmp    #
+#                            (C:\Users\test\Documents\Studium\TechnischeInform #
+#                            atikIIProject\IAR\Debug\Obj\main.r90              #
+#                            -l                                                #
+#                            C:\Users\test\Documents\Studium\TechnischeInforma #
+#                            tikIIProject\IAR\Debug\List\DRAM.map              #
+#                            -xesn                                             #
+#                            "-IC:\Program Files (x86)\IAR Systems\Embedded Wo #
+#                            rkbench 8.0\avr\LIB\"                             #
+#                            -f                                                #
+#                            "C:\Program Files (x86)\IAR Systems\Embedded Work #
+#                            bench 8.0\avr\config\lnkm809s.xcl"                #
+#                            (-D_..X_INTVEC_SIZE=50 -D_..X_FLASH_END=1FFF      #
+#                            -D_..X_FLASH_TEND=FF                              #
+#                            -D_..X_FLASH_NEND=_..X_FLASH_END                  #
+#                            -D_..X_FLASH_MAPPED_START=4000                    #
+#                            -D_..X_SRAM_BASE=3C00 -D_..X_SRAM_END=3FFF        #
+#                            -D_..X_SRAM_TBASE=0 -D_..X_SRAM_TSIZE=0           #
+#                            -D_..X_EEPROM_START=0 -D_..X_EEPROM_END=FF        #
+#                            -D_..X_EEPROM_MAPPED_START=1400                   #
+#                            -D_..X_EEPROM_MAPPED_END=14FF                     #
+#                            -D_..X_CSTACK_SIZE=80 -D_..X_RSTACK_SIZE=20       #
+#                            -D_..X_HEAP_SIZE=20 -D_..X_NEAR_HEAP_SIZE=20      #
+#                            -ca90 -QNEAR_C=NEAR_IDC -QCHECKSUM_M=CHECKSUM     #
+#                            -Z(CODE)INTVEC=0-(_..X_INTVEC_SIZE-1)             #
+#                            -h'1895'(CODE)0-(_..X_INTVEC_SIZE-1)              #
+#                            --global_fill                                     #
+#                            -D_..X_FLASH_BASE=_..X_INTVEC_SIZE                #
+#                            -Z(CODE)TINY_F=_..X_FLASH_BASE-_..X_FLASH_TEND    #
+#                            -Z(CODE)NEAR_F=_..X_FLASH_BASE-_..X_FLASH_NEND    #
+#                            -Z(CODE)SWITCH=_..X_FLASH_BASE-_..X_FLASH_NEND    #
+#                            -Z(CODE)DIFUNCT=_..X_FLASH_BASE-_..X_FLASH_NEND   #
+#                            -Z(CODE)CODE=_..X_FLASH_BASE-_..X_FLASH_END       #
+#                            -Z(CODE)INITTAB=_..X_FLASH_BASE-_..X_FLASH_END    #
+#                            -Z(CODE)TINY_ID=_..X_FLASH_BASE-_..X_FLASH_END    #
+#                            -Z(CODE)NEAR_ID=_..X_FLASH_BASE-_..X_FLASH_END    #
+#                            -Z(CODE)NEAR_IDC#_..X_FLASH_BASE-_..X_FLASH_END   #
+#                            -Z(CODE)CHECKSUM#_..X_FLASH_END                   #
+#                            -Z(DATA)TINY_I,TINY_Z,TINY_N=_..X_SRAM_TBASE:+_.. #
+#                            X_SRAM_TSIZE                                      #
+#                            -Z(DATA)EEPROM_MAPPED_I,EEPROM_MAPPED_N=_..X_EEPR #
+#                            OM_MAPPED_START-_..X_EEPROM_MAPPED_END            #
+#                            -Z(DATA)NEAR_I,NEAR_Z,NEAR_N=_..X_SRAM_BASE-_..X_ #
+#                            SRAM_END                                          #
+#                            -Z(DATA)RSTACK+_..X_RSTACK_SIZE=_..X_SRAM_BASE-_. #
+#                            .X_SRAM_END                                       #
+#                            -Z(DATA)CSTACK+_..X_CSTACK_SIZE=_..X_SRAM_BASE-_. #
+#                            .X_SRAM_END                                       #
+#                            -Z(DATA)HEAP+_..X_HEAP_SIZE=_..X_SRAM_BASE-_..X_S #
+#                            RAM_END                                           #
+#                            -Z(DATA)IOSTREAM_N#_..X_SRAM_BASE-_..X_SRAM_END   #
+#                            -Z(DATA)NEAR_HEAP+_..X_NEAR_HEAP_SIZE=_..X_SRAM_B #
+#                            ASE-_..X_SRAM_END                                 #
+#                            -Z(DATA)NEAR_C#_..X_FLASH_MAPPED_START-(_..X_FLAS #
+#                            H_MAPPED_START+_..X_FLASH_END)                    #
+#                            -Z(DATA)CHECKSUM_M#_..X_FLASH_MAPPED_START-(_..X_ #
+#                            FLASH_MAPPED_START+_..X_FLASH_END)                #
+#                            -Z(XDATA)EEPROM_I,EEPROM_N=_..X_EEPROM_START-_..X #
+#                            _EEPROM_END                                       #
+#                            -w29) -s __program_start                          #
+#                            "C:\Program Files (x86)\IAR Systems\Embedded Work #
+#                            bench 8.0\avr\LIB\CLIB\cl1s-arch4.r90"            #
+#                            -rt -o                                            #
+#                            C:\Users\test\Documents\Studium\TechnischeInforma #
+#                            tikIIProject\IAR\Debug\Exe\DRAM.d90)              #
+#                                                                              #
+#                           Copyright (C) 1987-2019 IAR Systems AB.            #
+################################################################################
+
+
+
+
+
+                ****************************************
+                *                                      *
+                *           CROSS REFERENCE            *
+                *                                      *
+                ****************************************
+
+       Program entry at : CODE      000000E6  Relocatable, from module : ?C_STARTUP
+
+
+
+
+                ****************************************
+                *                                      *
+                *            RUNTIME MODEL             *
+                *                                      *
+                ****************************************
+
+  __64bit_doubles = disabled
+  __SystemLibrary = CLib
+  __cpu           = 1
+  __cpu_name      = ATmega809
+  __enhanced_core = enabled
+  __has_elpm      = false
+  __memory_model  = 2
+  __rt_version    = 3
+  __tiny_avr      = false
+  __vtable_memory = __nearflash
+
+                ****************************************
+                *                                      *
+                *    AUTOMATIC SYMBOL REDIRECTIONS     *
+                *                                      *
+                ****************************************
+
+                  There are no automatic symbol redirections.
+
+                ****************************************
+                *                                      *
+                *              ENTRY LIST              *
+                *                                      *
+                ****************************************
+
+Module  Entry                              Address
+------  -----                              -------
+?ABS_ENTRY_MOD
+        _..X_FLASH_BASE                    CODE 00000050
+        _..X_NEAR_HEAP_SIZE                CODE 00000020
+        _..X_HEAP_SIZE                     CODE 00000020
+        _..X_RSTACK_SIZE                   CODE 00000020
+        _..X_CSTACK_SIZE                   CODE 00000080
+        _..X_EEPROM_MAPPED_END             CODE 000014FF
+        _..X_EEPROM_MAPPED_START           CODE 00001400
+        _..X_EEPROM_END                    CODE 000000FF
+        _..X_EEPROM_START                  CODE 00000000
+        _..X_SRAM_TSIZE                    CODE 00000000
+        _..X_SRAM_TBASE                    CODE 00000000
+        _..X_SRAM_END                      CODE 00003FFF
+        _..X_SRAM_BASE                     CODE 00003C00
+        _..X_FLASH_MAPPED_START            CODE 00004000
+        _..X_FLASH_NEND                    CODE 00001FFF
+        _..X_FLASH_TEND                    CODE 000000FF
+        _..X_FLASH_END                     CODE 00001FFF
+        _..X_INTVEC_SIZE                   CODE 00000050
+main ( C:\Users\test\Documents\Studium\TechnischeInformatikIIProject\IAR\Debug\Obj\main.r90 )
+        TCA0_CMP0_IRQHandler               CODE 00000050
+        initTimer0                         CODE 00000080
+        initCPU                            CODE 000000AC
+        x                                  DATA 00003C00
+        main                               CODE 000000CA
+        __?CCP                             DATA 00000034
+        __?NVMADR0                         DATA 00001000
+        __?EEPROM_PAGESIZE                 DATA 00000020
+        TCA0_CMP0_IRQHandler::??INTVEC 18  CODE 00000012
+        ?<Segment init: NEAR_Z>            CODE 00000150
+?__exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\avr\LIB\CLIB\cl1s-arch4.r90 )
+        __exit                             CODE 000000E2
+        ?C_EXIT                            CODE 000000E2
+        ?C_FUNCALL                         CODE 000000E0
+        _exit                              CODE 000000E0
+        exit                               CODE 000000E0
+?RESET ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\avr\LIB\CLIB\cl1s-arch4.r90 )
+        ?RESET                             CODE 00000000
+?C_STARTUP ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\avr\LIB\CLIB\cl1s-arch4.r90 )
+        __program_start                    CODE 000000E6
+        ?C_STARTUP                         CODE 000000E6
+        __RESTART                          CODE 000000E6
+        ?call_low_level_init               CODE 000000F2
+        ?need_segment_init                 CODE 000000F4
+        ?cstartup_call_main                CODE 000000FA
+?low_level_init ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\avr\LIB\CLIB\cl1s-arch4.r90 )
+        __low_level_init                   CODE 00000100
+?segment_init ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\avr\LIB\CLIB\cl1s-arch4.r90 )
+        __segment_init                     CODE 0000011C
+        __memclr                           CODE 00000104
+        __flashcpy                         CODE 00000110
+?FILLER_BYTES
+
+
+                ****************************************
+                *                                      *
+                *            MODULE SUMMARY            *
+                *                                      *
+                ****************************************
+
+Module               CODE   DATA
+------               ----   ----
+                    (Rel)  (Rel)
+?C_STARTUP             26
+?FILLER_BYTES          60
+  + common             20
+?RESET
+  + common              2
+?__exit                 6
+?low_level_init         4
+?segment_init          76
+main                  150      2
+  + common             20
+N/A (command line)           160
+N/A (alignment)
+----------            ---    ---
+Total:                322    162
+  + common             20
+
+
+                ****************************************
+                *                                      *
+                *      SEGMENTS IN ADDRESS ORDER       *
+                *                                      *
+                ****************************************
+
+
+SEGMENT              SPACE    START ADDRESS   END ADDRESS     SIZE  TYPE  ALIGN
+=======              =====    =============   ===========     ====  ====  =====
+INTVEC               CODE          00000000 - 00000013          14   com    1
+?FILL1               CODE          00000014 - 0000004F          3C   rel    0
+CODE                 CODE          00000050 - 0000014F         100   rel    1
+INITTAB              CODE          00000150 - 00000155           6   rel    0
+ABSOLUTE             DATA               00000020                     rel    0
+                     DATA               00000034                   
+                     DATA               00001000                   
+NEAR_I               DATA               00003C00                     dse    0
+NEAR_Z               DATA          00003C00 - 00003C01           2   rel    0
+RSTACK               DATA          00003C02 - 00003C21          20   dse    0
+CSTACK               DATA          00003C22 - 00003CA1          80   dse    0
+
+                ****************************************
+                *                                      *
+                *        END OF CROSS REFERENCE        *
+                *                                      *
+                ****************************************
+
+ 282 bytes of CODE memory (+ 60 range fill )
+ 162 bytes of DATA memory
+
+Errors: none
+Warnings: none
+
