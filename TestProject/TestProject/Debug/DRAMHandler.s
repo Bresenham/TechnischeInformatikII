@@ -289,9 +289,9 @@ writeByte:
 	.loc 1 51 0
 	ld r30,Y	 ;  D.3091, self_8(D)->DATA_PORT
 	ldd r31,Y+1	 ;  D.3091, self_8(D)->DATA_PORT
-	ldi r24,lo8(-1)	 ;  tmp100,
+	ldi r24,lo8(-1)	 ;  tmp101,
 .LVL12:
-	st Z,r24	 ;  _9->DIR, tmp100
+	st Z,r24	 ;  _9->DIR, tmp101
 	.loc 1 53 0
 	ldd r30,Y+5	 ;  D.3091, self_8(D)->CAS.PORT
 	ldd r31,Y+6	 ;  D.3091, self_8(D)->CAS.PORT
@@ -381,8 +381,12 @@ writeByte:
 	ldd r24,Y+4	 ;  self_8(D)->RAS.PIN, self_8(D)->RAS.PIN
 	or r24,r25	 ;  D.3092, D.3092
 	std Z+4,r24	 ;  _67->OUT, D.3092
+	.loc 1 69 0
+	ld r30,Y	 ;  D.3091, self_8(D)->DATA_PORT
+	ldd r31,Y+1	 ;  D.3091, self_8(D)->DATA_PORT
+	std Z+4,__zero_reg__	 ;  _72->OUT,
 /* epilogue start */
-	.loc 1 68 0
+	.loc 1 70 0
 	pop r29	 ; 
 	pop r28	 ; 
 .LVL16:
@@ -402,7 +406,7 @@ writeByte:
 	.type	initDRAMHandler, @function
 initDRAMHandler:
 .LFB3:
-	.loc 1 70 0
+	.loc 1 72 0
 	.cfi_startproc
 .LVL19:
 	push r28	 ; 
@@ -418,52 +422,52 @@ initDRAMHandler:
 /* stack size = 2 */
 .L__stack_usage = 2
 	movw r30,r24	 ;  self, self
-	.loc 1 71 0
+	.loc 1 73 0
 	ldi r24,lo8(gs(readByte))	 ;  tmp80,
 	ldi r25,hi8(gs(readByte))	 ; ,
 .LVL20:
 	std Z+18,r24	 ;  self_2(D)->readByte, tmp80
 	std Z+19,r25	 ;  self_2(D)->readByte, tmp80
-	.loc 1 72 0
+	.loc 1 74 0
 	ldi r24,lo8(gs(writeByte))	 ;  tmp81,
 	ldi r25,hi8(gs(writeByte))	 ; ,
 	std Z+20,r24	 ;  self_2(D)->writeByte, tmp81
 	std Z+21,r25	 ;  self_2(D)->writeByte, tmp81
-	.loc 1 74 0
+	.loc 1 76 0
 	ldi r24,lo8(96)	 ;  tmp82,
 	ldi r25,lo8(4)	 ; ,
 	st Z,r24	 ;  self_2(D)->DATA_PORT, tmp82
 	std Z+1,r25	 ;  self_2(D)->DATA_PORT, tmp82
-	.loc 1 76 0
+	.loc 1 78 0
 	ldi r26,lo8(-128)	 ;  tmp83,
 	ldi r27,lo8(4)	 ; ,
 	std Z+2,r26	 ;  self_2(D)->RAS.PORT, tmp83
 	std Z+3,r27	 ;  self_2(D)->RAS.PORT, tmp83
-	.loc 1 77 0
+	.loc 1 79 0
 	ldi r24,lo8(1)	 ;  tmp84,
 	std Z+4,r24	 ;  self_2(D)->RAS.PIN, tmp84
-	.loc 1 78 0
+	.loc 1 80 0
 	ld r24,X	 ;  D.3096, MEM[(struct PORT_t *)1152B].DIR
 	ori r24,lo8(1)	 ;  D.3096,
 	st X,r24	 ;  MEM[(struct PORT_t *)1152B].DIR, D.3096
-	.loc 1 79 0
+	.loc 1 81 0
 	ldd r28,Z+2	 ;  D.3097, self_2(D)->RAS.PORT
 	ldd r29,Z+3	 ;  D.3097, self_2(D)->RAS.PORT
 	ldd r25,Y+4	 ;  D.3096, _11->OUT
 	ldd r24,Z+4	 ;  self_2(D)->RAS.PIN, self_2(D)->RAS.PIN
 	or r24,r25	 ;  D.3096, D.3096
 	std Y+4,r24	 ;  _11->OUT, D.3096
-	.loc 1 81 0
+	.loc 1 83 0
 	std Z+5,r26	 ;  self_2(D)->CAS.PORT, tmp83
 	std Z+6,r27	 ;  self_2(D)->CAS.PORT, tmp83
-	.loc 1 82 0
+	.loc 1 84 0
 	ldi r24,lo8(2)	 ;  tmp89,
 	std Z+7,r24	 ;  self_2(D)->CAS.PIN, tmp89
-	.loc 1 83 0
+	.loc 1 85 0
 	ld r24,X	 ;  D.3096, MEM[(struct PORT_t *)1152B].DIR
 	ori r24,lo8(2)	 ;  D.3096,
 	st X,r24	 ;  MEM[(struct PORT_t *)1152B].DIR, D.3096
-	.loc 1 84 0
+	.loc 1 86 0
 	ldd r28,Z+5	 ;  D.3097, self_2(D)->CAS.PORT
 	ldd r29,Z+6	 ;  D.3097, self_2(D)->CAS.PORT
 	ldd r25,Y+4	 ;  D.3096, _21->OUT
@@ -471,17 +475,17 @@ initDRAMHandler:
 	com r24	 ;  D.3098
 	and r24,r25	 ;  D.3096, D.3096
 	std Y+4,r24	 ;  _21->OUT, D.3096
-	.loc 1 86 0
+	.loc 1 88 0
 	std Z+8,r26	 ;  self_2(D)->OE.PORT, tmp83
 	std Z+9,r27	 ;  self_2(D)->OE.PORT, tmp83
-	.loc 1 87 0
+	.loc 1 89 0
 	ldi r24,lo8(4)	 ;  tmp95,
 	std Z+10,r24	 ;  self_2(D)->OE.PIN, tmp95
-	.loc 1 88 0
+	.loc 1 90 0
 	ld r24,X	 ;  D.3096, MEM[(struct PORT_t *)1152B].DIR
 	ori r24,lo8(4)	 ;  D.3096,
 	st X,r24	 ;  MEM[(struct PORT_t *)1152B].DIR, D.3096
-	.loc 1 89 0
+	.loc 1 91 0
 	ldd r28,Z+8	 ;  D.3097, self_2(D)->OE.PORT
 	ldd r29,Z+9	 ;  D.3097, self_2(D)->OE.PORT
 	ldd r25,Y+4	 ;  D.3096, _35->OUT
@@ -489,17 +493,17 @@ initDRAMHandler:
 	com r24	 ;  D.3098
 	and r24,r25	 ;  D.3096, D.3096
 	std Y+4,r24	 ;  _35->OUT, D.3096
-	.loc 1 91 0
+	.loc 1 93 0
 	std Z+11,r26	 ;  self_2(D)->W.PORT, tmp83
 	std Z+12,r27	 ;  self_2(D)->W.PORT, tmp83
-	.loc 1 92 0
+	.loc 1 94 0
 	ldi r24,lo8(8)	 ;  tmp101,
 	std Z+13,r24	 ;  self_2(D)->W.PIN, tmp101
-	.loc 1 93 0
+	.loc 1 95 0
 	ld r24,X	 ;  D.3096, MEM[(struct PORT_t *)1152B].DIR
 	ori r24,lo8(8)	 ;  D.3096,
 	st X,r24	 ;  MEM[(struct PORT_t *)1152B].DIR, D.3096
-	.loc 1 94 0
+	.loc 1 96 0
 	ldd r26,Z+11	 ;  D.3097, self_2(D)->W.PORT
 	ldd r27,Z+12	 ;  D.3097, self_2(D)->W.PORT
 	adiw r26,4	 ;  _49->OUT
@@ -510,27 +514,27 @@ initDRAMHandler:
 	and r24,r25	 ;  D.3096, D.3096
 	adiw r26,4	 ;  _49->OUT
 	st X,r24	 ;  D.3096
-	.loc 1 96 0
+	.loc 1 98 0
 	ldi r26,0	 ;  tmp106
 	ldi r27,lo8(4)	 ; ,
 	std Z+14,r26	 ;  self_2(D)->ADDR_PORT.P1, tmp106
 	std Z+15,r27	 ;  self_2(D)->ADDR_PORT.P1, tmp106
-	.loc 1 97 0
+	.loc 1 99 0
 	ldi r24,lo8(32)	 ;  tmp107,
 	ldi r25,lo8(4)	 ; ,
 	std Z+16,r24	 ;  self_2(D)->ADDR_PORT.P2, tmp107
 	std Z+17,r25	 ;  self_2(D)->ADDR_PORT.P2, tmp107
-	.loc 1 99 0
+	.loc 1 101 0
 	ldi r24,lo8(-1)	 ;  tmp109,
 	st X,r24	 ;  MEM[(struct PORT_t *)1024B].DIR, tmp109
-	.loc 1 100 0
+	.loc 1 102 0
 	ldd __tmp_reg__,Z+16	 ;  self_2(D)->ADDR_PORT.P2
 	ldd r31,Z+17	 ;  D.3097, self_2(D)->ADDR_PORT.P2
 	mov r30,__tmp_reg__	 ;  D.3097
 .LVL21:
 	st Z,r24	 ;  _61->DIR, tmp109
 /* epilogue start */
-	.loc 1 101 0
+	.loc 1 103 0
 	pop r29	 ; 
 	pop r28	 ; 
 	ret
@@ -1247,7 +1251,7 @@ initDRAMHandler:
 	.byte	0x1
 	.long	.LASF48
 	.byte	0x1
-	.byte	0x46
+	.byte	0x48
 	.byte	0x1
 	.long	.LFB3
 	.long	.LFE3
@@ -1256,7 +1260,7 @@ initDRAMHandler:
 	.uleb128 0x15
 	.long	.LASF38
 	.byte	0x1
-	.byte	0x46
+	.byte	0x48
 	.long	0x3e0
 	.long	.LLST14
 	.byte	0

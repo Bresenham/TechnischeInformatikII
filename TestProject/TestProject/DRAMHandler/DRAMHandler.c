@@ -65,6 +65,8 @@ void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
 	
 	self->CAS.PORT->OUT |= self->CAS.PIN;
 	self->RAS.PORT->OUT |= self->RAS.PIN;
+	
+	self->DATA_PORT->OUT = 0;
 }
 
 void initDRAMHandler(DRAM_HANDLER *self) {

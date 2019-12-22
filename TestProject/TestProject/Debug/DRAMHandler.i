@@ -1777,6 +1777,8 @@ void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
 
  self->CAS.PORT->OUT |= self->CAS.PIN;
  self->RAS.PORT->OUT |= self->RAS.PIN;
+
+ self->DATA_PORT->OUT = 0;
 }
 
 void initDRAMHandler(DRAM_HANDLER *self) {
@@ -1784,72 +1786,72 @@ void initDRAMHandler(DRAM_HANDLER *self) {
  self->writeByte = &writeByte;
 
  self->DATA_PORT = &
-# 74 "../DRAMHandler/DRAMHandler.c" 3
+# 76 "../DRAMHandler/DRAMHandler.c" 3
                    (*(PORT_t *) 0x0460)
-# 74 "../DRAMHandler/DRAMHandler.c"
+# 76 "../DRAMHandler/DRAMHandler.c"
                         ;
 
  self->RAS.PORT = &
-# 76 "../DRAMHandler/DRAMHandler.c" 3
+# 78 "../DRAMHandler/DRAMHandler.c" 3
                   (*(PORT_t *) 0x0480)
-# 76 "../DRAMHandler/DRAMHandler.c"
+# 78 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->RAS.PIN = 
-# 77 "../DRAMHandler/DRAMHandler.c" 3
+# 79 "../DRAMHandler/DRAMHandler.c" 3
                 0x01
-# 77 "../DRAMHandler/DRAMHandler.c"
+# 79 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->RAS.PORT->DIR |= self->RAS.PIN;
  self->RAS.PORT->OUT |= self->RAS.PIN;
 
  self->CAS.PORT = &
-# 81 "../DRAMHandler/DRAMHandler.c" 3
+# 83 "../DRAMHandler/DRAMHandler.c" 3
                   (*(PORT_t *) 0x0480)
-# 81 "../DRAMHandler/DRAMHandler.c"
+# 83 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->CAS.PIN = 
-# 82 "../DRAMHandler/DRAMHandler.c" 3
+# 84 "../DRAMHandler/DRAMHandler.c" 3
                 0x02
-# 82 "../DRAMHandler/DRAMHandler.c"
+# 84 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->CAS.PORT->DIR |= self->CAS.PIN;
  self->CAS.PORT->OUT &= ~self->CAS.PIN;
 
  self->OE.PORT = &
-# 86 "../DRAMHandler/DRAMHandler.c" 3
+# 88 "../DRAMHandler/DRAMHandler.c" 3
                  (*(PORT_t *) 0x0480)
-# 86 "../DRAMHandler/DRAMHandler.c"
+# 88 "../DRAMHandler/DRAMHandler.c"
                       ;
  self->OE.PIN = 
-# 87 "../DRAMHandler/DRAMHandler.c" 3
+# 89 "../DRAMHandler/DRAMHandler.c" 3
                0x04
-# 87 "../DRAMHandler/DRAMHandler.c"
+# 89 "../DRAMHandler/DRAMHandler.c"
                       ;
  self->OE.PORT->DIR |= self->OE.PIN;
  self->OE.PORT->OUT &= ~self->OE.PIN;
 
  self->W.PORT = &
-# 91 "../DRAMHandler/DRAMHandler.c" 3
+# 93 "../DRAMHandler/DRAMHandler.c" 3
                 (*(PORT_t *) 0x0480)
-# 91 "../DRAMHandler/DRAMHandler.c"
+# 93 "../DRAMHandler/DRAMHandler.c"
                      ;
  self->W.PIN = 
-# 92 "../DRAMHandler/DRAMHandler.c" 3
+# 94 "../DRAMHandler/DRAMHandler.c" 3
               0x08
-# 92 "../DRAMHandler/DRAMHandler.c"
+# 94 "../DRAMHandler/DRAMHandler.c"
                      ;
  self->W.PORT->DIR |= self->W.PIN;
  self->W.PORT->OUT &= ~self->W.PIN;
 
  self->ADDR_PORT.P1 = &
-# 96 "../DRAMHandler/DRAMHandler.c" 3
+# 98 "../DRAMHandler/DRAMHandler.c" 3
                       (*(PORT_t *) 0x0400)
-# 96 "../DRAMHandler/DRAMHandler.c"
+# 98 "../DRAMHandler/DRAMHandler.c"
                            ;
  self->ADDR_PORT.P2 = &
-# 97 "../DRAMHandler/DRAMHandler.c" 3
+# 99 "../DRAMHandler/DRAMHandler.c" 3
                       (*(PORT_t *) 0x0420)
-# 97 "../DRAMHandler/DRAMHandler.c"
+# 99 "../DRAMHandler/DRAMHandler.c"
                            ;
 
  self->ADDR_PORT.P1->DIR = 0xFF;

@@ -22,7 +22,7 @@ ISR(TCA0_CMP0_vect) {
 	/* Clear interrupt flag */
 	PORTF.OUTTGL = PIN0_bm;
 	TCA0.SINGLE.INTFLAGS |= (1 << TCA_SINGLE_CMP0EN_bp);
-	dramHandler.writeByte(&dramHandler, 1337, 0xBE);
+	dramHandler.writeByte(&dramHandler, 1337, 101);
 	dramHandler.readByte(&dramHandler, 1337);
 }
 

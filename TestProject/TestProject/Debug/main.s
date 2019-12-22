@@ -152,7 +152,7 @@ __vector_9:
 	ldi r29,hi8(dramHandler)	 ; ,
 	ldd r30,Y+20	 ;  dramHandler.writeByte, dramHandler.writeByte
 	ldd r31,Y+21	 ;  dramHandler.writeByte, dramHandler.writeByte
-	ldi r18,lo8(-66)	 ; ,
+	ldi r18,lo8(101)	 ; ,
 	ldi r20,lo8(57)	 ; ,
 	ldi r21,lo8(5)	 ; ,
 	ldi r22,0	 ; 
@@ -1878,8 +1878,8 @@ main:
 	.byte	0x1
 	.byte	0x62
 	.byte	0x2
-	.byte	0x9
-	.byte	0xbe
+	.byte	0x8
+	.byte	0x65
 	.byte	0
 	.uleb128 0x20
 	.long	.LVL1

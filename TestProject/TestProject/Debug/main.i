@@ -1755,7 +1755,7 @@ void __vector_9 (void) __attribute__ ((signal,used, externally_visible)) ; void 
                               4
 # 24 ".././main.c"
                                                   );
- dramHandler.writeByte(&dramHandler, 1337, 0xBE);
+ dramHandler.writeByte(&dramHandler, 1337, 101);
  dramHandler.readByte(&dramHandler, 1337);
 }
 
