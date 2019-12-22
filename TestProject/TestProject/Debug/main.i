@@ -1699,113 +1699,108 @@ void __vector_9 (void) __attribute__ ((signal,used, externally_visible)) ; void 
 # 21 ".././main.c" 3
 (*(PORT_t *) 0x04A0)
 # 21 ".././main.c"
-     .OUT ^= (1 << 
+     .OUTTGL = 
 # 21 ".././main.c" 3
-                   0
+               0x01
 # 21 ".././main.c"
-                          );
+                      ;
  
 # 22 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
 # 22 ".././main.c"
-    .SINGLE.CNT = 0;
- 
-# 23 ".././main.c" 3
-(*(TCA_t *) 0x0A00)
-# 23 ".././main.c"
     .SINGLE.INTFLAGS |= (1 << 
-# 23 ".././main.c" 3
+# 22 ".././main.c" 3
                               4
-# 23 ".././main.c"
+# 22 ".././main.c"
                                                   );
 }
 
 void initTimer0() {
 
  
-# 28 ".././main.c" 3
+# 27 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 28 ".././main.c"
-    .SINGLE.PER = 0xFFFF;
-
- 
-# 30 ".././main.c" 3
-(*(TCA_t *) 0x0A00)
-# 30 ".././main.c"
+# 27 ".././main.c"
     .SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV16_gc;
 
  
-# 32 ".././main.c" 3
+# 29 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 32 ".././main.c"
-    .SINGLE.CMP0 = ((30 / 2) * ( (20000000UL) / (1000 * 16) ));
+# 29 ".././main.c"
+    .SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc;
 
  
-# 34 ".././main.c" 3
+# 31 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 34 ".././main.c"
+# 31 ".././main.c"
+    .SINGLE.CMP0BUF = ((30 / 2) * ( (20000000UL) / (1000 * 16) ));
+
+ 
+# 33 ".././main.c" 3
+(*(TCA_t *) 0x0A00)
+# 33 ".././main.c"
     .SINGLE.INTCTRL = 
-# 34 ".././main.c" 3
+# 33 ".././main.c" 3
                       0x10
-# 34 ".././main.c"
+# 33 ".././main.c"
                                           ;
 
  
-# 36 ".././main.c" 3
+# 35 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 36 ".././main.c"
+# 35 ".././main.c"
     .SINGLE.CTRLA |= 
-# 36 ".././main.c" 3
+# 35 ".././main.c" 3
                      0x01
-# 36 ".././main.c"
+# 35 ".././main.c"
                                          ;
 }
 
 void initCPU() {
 
  
-# 41 ".././main.c" 3
+# 40 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 41 ".././main.c"
+# 40 ".././main.c"
     = 0xD8;
 
  
-# 43 ".././main.c" 3
+# 42 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 43 ".././main.c"
+# 42 ".././main.c"
        .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
 
  
-# 45 ".././main.c" 3
+# 44 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 45 ".././main.c"
+# 44 ".././main.c"
     = 0xD8;
 
  
-# 47 ".././main.c" 3
+# 46 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 47 ".././main.c"
+# 46 ".././main.c"
        .MCLKCTRLB &= ~(1 << 
-# 47 ".././main.c" 3
+# 46 ".././main.c" 3
                             0
-# 47 ".././main.c"
+# 46 ".././main.c"
                                           );
 
 
  
-# 50 ".././main.c" 3
+# 49 ".././main.c" 3
 __asm__ __volatile__ ("sei" ::: "memory")
-# 50 ".././main.c"
+# 49 ".././main.c"
      ;
 
  
-# 52 ".././main.c" 3
+# 51 ".././main.c" 3
 (*(PORT_t *) 0x04A0)
-# 52 ".././main.c"
+# 51 ".././main.c"
      .DIR |= (1 << 
-# 52 ".././main.c" 3
+# 51 ".././main.c" 3
                    0
-# 52 ".././main.c"
+# 51 ".././main.c"
                           );
 }
 

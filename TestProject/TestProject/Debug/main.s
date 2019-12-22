@@ -82,43 +82,31 @@ __vector_9:
 .LCFI2:
 	.cfi_def_cfa_offset 5
 	.cfi_offset 24, -4
-	push r25	 ; 
+	push r30	 ; 
 .LCFI3:
 	.cfi_def_cfa_offset 6
-	.cfi_offset 25, -5
-	push r30	 ; 
+	.cfi_offset 30, -5
+	push r31	 ; 
 .LCFI4:
 	.cfi_def_cfa_offset 7
-	.cfi_offset 30, -6
-	push r31	 ; 
-.LCFI5:
-	.cfi_def_cfa_offset 8
-	.cfi_offset 31, -7
+	.cfi_offset 31, -6
 /* prologue: Signal */
 /* frame size = 0 */
-/* stack size = 7 */
-.L__stack_usage = 7
+/* stack size = 6 */
+.L__stack_usage = 6
 	.loc 1 21 0
-	ldi r30,lo8(-96)	 ;  tmp46,
-	ldi r31,lo8(4)	 ; ,
-	ldd r25,Z+4	 ;  D.2927, MEM[(struct PORT_t *)1184B].OUT
-	ldi r24,lo8(1)	 ;  tmp47,
-	eor r24,r25	 ;  D.2927, D.2927
-	std Z+4,r24	 ;  MEM[(struct PORT_t *)1184B].OUT, D.2927
+	ldi r24,lo8(1)	 ;  tmp45,
+	sts 1191,r24	 ;  MEM[(struct PORT_t *)1184B].OUTTGL, tmp45
 	.loc 1 22 0
-	ldi r30,0	 ;  tmp49
+	ldi r30,0	 ;  tmp46
 	ldi r31,lo8(10)	 ; ,
-	std Z+32,__zero_reg__	 ;  MEM[(union TCA_t *)2560B].SINGLE.D.2455.CNT,
-	std Z+33,__zero_reg__	 ;  MEM[(union TCA_t *)2560B].SINGLE.D.2455.CNT,
-	.loc 1 23 0
-	ldd r24,Z+11	 ;  D.2927, MEM[(union TCA_t *)2560B].SINGLE.INTFLAGS
-	ori r24,lo8(16)	 ;  D.2927,
-	std Z+11,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.INTFLAGS, D.2927
+	ldd r24,Z+11	 ;  D.2925, MEM[(union TCA_t *)2560B].SINGLE.INTFLAGS
+	ori r24,lo8(16)	 ;  D.2925,
+	std Z+11,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.INTFLAGS, D.2925
 /* epilogue start */
-	.loc 1 24 0
+	.loc 1 23 0
 	pop r31	 ; 
 	pop r30	 ; 
-	pop r25	 ; 
 	pop r24	 ; 
 	pop r0	 ; 
 	out __SREG__,r0	 ; ,
@@ -133,34 +121,32 @@ __vector_9:
 	.type	initTimer0, @function
 initTimer0:
 .LFB1:
-	.loc 1 26 0
+	.loc 1 25 0
 	.cfi_startproc
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-	.loc 1 28 0
+	.loc 1 27 0
 	ldi r30,0	 ;  tmp44
 	ldi r31,lo8(10)	 ; ,
-	ldi r24,lo8(-1)	 ;  tmp45,
-	ldi r25,lo8(-1)	 ; ,
-	std Z+38,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.D.2463.PER, tmp45
-	std Z+39,r25	 ;  MEM[(union TCA_t *)2560B].SINGLE.D.2463.PER, tmp45
-	.loc 1 30 0
-	ldi r24,lo8(8)	 ;  tmp47,
-	st Z,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.CTRLA, tmp47
-	.loc 1 32 0
+	ldi r24,lo8(8)	 ;  tmp45,
+	st Z,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.CTRLA, tmp45
+	.loc 1 29 0
+	ldi r24,lo8(1)	 ;  tmp47,
+	std Z+1,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.CTRLB, tmp47
+	.loc 1 31 0
 	ldi r24,lo8(62)	 ;  tmp49,
 	ldi r25,lo8(73)	 ; ,
-	std Z+40,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.D.2470.CMP0, tmp49
-	std Z+41,r25	 ;  MEM[(union TCA_t *)2560B].SINGLE.D.2470.CMP0, tmp49
-	.loc 1 34 0
+	std Z+56,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.D.2499.CMP0BUF, tmp49
+	std Z+57,r25	 ;  MEM[(union TCA_t *)2560B].SINGLE.D.2499.CMP0BUF, tmp49
+	.loc 1 33 0
 	ldi r24,lo8(16)	 ;  tmp51,
 	std Z+10,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.INTCTRL, tmp51
-	.loc 1 36 0
-	ld r24,Z	 ;  D.2930, MEM[(union TCA_t *)2560B].SINGLE.CTRLA
-	ori r24,lo8(1)	 ;  D.2930,
-	st Z,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.CTRLA, D.2930
+	.loc 1 35 0
+	ld r24,Z	 ;  D.2928, MEM[(union TCA_t *)2560B].SINGLE.CTRLA
+	ori r24,lo8(1)	 ;  D.2928,
+	st Z,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.CTRLA, D.2928
 	ret
 	.cfi_endproc
 .LFE1:
@@ -170,37 +156,37 @@ initTimer0:
 	.type	initCPU, @function
 initCPU:
 .LFB2:
-	.loc 1 39 0
+	.loc 1 38 0
 	.cfi_startproc
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-	.loc 1 41 0
+	.loc 1 40 0
 	ldi r24,lo8(-40)	 ;  tmp47,
 	out __CCP__,r24	 ;  MEM[(volatile uint8_t *)52B], tmp47
-	.loc 1 43 0
+	.loc 1 42 0
 	ldi r30,lo8(96)	 ;  tmp48,
 	ldi r31,0	 ; 
 	st Z,__zero_reg__	 ;  MEM[(struct CLKCTRL_t *)96B].MCLKCTRLA,
-	.loc 1 45 0
+	.loc 1 44 0
 	out __CCP__,r24	 ;  MEM[(volatile uint8_t *)52B], tmp47
-	.loc 1 47 0
-	ldd r24,Z+1	 ;  D.2933, MEM[(struct CLKCTRL_t *)96B].MCLKCTRLB
-	andi r24,lo8(-2)	 ;  D.2933,
-	std Z+1,r24	 ;  MEM[(struct CLKCTRL_t *)96B].MCLKCTRLB, D.2933
-	.loc 1 50 0
+	.loc 1 46 0
+	ldd r24,Z+1	 ;  D.2931, MEM[(struct CLKCTRL_t *)96B].MCLKCTRLB
+	andi r24,lo8(-2)	 ;  D.2931,
+	std Z+1,r24	 ;  MEM[(struct CLKCTRL_t *)96B].MCLKCTRLB, D.2931
+	.loc 1 49 0
 /* #APP */
- ;  50 ".././main.c" 1
+ ;  49 ".././main.c" 1
 	sei
  ;  0 "" 2
-	.loc 1 52 0
+	.loc 1 51 0
 /* #NOAPP */
 	ldi r30,lo8(-96)	 ;  tmp53,
 	ldi r31,lo8(4)	 ; ,
-	ld r24,Z	 ;  D.2933, MEM[(struct PORT_t *)1184B].DIR
-	ori r24,lo8(1)	 ;  D.2933,
-	st Z,r24	 ;  MEM[(struct PORT_t *)1184B].DIR, D.2933
+	ld r24,Z	 ;  D.2931, MEM[(struct PORT_t *)1184B].DIR
+	ori r24,lo8(1)	 ;  D.2931,
+	st Z,r24	 ;  MEM[(struct PORT_t *)1184B].DIR, D.2931
 	ret
 	.cfi_endproc
 .LFE2:
@@ -210,16 +196,16 @@ initCPU:
 	.type	main, @function
 main:
 .LFB3:
-	.loc 1 55 0
+	.loc 1 54 0
 	.cfi_startproc
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-	.loc 1 56 0
+	.loc 1 55 0
 	rcall initCPU	 ; 
 .LVL0:
-	.loc 1 57 0
+	.loc 1 56 0
 	rcall initTimer0	 ; 
 .LVL1:
 .L5:
@@ -233,15 +219,15 @@ main:
 	.file 3 "C:\\Program Files (x86)\\Atmel\\Studio\\7.0\\Packs\\Atmel\\ATmega_DFP\\1.4.346\\include/avr/iom809.h"
 	.section	.debug_info,"",@progbits
 .Ldebug_info0:
-	.long	0xa29
+	.long	0xa5f
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF117
+	.long	.LASF124
 	.byte	0xc
-	.long	.LASF118
-	.long	.LASF119
+	.long	.LASF125
+	.long	.LASF126
 	.long	.Ldebug_ranges0+0
 	.long	0
 	.long	0
@@ -1455,7 +1441,7 @@ main:
 	.word	0x537
 	.long	0x78f
 	.uleb128 0x14
-	.long	.LASF120
+	.long	.LASF127
 	.byte	0x40
 	.byte	0x3
 	.word	0x53b
@@ -1508,9 +1494,35 @@ main:
 	.long	.LASF114
 	.byte	0xe
 	.byte	0
+	.uleb128 0xb
+	.long	.LASF115
+	.byte	0x1
+	.long	0x3b
+	.byte	0x3
+	.word	0x568
+	.long	0x9f4
+	.uleb128 0xc
+	.long	.LASF116
+	.byte	0
+	.uleb128 0xc
+	.long	.LASF117
+	.byte	0x1
+	.uleb128 0xc
+	.long	.LASF118
+	.byte	0x3
+	.uleb128 0xc
+	.long	.LASF119
+	.byte	0x5
+	.uleb128 0xc
+	.long	.LASF120
+	.byte	0x6
+	.uleb128 0xc
+	.long	.LASF121
+	.byte	0x7
+	.byte	0
 	.uleb128 0x15
 	.byte	0x1
-	.long	.LASF121
+	.long	.LASF128
 	.byte	0x1
 	.byte	0x13
 	.byte	0x1
@@ -1520,9 +1532,9 @@ main:
 	.byte	0x1
 	.uleb128 0x16
 	.byte	0x1
-	.long	.LASF115
+	.long	.LASF122
 	.byte	0x1
-	.byte	0x1a
+	.byte	0x19
 	.long	.LFB1
 	.long	.LFE1
 	.byte	0x3
@@ -1532,9 +1544,9 @@ main:
 	.byte	0x1
 	.uleb128 0x16
 	.byte	0x1
-	.long	.LASF116
+	.long	.LASF123
 	.byte	0x1
-	.byte	0x27
+	.byte	0x26
 	.long	.LFB2
 	.long	.LFE2
 	.byte	0x3
@@ -1544,9 +1556,9 @@ main:
 	.byte	0x1
 	.uleb128 0x17
 	.byte	0x1
-	.long	.LASF122
+	.long	.LASF129
 	.byte	0x1
-	.byte	0x37
+	.byte	0x36
 	.byte	0x1
 	.long	0x42
 	.byte	0x1
@@ -1559,10 +1571,10 @@ main:
 	.byte	0x1
 	.uleb128 0x18
 	.long	.LVL0
-	.long	0x9e9
+	.long	0xa1f
 	.uleb128 0x18
 	.long	.LVL1
-	.long	0x9d4
+	.long	0xa0a
 	.byte	0
 	.byte	0
 	.section	.debug_abbrev,"",@progbits
@@ -1930,17 +1942,11 @@ main:
 	.uleb128 0x20
 	.sleb128 6
 	.long	.LCFI4
-	.long	.LCFI5
-	.word	0x3
-	.byte	0x92
-	.uleb128 0x20
-	.sleb128 7
-	.long	.LCFI5
 	.long	.LFE0
 	.word	0x3
 	.byte	0x92
 	.uleb128 0x20
-	.sleb128 8
+	.sleb128 7
 	.long	0
 	.long	0
 	.section	.debug_aranges,"",@progbits
@@ -1986,11 +1992,13 @@ main:
 	.string	"HCMP2"
 .LASF86:
 	.string	"TEMP"
+.LASF116:
+	.string	"TCA_SINGLE_WGMODE_NORMAL_gc"
 .LASF54:
 	.string	"CMP0H"
 .LASF53:
 	.string	"CMP0L"
-.LASF115:
+.LASF122:
 	.string	"initTimer0"
 .LASF10:
 	.string	"register16_t"
@@ -2020,12 +2028,14 @@ main:
 	.string	"long long unsigned int"
 .LASF91:
 	.string	"LCNT"
-.LASF120:
+.LASF127:
 	.string	"TCA_union"
 .LASF90:
 	.string	"TCA_SPLIT_struct"
 .LASF50:
 	.string	"CNTH"
+.LASF93:
+	.string	"LPER"
 .LASF5:
 	.string	"long int"
 .LASF57:
@@ -2066,9 +2076,9 @@ main:
 	.string	"PIN7CTRL"
 .LASF72:
 	.string	"CMP2BUFH"
-.LASF119:
+.LASF126:
 	.string	"C:\\\\Users\\\\test\\\\Documents\\\\Studium\\\\TechnischeInformatikIIProject\\\\TestProject\\\\TestProject\\\\Debug"
-.LASF121:
+.LASF128:
 	.string	"__vector_9"
 .LASF95:
 	.string	"LCMP0"
@@ -2080,16 +2090,22 @@ main:
 	.string	"TCA_SINGLE_CLKSEL_DIV1024_gc"
 .LASF70:
 	.string	"CMP1BUF"
-.LASF118:
+.LASF115:
+	.string	"TCA_SINGLE_WGMODE_enum"
+.LASF125:
 	.string	".././main.c"
 .LASF28:
 	.string	"CLKCTRL_CLKSEL_XOSC32K_gc"
 .LASF74:
 	.string	"TCA_SINGLE_struct"
-.LASF116:
+.LASF119:
+	.string	"TCA_SINGLE_WGMODE_DSTOP_gc"
+.LASF123:
 	.string	"initCPU"
 .LASF44:
 	.string	"PIN4CTRL"
+.LASF37:
+	.string	"OUTTGL"
 .LASF108:
 	.string	"TCA_SINGLE_CLKSEL_DIV2_gc"
 .LASF36:
@@ -2166,8 +2182,10 @@ main:
 	.string	"PIN6CTRL"
 .LASF89:
 	.string	"TCA_SINGLE_t"
-.LASF37:
-	.string	"OUTTGL"
+.LASF120:
+	.string	"TCA_SINGLE_WGMODE_DSBOTH_gc"
+.LASF117:
+	.string	"TCA_SINGLE_WGMODE_FRQ_gc"
 .LASF40:
 	.string	"PIN0CTRL"
 .LASF39:
@@ -2180,7 +2198,7 @@ main:
 	.string	"CMP2"
 .LASF76:
 	.string	"CTRLB"
-.LASF117:
+.LASF124:
 	.string	"GNU C99 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avrxmega3 -mshort-calls -g2 -Os -std=gnu99 -funsigned-char -funsigned-bitfields -ffunction-sections -fdata-sections -fpack-struct -fshort-enums"
 .LASF78:
 	.string	"CTRLD"
@@ -2204,8 +2222,8 @@ main:
 	.string	"CMP1BUFH"
 .LASF31:
 	.string	"PORT_struct"
-.LASF93:
-	.string	"LPER"
+.LASF121:
+	.string	"TCA_SINGLE_WGMODE_DSBOTTOM_gc"
 .LASF68:
 	.string	"CMP1BUFL"
 .LASF34:
@@ -2214,12 +2232,14 @@ main:
 	.string	"TCA_SINGLE_CLKSEL_DIV8_gc"
 .LASF2:
 	.string	"uint8_t"
+.LASF118:
+	.string	"TCA_SINGLE_WGMODE_SINGLESLOPE_gc"
 .LASF80:
 	.string	"CTRLESET"
 .LASF113:
 	.string	"TCA_SINGLE_CLKSEL_DIV256_gc"
 .LASF111:
 	.string	"TCA_SINGLE_CLKSEL_DIV16_gc"
-.LASF122:
+.LASF129:
 	.string	"main"
 	.ident	"GCC: (AVR_8_bit_GNU_Toolchain_3.6.2_1778) 5.4.0"

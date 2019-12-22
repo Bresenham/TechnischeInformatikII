@@ -3,29 +3,29 @@ TestProject.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00803c00  00803c00  00000192  2**0
+  0 .data         00000000  00803c00  00803c00  00000180  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000013e  00000000  00000000  00000054  2**1
+  1 .text         0000012c  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  00000192  2**0
+  2 .comment      00000030  00000000  00000000  00000180  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001c4  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001b0  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000038  00000000  00000000  00000200  2**0
+  4 .debug_aranges 00000038  00000000  00000000  000001ec  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00002eb7  00000000  00000000  00000238  2**0
+  5 .debug_info   00002eed  00000000  00000000  00000224  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000023e5  00000000  00000000  000030ef  2**0
+  6 .debug_abbrev 000023e5  00000000  00000000  00003111  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000031a  00000000  00000000  000054d4  2**0
+  7 .debug_line   00000314  00000000  00000000  000054f6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000074  00000000  00000000  000057f0  2**2
+  8 .debug_frame  00000070  00000000  00000000  0000580c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000156d  00000000  00000000  00005864  2**0
+  9 .debug_str    0000162f  00000000  00000000  0000587c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000063  00000000  00000000  00006dd1  2**0
+ 10 .debug_loc    00000056  00000000  00000000  00006eab  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000028  00000000  00000000  00006e34  2**0
+ 11 .debug_ranges 00000028  00000000  00000000  00006f01  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -79,8 +79,8 @@ Disassembly of section .text:
   a6:	cd bf       	out	0x3d, r28	; 61
   a8:	df e3       	ldi	r29, 0x3F	; 63
   aa:	de bf       	out	0x3e, r29	; 62
-  ac:	43 d0       	rcall	.+134    	; 0x134 <main>
-  ae:	45 c0       	rjmp	.+138    	; 0x13a <_exit>
+  ac:	3a d0       	rcall	.+116    	; 0x122 <main>
+  ae:	3c c0       	rjmp	.+120    	; 0x128 <_exit>
 
 000000b0 <__bad_interrupt>:
   b0:	a7 cf       	rjmp	.-178    	; 0x0 <__vectors>
@@ -98,115 +98,104 @@ ISR(TCA0_CMP0_vect) {
   b8:	0f 92       	push	r0
   ba:	11 24       	eor	r1, r1
   bc:	8f 93       	push	r24
-  be:	9f 93       	push	r25
-  c0:	ef 93       	push	r30
-  c2:	ff 93       	push	r31
+  be:	ef 93       	push	r30
+  c0:	ff 93       	push	r31
 	/* Clear interrupt flag */
-	PORTF.OUT ^= (1 << PIN0_bp);
-  c4:	e0 ea       	ldi	r30, 0xA0	; 160
-  c6:	f4 e0       	ldi	r31, 0x04	; 4
-  c8:	94 81       	ldd	r25, Z+4	; 0x04
-  ca:	81 e0       	ldi	r24, 0x01	; 1
-  cc:	89 27       	eor	r24, r25
-  ce:	84 83       	std	Z+4, r24	; 0x04
-	TCA0.SINGLE.CNT = 0;
-  d0:	e0 e0       	ldi	r30, 0x00	; 0
-  d2:	fa e0       	ldi	r31, 0x0A	; 10
-  d4:	10 a2       	std	Z+32, r1	; 0x20
-  d6:	11 a2       	std	Z+33, r1	; 0x21
+	PORTF.OUTTGL = PIN0_bm;
+  c2:	81 e0       	ldi	r24, 0x01	; 1
+  c4:	80 93 a7 04 	sts	0x04A7, r24	; 0x8004a7 <__RODATA_PM_OFFSET__+0x7fc4a7>
 	TCA0.SINGLE.INTFLAGS |= (1 << TCA_SINGLE_CMP0EN_bp);
-  d8:	83 85       	ldd	r24, Z+11	; 0x0b
-  da:	80 61       	ori	r24, 0x10	; 16
-  dc:	83 87       	std	Z+11, r24	; 0x0b
+  c8:	e0 e0       	ldi	r30, 0x00	; 0
+  ca:	fa e0       	ldi	r31, 0x0A	; 10
+  cc:	83 85       	ldd	r24, Z+11	; 0x0b
+  ce:	80 61       	ori	r24, 0x10	; 16
+  d0:	83 87       	std	Z+11, r24	; 0x0b
 }
-  de:	ff 91       	pop	r31
-  e0:	ef 91       	pop	r30
-  e2:	9f 91       	pop	r25
-  e4:	8f 91       	pop	r24
-  e6:	0f 90       	pop	r0
-  e8:	0f be       	out	0x3f, r0	; 63
-  ea:	0f 90       	pop	r0
-  ec:	1f 90       	pop	r1
-  ee:	18 95       	reti
+  d2:	ff 91       	pop	r31
+  d4:	ef 91       	pop	r30
+  d6:	8f 91       	pop	r24
+  d8:	0f 90       	pop	r0
+  da:	0f be       	out	0x3f, r0	; 63
+  dc:	0f 90       	pop	r0
+  de:	1f 90       	pop	r1
+  e0:	18 95       	reti
 
-000000f0 <initTimer0>:
+000000e2 <initTimer0>:
 
 void initTimer0() {
-	/* Set TOP value */
-	TCA0.SINGLE.PER = 0xFFFF;
-  f0:	e0 e0       	ldi	r30, 0x00	; 0
-  f2:	fa e0       	ldi	r31, 0x0A	; 10
-  f4:	8f ef       	ldi	r24, 0xFF	; 255
-  f6:	9f ef       	ldi	r25, 0xFF	; 255
-  f8:	86 a3       	std	Z+38, r24	; 0x26
-  fa:	97 a3       	std	Z+39, r25	; 0x27
 	/* Set Prescaler */
 	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV16_gc;
-  fc:	88 e0       	ldi	r24, 0x08	; 8
-  fe:	80 83       	st	Z, r24
+  e2:	e0 e0       	ldi	r30, 0x00	; 0
+  e4:	fa e0       	ldi	r31, 0x0A	; 10
+  e6:	88 e0       	ldi	r24, 0x08	; 8
+  e8:	80 83       	st	Z, r24
+	/* Set to Frequency Mode */
+	TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc;
+  ea:	81 e0       	ldi	r24, 0x01	; 1
+  ec:	81 83       	std	Z+1, r24	; 0x01
 	/* Set CMP value */
-	TCA0.SINGLE.CMP0 = TIM0_COMP_VAL;
- 100:	8e e3       	ldi	r24, 0x3E	; 62
- 102:	99 e4       	ldi	r25, 0x49	; 73
- 104:	80 a7       	std	Z+40, r24	; 0x28
- 106:	91 a7       	std	Z+41, r25	; 0x29
+	TCA0.SINGLE.CMP0BUF = TIM0_COMP_VAL;
+  ee:	8e e3       	ldi	r24, 0x3E	; 62
+  f0:	99 e4       	ldi	r25, 0x49	; 73
+  f2:	80 af       	std	Z+56, r24	; 0x38
+  f4:	91 af       	std	Z+57, r25	; 0x39
 	/* Enable Compare Channel 0 Interrupt */
 	TCA0.SINGLE.INTCTRL = TCA_SINGLE_CMP0EN_bm;
- 108:	80 e1       	ldi	r24, 0x10	; 16
- 10a:	82 87       	std	Z+10, r24	; 0x0a
+  f6:	80 e1       	ldi	r24, 0x10	; 16
+  f8:	82 87       	std	Z+10, r24	; 0x0a
 	/* Enable TCA0 */
 	TCA0.SINGLE.CTRLA |= TCA_SINGLE_ENABLE_bm;
- 10c:	80 81       	ld	r24, Z
- 10e:	81 60       	ori	r24, 0x01	; 1
- 110:	80 83       	st	Z, r24
- 112:	08 95       	ret
+  fa:	80 81       	ld	r24, Z
+  fc:	81 60       	ori	r24, 0x01	; 1
+  fe:	80 83       	st	Z, r24
+ 100:	08 95       	ret
 
-00000114 <initCPU>:
+00000102 <initCPU>:
 }
 
 void initCPU() {
 	/* Disable Configuration Change Protection */
 	CCP = 0xD8;
- 114:	88 ed       	ldi	r24, 0xD8	; 216
- 116:	84 bf       	out	0x34, r24	; 52
+ 102:	88 ed       	ldi	r24, 0xD8	; 216
+ 104:	84 bf       	out	0x34, r24	; 52
 	/* Set Clock source to 20MHz internal oscillator */
 	CLKCTRL.MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
- 118:	e0 e6       	ldi	r30, 0x60	; 96
- 11a:	f0 e0       	ldi	r31, 0x00	; 0
- 11c:	10 82       	st	Z, r1
+ 106:	e0 e6       	ldi	r30, 0x60	; 96
+ 108:	f0 e0       	ldi	r31, 0x00	; 0
+ 10a:	10 82       	st	Z, r1
 	/* Disable Configuration Change Protection */
 	CCP = 0xD8;
- 11e:	84 bf       	out	0x34, r24	; 52
+ 10c:	84 bf       	out	0x34, r24	; 52
 	/* Disable prescaler */
 	CLKCTRL.MCLKCTRLB &= ~(1 << CLKCTRL_PEN_bp);
- 120:	81 81       	ldd	r24, Z+1	; 0x01
- 122:	8e 7f       	andi	r24, 0xFE	; 254
- 124:	81 83       	std	Z+1, r24	; 0x01
+ 10e:	81 81       	ldd	r24, Z+1	; 0x01
+ 110:	8e 7f       	andi	r24, 0xFE	; 254
+ 112:	81 83       	std	Z+1, r24	; 0x01
 	
 	/* Enable interrupts globally */
 	sei();
- 126:	78 94       	sei
+ 114:	78 94       	sei
 	
 	PORTF.DIR |= (1 << PIN0_bp);
- 128:	e0 ea       	ldi	r30, 0xA0	; 160
- 12a:	f4 e0       	ldi	r31, 0x04	; 4
- 12c:	80 81       	ld	r24, Z
- 12e:	81 60       	ori	r24, 0x01	; 1
- 130:	80 83       	st	Z, r24
- 132:	08 95       	ret
+ 116:	e0 ea       	ldi	r30, 0xA0	; 160
+ 118:	f4 e0       	ldi	r31, 0x04	; 4
+ 11a:	80 81       	ld	r24, Z
+ 11c:	81 60       	ori	r24, 0x01	; 1
+ 11e:	80 83       	st	Z, r24
+ 120:	08 95       	ret
 
-00000134 <main>:
+00000122 <main>:
 }
 
 int main(void) {
 	initCPU();
- 134:	ef df       	rcall	.-34     	; 0x114 <initCPU>
+ 122:	ef df       	rcall	.-34     	; 0x102 <initCPU>
 	initTimer0();
- 136:	dc df       	rcall	.-72     	; 0xf0 <initTimer0>
- 138:	ff cf       	rjmp	.-2      	; 0x138 <main+0x4>
+ 124:	de df       	rcall	.-68     	; 0xe2 <initTimer0>
+ 126:	ff cf       	rjmp	.-2      	; 0x126 <main+0x4>
 
-0000013a <_exit>:
- 13a:	f8 94       	cli
+00000128 <_exit>:
+ 128:	f8 94       	cli
 
-0000013c <__stop_program>:
- 13c:	ff cf       	rjmp	.-2      	; 0x13c <__stop_program>
+0000012a <__stop_program>:
+ 12a:	ff cf       	rjmp	.-2      	; 0x12a <__stop_program>

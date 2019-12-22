@@ -18,18 +18,17 @@
 
 ISR(TCA0_CMP0_vect) {
 	/* Clear interrupt flag */
-	PORTF.OUT ^= (1 << PIN0_bp);
-	TCA0.SINGLE.CNT = 0;
+	PORTF.OUTTGL = PIN0_bm;
 	TCA0.SINGLE.INTFLAGS |= (1 << TCA_SINGLE_CMP0EN_bp);
 }
 
 void initTimer0() {
-	/* Set TOP value */
-	TCA0.SINGLE.PER = 0xFFFF;
 	/* Set Prescaler */
 	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV16_gc;
+	/* Set to Frequency Mode */
+	TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc;
 	/* Set CMP value */
-	TCA0.SINGLE.CMP0 = TIM0_COMP_VAL;
+	TCA0.SINGLE.CMP0BUF = TIM0_COMP_VAL;
 	/* Enable Compare Channel 0 Interrupt */
 	TCA0.SINGLE.INTCTRL = TCA_SINGLE_CMP0EN_bm;
 	/* Enable TCA0 */

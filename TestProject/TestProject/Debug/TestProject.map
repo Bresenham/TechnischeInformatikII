@@ -155,7 +155,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x13e
+.text           0x00000000      0x12c
  *(.vectors)
  .vectors       0x00000000       0xa0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.346/gcc/dev/atmega809/avrxmega3/short-calls/crtatmega809.o
                 0x00000000                __vector_default
@@ -252,21 +252,21 @@ END GROUP
                 0x000000b2                . = ALIGN (0x2)
  *(.text.*)
  .text.__vector_9
-                0x000000b2       0x3e main.o
+                0x000000b2       0x30 main.o
                 0x000000b2                __vector_9
  .text.initTimer0
-                0x000000f0       0x24 main.o
-                0x000000f0                initTimer0
- .text.initCPU  0x00000114       0x20 main.o
-                0x00000114                initCPU
+                0x000000e2       0x20 main.o
+                0x000000e2                initTimer0
+ .text.initCPU  0x00000102       0x20 main.o
+                0x00000102                initCPU
  .text.startup.main
-                0x00000134        0x6 main.o
-                0x00000134                main
-                0x0000013a                . = ALIGN (0x2)
+                0x00000122        0x6 main.o
+                0x00000122                main
+                0x00000128                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000013a        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
-                0x0000013a                _exit
-                0x0000013a                exit
+ .fini9         0x00000128        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
+                0x00000128                _exit
+                0x00000128                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -285,16 +285,16 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000013a        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
+ .fini0         0x00000128        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000013e                _etext = .
+                0x0000012c                _etext = .
 
 .rodata
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.r*)
 
-.data           0x00803c00        0x0 load address 0x0000013e
+.data           0x00803c00        0x0 load address 0x0000012c
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -309,8 +309,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 [!provide]                PROVIDE (__bss_end, .)
-                0x0000013e                __data_load_start = LOADADDR (.data)
-                0x0000013e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000012c                __data_load_start = LOADADDR (.data)
+                0x0000012c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00803c00        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -389,34 +389,34 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x2eb7
+.debug_info     0x00000000     0x2eed
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000     0x248a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.346/gcc/dev/atmega809/avrxmega3/short-calls/crtatmega809.o
- .debug_info    0x0000248a      0xa2d main.o
+ .debug_info    0x0000248a      0xa63 main.o
 
 .debug_abbrev   0x00000000     0x23e5
  *(.debug_abbrev)
  .debug_abbrev  0x00000000     0x2296 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.346/gcc/dev/atmega809/avrxmega3/short-calls/crtatmega809.o
  .debug_abbrev  0x00002296      0x14f main.o
 
-.debug_line     0x00000000      0x31a
+.debug_line     0x00000000      0x314
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x18a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.346/gcc/dev/atmega809/avrxmega3/short-calls/crtatmega809.o
- .debug_line    0x0000018a      0x190 main.o
+ .debug_line    0x0000018a      0x18a main.o
 
-.debug_frame    0x00000000       0x74
+.debug_frame    0x00000000       0x70
  *(.debug_frame)
- .debug_frame   0x00000000       0x74 main.o
+ .debug_frame   0x00000000       0x70 main.o
 
-.debug_str      0x00000000     0x156d
+.debug_str      0x00000000     0x162f
  *(.debug_str)
  .debug_str     0x00000000      0xf85 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.346/gcc/dev/atmega809/avrxmega3/short-calls/crtatmega809.o
- .debug_str     0x00000f85      0x5e8 main.o
-                                0x643 (size before relaxing)
+ .debug_str     0x00000f85      0x6aa main.o
+                                0x705 (size before relaxing)
 
-.debug_loc      0x00000000       0x63
+.debug_loc      0x00000000       0x56
  *(.debug_loc)
- .debug_loc     0x00000000       0x63 main.o
+ .debug_loc     0x00000000       0x56 main.o
 
 .debug_macinfo
  *(.debug_macinfo)
