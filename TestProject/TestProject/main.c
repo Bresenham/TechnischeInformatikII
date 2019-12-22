@@ -7,6 +7,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "DRAMHandler/DRAMHandler.h"
 
 #define F_CPU           20000000UL
 
@@ -15,11 +16,14 @@
 #define TIM0_MS_FACTOR  ( (F_CPU) / (1000 * TIM0_PRESCALER) )
 #define TIM0_COMP_VAL   ((TIM0_MS / 2) * TIM0_MS_FACTOR)
 
+DRAM_HANDLER dramHandler;
 
 ISR(TCA0_CMP0_vect) {
 	/* Clear interrupt flag */
 	PORTF.OUTTGL = PIN0_bm;
 	TCA0.SINGLE.INTFLAGS |= (1 << TCA_SINGLE_CMP0EN_bp);
+	dramHandler.writeByte(&dramHandler, 1337, 0xBE);
+	dramHandler.readByte(&dramHandler, 1337);
 }
 
 void initTimer0() {
@@ -54,6 +58,7 @@ void initCPU() {
 int main(void) {
 	initCPU();
 	initTimer0();
+	initDRAMHandler(&dramHandler);
     while (1) {
 				
     }

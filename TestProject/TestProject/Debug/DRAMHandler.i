@@ -1,8 +1,8 @@
-# 1 ".././main.c"
+# 1 "../DRAMHandler/DRAMHandler.c"
 # 1 "C:\\Users\\test\\Documents\\Studium\\TechnischeInformatikIIProject\\TestProject\\TestProject\\Debug//"
 # 1 "<built-in>"
 # 1 "<command-line>"
-# 1 ".././main.c"
+# 1 "../DRAMHandler/DRAMHandler.c"
 
 
 
@@ -1687,13 +1687,11 @@ typedef struct
 
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\lock.h" 1 3
 # 642 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\io.h" 2 3
-# 9 ".././main.c" 2
-# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\interrupt.h" 1 3
-# 10 ".././main.c" 2
-# 1 ".././DRAMHandler/DRAMHandler.h" 1
-# 14 ".././DRAMHandler/DRAMHandler.h"
+# 9 "../DRAMHandler/DRAMHandler.c" 2
+# 1 "../DRAMHandler/DRAMHandler.h" 1
+# 14 "../DRAMHandler/DRAMHandler.h"
 
-# 14 ".././DRAMHandler/DRAMHandler.h"
+# 14 "../DRAMHandler/DRAMHandler.h"
 typedef struct DRAM_HANDLER {
 
  PORT_t* DATA_PORT;
@@ -1727,132 +1725,133 @@ typedef struct DRAM_HANDLER {
 } DRAM_HANDLER;
 
 void initDRAMHandler(DRAM_HANDLER *self);
-# 11 ".././main.c" 2
-# 19 ".././main.c"
-DRAM_HANDLER dramHandler;
+# 10 "../DRAMHandler/DRAMHandler.c" 2
+# 18 "../DRAMHandler/DRAMHandler.c"
+void writeToAddrPort(DRAM_HANDLER *self, uint16_t addr) {
+ self->ADDR_PORT.P1->OUT = (addr << 5);
+ self->ADDR_PORT.P2->OUT = (addr >> 3);
+}
+
+uint8_t readByte(DRAM_HANDLER *self, uint32_t addr) {
+ const uint16_t rowAddr = (addr & 0x0003FFFF) >> 9;
+ const uint16_t colAddr = (addr & 0x000001FF);
+ self->DATA_PORT->DIR = 0;
+
+ self->CAS.PORT->OUT |= self->CAS.PIN;
+ writeToAddrPort(self, rowAddr);
+
+ self->RAS.PORT->OUT &= ~self->RAS.PIN;
+
+ self->W.PORT->OUT |= self->W.PIN;
+ writeToAddrPort(self, colAddr);
+ self->CAS.PORT->OUT &= ~self->CAS.PIN;
+
+ self->OE.PORT->OUT &= ~self->OE.PIN;
+
+ uint8_t validDataOut = self->DATA_PORT->IN;
+
+ self->CAS.PORT->OUT |= self->CAS.PIN;
+ self->RAS.PORT->OUT |= self->RAS.PIN;
 
 
-# 21 ".././main.c" 3
-void __vector_9 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_9 (void) 
-# 21 ".././main.c"
-                   {
+ return validDataOut;
+}
 
- 
-# 23 ".././main.c" 3
-(*(PORT_t *) 0x04A0)
-# 23 ".././main.c"
-     .OUTTGL = 
-# 23 ".././main.c" 3
-               0x01
-# 23 ".././main.c"
+void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
+ const uint16_t rowAddr = (addr & 0x0003FFFF) >> 9;
+ const uint16_t colAddr = (addr & 0x000001FF);
+ self->DATA_PORT->DIR = 0xFF;
+
+ self->CAS.PORT->OUT |= self->CAS.PIN;
+ writeToAddrPort(self, rowAddr);
+
+ self->RAS.PORT->OUT &= ~self->RAS.PIN;
+
+ self->OE.PORT->OUT |= self->OE.PIN;
+ writeToAddrPort(self, colAddr);
+ self->CAS.PORT->OUT &= ~self->CAS.PIN;
+ self->DATA_PORT->OUT = data;
+ self->W.PORT->OUT &= ~self->W.PIN;
+
+ self->OE.PORT->OUT &= ~self->OE.PIN;
+
+ self->CAS.PORT->OUT |= self->CAS.PIN;
+ self->RAS.PORT->OUT |= self->RAS.PIN;
+}
+
+void initDRAMHandler(DRAM_HANDLER *self) {
+ self->readByte = &readByte;
+ self->writeByte = &writeByte;
+
+ self->DATA_PORT = &
+# 74 "../DRAMHandler/DRAMHandler.c" 3
+                   (*(PORT_t *) 0x0460)
+# 74 "../DRAMHandler/DRAMHandler.c"
+                        ;
+
+ self->RAS.PORT = &
+# 76 "../DRAMHandler/DRAMHandler.c" 3
+                  (*(PORT_t *) 0x0480)
+# 76 "../DRAMHandler/DRAMHandler.c"
+                       ;
+ self->RAS.PIN = 
+# 77 "../DRAMHandler/DRAMHandler.c" 3
+                0x01
+# 77 "../DRAMHandler/DRAMHandler.c"
+                       ;
+ self->RAS.PORT->DIR |= self->RAS.PIN;
+ self->RAS.PORT->OUT |= self->RAS.PIN;
+
+ self->CAS.PORT = &
+# 81 "../DRAMHandler/DRAMHandler.c" 3
+                  (*(PORT_t *) 0x0480)
+# 81 "../DRAMHandler/DRAMHandler.c"
+                       ;
+ self->CAS.PIN = 
+# 82 "../DRAMHandler/DRAMHandler.c" 3
+                0x02
+# 82 "../DRAMHandler/DRAMHandler.c"
+                       ;
+ self->CAS.PORT->DIR |= self->CAS.PIN;
+ self->CAS.PORT->OUT &= ~self->CAS.PIN;
+
+ self->OE.PORT = &
+# 86 "../DRAMHandler/DRAMHandler.c" 3
+                 (*(PORT_t *) 0x0480)
+# 86 "../DRAMHandler/DRAMHandler.c"
                       ;
- 
-# 24 ".././main.c" 3
-(*(TCA_t *) 0x0A00)
-# 24 ".././main.c"
-    .SINGLE.INTFLAGS |= (1 << 
-# 24 ".././main.c" 3
-                              4
-# 24 ".././main.c"
-                                                  );
- dramHandler.writeByte(&dramHandler, 1337, 0xBE);
- dramHandler.readByte(&dramHandler, 1337);
-}
+ self->OE.PIN = 
+# 87 "../DRAMHandler/DRAMHandler.c" 3
+               0x04
+# 87 "../DRAMHandler/DRAMHandler.c"
+                      ;
+ self->OE.PORT->DIR |= self->OE.PIN;
+ self->OE.PORT->OUT &= ~self->OE.PIN;
 
-void initTimer0() {
+ self->W.PORT = &
+# 91 "../DRAMHandler/DRAMHandler.c" 3
+                (*(PORT_t *) 0x0480)
+# 91 "../DRAMHandler/DRAMHandler.c"
+                     ;
+ self->W.PIN = 
+# 92 "../DRAMHandler/DRAMHandler.c" 3
+              0x08
+# 92 "../DRAMHandler/DRAMHandler.c"
+                     ;
+ self->W.PORT->DIR |= self->W.PIN;
+ self->W.PORT->OUT &= ~self->W.PIN;
 
- 
-# 31 ".././main.c" 3
-(*(TCA_t *) 0x0A00)
-# 31 ".././main.c"
-    .SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV16_gc;
+ self->ADDR_PORT.P1 = &
+# 96 "../DRAMHandler/DRAMHandler.c" 3
+                      (*(PORT_t *) 0x0400)
+# 96 "../DRAMHandler/DRAMHandler.c"
+                           ;
+ self->ADDR_PORT.P2 = &
+# 97 "../DRAMHandler/DRAMHandler.c" 3
+                      (*(PORT_t *) 0x0420)
+# 97 "../DRAMHandler/DRAMHandler.c"
+                           ;
 
- 
-# 33 ".././main.c" 3
-(*(TCA_t *) 0x0A00)
-# 33 ".././main.c"
-    .SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc;
-
- 
-# 35 ".././main.c" 3
-(*(TCA_t *) 0x0A00)
-# 35 ".././main.c"
-    .SINGLE.CMP0BUF = ((30 / 2) * ( (20000000UL) / (1000 * 16) ));
-
- 
-# 37 ".././main.c" 3
-(*(TCA_t *) 0x0A00)
-# 37 ".././main.c"
-    .SINGLE.INTCTRL = 
-# 37 ".././main.c" 3
-                      0x10
-# 37 ".././main.c"
-                                          ;
-
- 
-# 39 ".././main.c" 3
-(*(TCA_t *) 0x0A00)
-# 39 ".././main.c"
-    .SINGLE.CTRLA |= 
-# 39 ".././main.c" 3
-                     0x01
-# 39 ".././main.c"
-                                         ;
-}
-
-void initCPU() {
-
- 
-# 44 ".././main.c" 3
-(*(volatile uint8_t *)(0x0034)) 
-# 44 ".././main.c"
-    = 0xD8;
-
- 
-# 46 ".././main.c" 3
-(*(CLKCTRL_t *) 0x0060)
-# 46 ".././main.c"
-       .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
-
- 
-# 48 ".././main.c" 3
-(*(volatile uint8_t *)(0x0034)) 
-# 48 ".././main.c"
-    = 0xD8;
-
- 
-# 50 ".././main.c" 3
-(*(CLKCTRL_t *) 0x0060)
-# 50 ".././main.c"
-       .MCLKCTRLB &= ~(1 << 
-# 50 ".././main.c" 3
-                            0
-# 50 ".././main.c"
-                                          );
-
-
- 
-# 53 ".././main.c" 3
-__asm__ __volatile__ ("sei" ::: "memory")
-# 53 ".././main.c"
-     ;
-
- 
-# 55 ".././main.c" 3
-(*(PORT_t *) 0x04A0)
-# 55 ".././main.c"
-     .DIR |= (1 << 
-# 55 ".././main.c" 3
-                   0
-# 55 ".././main.c"
-                          );
-}
-
-int main(void) {
- initCPU();
- initTimer0();
- initDRAMHandler(&dramHandler);
-    while (1) {
-
-    }
+ self->ADDR_PORT.P1->DIR = 0xFF;
+ self->ADDR_PORT.P2->DIR = 0xFF;
 }
