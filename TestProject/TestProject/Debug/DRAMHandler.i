@@ -10,6 +10,8 @@
 
 
 
+# 1 "../DRAMHandler/../System.h" 1
+# 9 "../DRAMHandler/DRAMHandler.c" 2
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\io.h" 1 3
 # 99 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\io.h" 3
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\sfr_defs.h" 1 3
@@ -1687,11 +1689,359 @@ typedef struct
 
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\lock.h" 1 3
 # 642 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\io.h" 2 3
-# 9 "../DRAMHandler/DRAMHandler.c" 2
-# 1 "../DRAMHandler/DRAMHandler.h" 1
-# 14 "../DRAMHandler/DRAMHandler.h"
+# 10 "../DRAMHandler/DRAMHandler.c" 2
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 1 3
+# 45 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay_basic.h" 1 3
+# 40 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay_basic.h" 3
+static __inline__ void _delay_loop_1(uint8_t __count) __attribute__((__always_inline__));
+static __inline__ void _delay_loop_2(uint16_t __count) __attribute__((__always_inline__));
+# 80 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay_basic.h" 3
+void
+_delay_loop_1(uint8_t __count)
+{
+ __asm__ volatile (
+  "1: dec %0" "\n\t"
+  "brne 1b"
+  : "=r" (__count)
+  : "0" (__count)
+ );
+}
+# 102 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay_basic.h" 3
+void
+_delay_loop_2(uint16_t __count)
+{
+ __asm__ volatile (
+  "1: sbiw %0,1" "\n\t"
+  "brne 1b"
+  : "=w" (__count)
+  : "0" (__count)
+ );
+}
+# 46 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 2 3
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 1 3
+# 127 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double cos(double __x) __attribute__((__const__));
 
-# 14 "../DRAMHandler/DRAMHandler.h"
+
+
+
+
+extern double sin(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double tan(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double fabs(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double fmod(double __x, double __y) __attribute__((__const__));
+# 168 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double modf(double __x, double *__iptr);
+
+
+extern float modff (float __x, float *__iptr);
+
+
+
+
+extern double sqrt(double __x) __attribute__((__const__));
+
+
+extern float sqrtf (float) __attribute__((__const__));
+
+
+
+
+extern double cbrt(double __x) __attribute__((__const__));
+# 195 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double hypot (double __x, double __y) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double square(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double floor(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double ceil(double __x) __attribute__((__const__));
+# 235 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double frexp(double __x, int *__pexp);
+
+
+
+
+
+
+
+extern double ldexp(double __x, int __exp) __attribute__((__const__));
+
+
+
+
+
+extern double exp(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double cosh(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double sinh(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double tanh(double __x) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double acos(double __x) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double asin(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double atan(double __x) __attribute__((__const__));
+# 299 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double atan2(double __y, double __x) __attribute__((__const__));
+
+
+
+
+
+extern double log(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double log10(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double pow(double __x, double __y) __attribute__((__const__));
+
+
+
+
+
+
+extern int isnan(double __x) __attribute__((__const__));
+# 334 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern int isinf(double __x) __attribute__((__const__));
+
+
+
+
+
+
+__attribute__((__const__)) static inline int isfinite (double __x)
+{
+    unsigned char __exp;
+    __asm__ (
+ "mov	%0, %C1		\n\t"
+ "lsl	%0		\n\t"
+ "mov	%0, %D1		\n\t"
+ "rol	%0		"
+ : "=r" (__exp)
+ : "r" (__x) );
+    return __exp != 0xff;
+}
+
+
+
+
+
+
+__attribute__((__const__)) static inline double copysign (double __x, double __y)
+{
+    __asm__ (
+ "bst	%D2, 7	\n\t"
+ "bld	%D0, 7	"
+ : "=r" (__x)
+ : "0" (__x), "r" (__y) );
+    return __x;
+}
+# 377 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern int signbit (double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double fdim (double __x, double __y) __attribute__((__const__));
+# 393 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double fma (double __x, double __y, double __z) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double fmax (double __x, double __y) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double fmin (double __x, double __y) __attribute__((__const__));
+
+
+
+
+
+
+extern double trunc (double __x) __attribute__((__const__));
+# 427 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double round (double __x) __attribute__((__const__));
+# 440 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern long lround (double __x) __attribute__((__const__));
+# 454 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern long lrint (double __x) __attribute__((__const__));
+# 47 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 2 3
+# 86 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+static __inline__ void _delay_us(double __us) __attribute__((__always_inline__));
+static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__));
+# 165 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+void
+_delay_ms(double __ms)
+{
+ double __tmp ;
+
+
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((
+# 174 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h"
+          20000000UL
+# 174 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+               ) / 1e3) * __ms;
+# 184 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 210 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+}
+# 254 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+void
+_delay_us(double __us)
+{
+ double __tmp ;
+
+
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((
+# 263 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h"
+          20000000UL
+# 263 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+               ) / 1e6) * __us;
+# 273 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 299 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+}
+# 11 "../DRAMHandler/DRAMHandler.c" 2
+# 1 "../DRAMHandler/DRAMHandler.h" 1
+# 12 "../DRAMHandler/DRAMHandler.h"
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\lib\\gcc\\avr\\5.4.0\\include\\stdbool.h" 1 3 4
+# 13 "../DRAMHandler/DRAMHandler.h" 2
+
+# 1 "../DRAMHandler/../Buffer/Buffer.h" 1
+# 16 "../DRAMHandler/../Buffer/Buffer.h"
+
+# 16 "../DRAMHandler/../Buffer/Buffer.h"
+typedef struct BUFFER {
+
+ struct PTR {
+  uint8_t *cmd;
+  uint8_t *addr1;
+  uint8_t *addr2;
+  uint8_t *addr3;
+  uint8_t *param1;
+ } PTR;
+
+ uint8_t idx;
+ uint8_t data[5];
+
+ void (*push)(struct BUFFER*, uint8_t data);
+ uint8_t (*getLength)(struct BUFFER*);
+ void (*reset)(struct BUFFER*);
+} BUFFER;
+
+void initBuffer(BUFFER *self);
+# 15 "../DRAMHandler/DRAMHandler.h" 2
+
+typedef enum DRAM_HANDLER_STATE {
+
+ IDLE = 0,
+ READ_MODE = 1,
+ READ_MODE_RECEIVED_ADDR1 = 2,
+ READ_MODE_RECEIVED_ADDR2 = 3,
+ READ_MODE_RECEIVED_ADDR3 = 4,
+ WRITE_MODE = 5,
+ WRITE_MODE_RECEIVED_ADDR1 = 6,
+ WRITE_MODE_RECEIVED_ADDR2 = 7,
+ WRITE_MODE_RECEIVED_ADDR3 = 8
+
+} DRAM_HANDLER_STATE;
+
 typedef struct DRAM_HANDLER {
 
  PORT_t* DATA_PORT;
@@ -1720,16 +2070,64 @@ typedef struct DRAM_HANDLER {
   PORT_t *P2;
  } ADDR_PORT;
 
+ BUFFER buffer;
+
+ volatile 
+# 60 "../DRAMHandler/DRAMHandler.h" 3 4
+         _Bool 
+# 60 "../DRAMHandler/DRAMHandler.h"
+              hasPendingRefresh;
+ volatile 
+# 61 "../DRAMHandler/DRAMHandler.h" 3 4
+         _Bool 
+# 61 "../DRAMHandler/DRAMHandler.h"
+              hasPendingBufferUpdate;
+
  uint8_t (*readByte)(struct DRAM_HANDLER*, uint32_t addr);
  void (*writeByte)(struct DRAM_HANDLER*, uint32_t addr, uint8_t data);
+ void (*refreshRASonly)(struct DRAM_HANDLER*);
+ void (*processAndRespondBuffer)(struct DRAM_HANDLER*);
 } DRAM_HANDLER;
 
 void initDRAMHandler(DRAM_HANDLER *self);
-# 10 "../DRAMHandler/DRAMHandler.c" 2
-# 18 "../DRAMHandler/DRAMHandler.c"
+# 12 "../DRAMHandler/DRAMHandler.c" 2
+# 28 "../DRAMHandler/DRAMHandler.c"
 void writeToAddrPort(DRAM_HANDLER *self, uint16_t addr) {
  self->ADDR_PORT.P1->OUT = (addr << 5);
  self->ADDR_PORT.P2->OUT = (addr >> 3);
+}
+
+void resetPins(DRAM_HANDLER *self) {
+ self->RAS.PORT->DIR |= self->RAS.PIN;
+ self->RAS.PORT->OUT |= self->RAS.PIN;
+ self->CAS.PORT->DIR |= self->CAS.PIN;
+ self->CAS.PORT->OUT &= ~self->CAS.PIN;
+ self->OE.PORT->DIR |= self->OE.PIN;
+ self->OE.PORT->OUT &= ~self->OE.PIN;
+ self->W.PORT->DIR |= self->W.PIN;
+ self->W.PORT->OUT |= self->W.PIN;
+}
+
+void refreshRASonly(DRAM_HANDLER *self) {
+ self->RAS.PORT->OUT |= self->RAS.PIN;
+ self->CAS.PORT->OUT &= ~self->CAS.PIN;
+
+ for(uint16_t row = 0; row < 512; row++) {
+  self->CAS.PORT->OUT |= self->CAS.PIN;
+  writeToAddrPort(self, row);
+  self->RAS.PORT->OUT &= ~self->RAS.PIN;
+
+  _delay_us(2);
+
+  self->RAS.PORT->OUT |= self->RAS.PIN;
+  _delay_us(1);
+
+  self->CAS.PORT->OUT &= ~self->CAS.PIN;
+  self->CAS.PORT->OUT |= self->CAS.PIN;
+  _delay_us(1);
+
+  self->CAS.PORT->OUT &= ~self->CAS.PIN;
+ }
 }
 
 uint8_t readByte(DRAM_HANDLER *self, uint32_t addr) {
@@ -1748,11 +2146,12 @@ uint8_t readByte(DRAM_HANDLER *self, uint32_t addr) {
 
  self->OE.PORT->OUT &= ~self->OE.PIN;
 
- uint8_t validDataOut = self->DATA_PORT->IN;
+ const uint8_t validDataOut = self->DATA_PORT->IN;
 
  self->CAS.PORT->OUT |= self->CAS.PIN;
  self->RAS.PORT->OUT |= self->RAS.PIN;
 
+ self->DATA_PORT->DIR = 0xFF;
 
  return validDataOut;
 }
@@ -1761,10 +2160,10 @@ void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
  const uint16_t rowAddr = (addr & 0x0003FFFF) >> 9;
  const uint16_t colAddr = (addr & 0x000001FF);
  self->DATA_PORT->DIR = 0xFF;
+ self->RAS.PORT->OUT |= self->RAS.PIN;
 
  self->CAS.PORT->OUT |= self->CAS.PIN;
  writeToAddrPort(self, rowAddr);
-
  self->RAS.PORT->OUT &= ~self->RAS.PIN;
 
  self->OE.PORT->OUT |= self->OE.PIN;
@@ -1778,82 +2177,117 @@ void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
  self->CAS.PORT->OUT |= self->CAS.PIN;
  self->RAS.PORT->OUT |= self->RAS.PIN;
 
+ self->CAS.PORT->OUT &= ~self->CAS.PIN;
+ self->W.PORT->OUT |= self->W.PIN;
+
  self->DATA_PORT->OUT = 0;
+ writeToAddrPort(self, 0x00);
+}
+
+void processAndRespondBuffer(DRAM_HANDLER *self) {
+ const uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
+ const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
+
+ if(*self->buffer.PTR.cmd == 0x13 && bufferLen == 4) {
+  const uint8_t data = self->readByte(self, addr);
+  
+# 126 "../DRAMHandler/DRAMHandler.c" 3
+ (*(SPI_t *) 0x08C0)
+# 126 "../DRAMHandler/DRAMHandler.c"
+     .DATA = data;
+ } else if(*self->buffer.PTR.cmd == 0x12 && bufferLen == 5) {
+  const uint8_t data = *self->buffer.PTR.param1;
+  self->writeByte(self, addr, data);
+ }
+
+ self->buffer.reset(&self->buffer);
+ self->hasPendingBufferUpdate = 
+# 133 "../DRAMHandler/DRAMHandler.c" 3 4
+                               0
+# 133 "../DRAMHandler/DRAMHandler.c"
+                                    ;
 }
 
 void initDRAMHandler(DRAM_HANDLER *self) {
  self->readByte = &readByte;
  self->writeByte = &writeByte;
+ self->refreshRASonly = &refreshRASonly;
+ self->processAndRespondBuffer = &processAndRespondBuffer;
+
+ self->hasPendingRefresh = 
+# 142 "../DRAMHandler/DRAMHandler.c" 3 4
+                          0
+# 142 "../DRAMHandler/DRAMHandler.c"
+                               ;
+ self->hasPendingBufferUpdate = 
+# 143 "../DRAMHandler/DRAMHandler.c" 3 4
+                               0
+# 143 "../DRAMHandler/DRAMHandler.c"
+                                    ;
 
  self->DATA_PORT = &
-# 76 "../DRAMHandler/DRAMHandler.c" 3
+# 145 "../DRAMHandler/DRAMHandler.c" 3
                    (*(PORT_t *) 0x0460)
-# 76 "../DRAMHandler/DRAMHandler.c"
+# 145 "../DRAMHandler/DRAMHandler.c"
                         ;
 
  self->RAS.PORT = &
-# 78 "../DRAMHandler/DRAMHandler.c" 3
+# 147 "../DRAMHandler/DRAMHandler.c" 3
                   (*(PORT_t *) 0x0480)
-# 78 "../DRAMHandler/DRAMHandler.c"
+# 147 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->RAS.PIN = 
-# 79 "../DRAMHandler/DRAMHandler.c" 3
+# 148 "../DRAMHandler/DRAMHandler.c" 3
                 0x01
-# 79 "../DRAMHandler/DRAMHandler.c"
+# 148 "../DRAMHandler/DRAMHandler.c"
                        ;
- self->RAS.PORT->DIR |= self->RAS.PIN;
- self->RAS.PORT->OUT |= self->RAS.PIN;
 
  self->CAS.PORT = &
-# 83 "../DRAMHandler/DRAMHandler.c" 3
+# 150 "../DRAMHandler/DRAMHandler.c" 3
                   (*(PORT_t *) 0x0480)
-# 83 "../DRAMHandler/DRAMHandler.c"
+# 150 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->CAS.PIN = 
-# 84 "../DRAMHandler/DRAMHandler.c" 3
+# 151 "../DRAMHandler/DRAMHandler.c" 3
                 0x02
-# 84 "../DRAMHandler/DRAMHandler.c"
+# 151 "../DRAMHandler/DRAMHandler.c"
                        ;
- self->CAS.PORT->DIR |= self->CAS.PIN;
- self->CAS.PORT->OUT &= ~self->CAS.PIN;
 
  self->OE.PORT = &
-# 88 "../DRAMHandler/DRAMHandler.c" 3
+# 153 "../DRAMHandler/DRAMHandler.c" 3
                  (*(PORT_t *) 0x0480)
-# 88 "../DRAMHandler/DRAMHandler.c"
+# 153 "../DRAMHandler/DRAMHandler.c"
                       ;
  self->OE.PIN = 
-# 89 "../DRAMHandler/DRAMHandler.c" 3
+# 154 "../DRAMHandler/DRAMHandler.c" 3
                0x04
-# 89 "../DRAMHandler/DRAMHandler.c"
+# 154 "../DRAMHandler/DRAMHandler.c"
                       ;
- self->OE.PORT->DIR |= self->OE.PIN;
- self->OE.PORT->OUT &= ~self->OE.PIN;
 
  self->W.PORT = &
-# 93 "../DRAMHandler/DRAMHandler.c" 3
+# 156 "../DRAMHandler/DRAMHandler.c" 3
                 (*(PORT_t *) 0x0480)
-# 93 "../DRAMHandler/DRAMHandler.c"
+# 156 "../DRAMHandler/DRAMHandler.c"
                      ;
  self->W.PIN = 
-# 94 "../DRAMHandler/DRAMHandler.c" 3
+# 157 "../DRAMHandler/DRAMHandler.c" 3
               0x08
-# 94 "../DRAMHandler/DRAMHandler.c"
+# 157 "../DRAMHandler/DRAMHandler.c"
                      ;
- self->W.PORT->DIR |= self->W.PIN;
- self->W.PORT->OUT &= ~self->W.PIN;
 
  self->ADDR_PORT.P1 = &
-# 98 "../DRAMHandler/DRAMHandler.c" 3
+# 159 "../DRAMHandler/DRAMHandler.c" 3
                       (*(PORT_t *) 0x0400)
-# 98 "../DRAMHandler/DRAMHandler.c"
+# 159 "../DRAMHandler/DRAMHandler.c"
                            ;
  self->ADDR_PORT.P2 = &
-# 99 "../DRAMHandler/DRAMHandler.c" 3
+# 160 "../DRAMHandler/DRAMHandler.c" 3
                       (*(PORT_t *) 0x0420)
-# 99 "../DRAMHandler/DRAMHandler.c"
+# 160 "../DRAMHandler/DRAMHandler.c"
                            ;
 
  self->ADDR_PORT.P1->DIR = 0xFF;
  self->ADDR_PORT.P2->DIR = 0xFF;
+
+ resetPins(self);
 }

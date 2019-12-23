@@ -10,6 +10,8 @@
 
 
 
+# 1 ".././System.h" 1
+# 9 ".././main.c" 2
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\io.h" 1 3
 # 99 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\io.h" 3
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\sfr_defs.h" 1 3
@@ -1687,13 +1689,361 @@ typedef struct
 
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\lock.h" 1 3
 # 642 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\io.h" 2 3
-# 9 ".././main.c" 2
-# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\interrupt.h" 1 3
 # 10 ".././main.c" 2
-# 1 ".././DRAMHandler/DRAMHandler.h" 1
-# 14 ".././DRAMHandler/DRAMHandler.h"
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\interrupt.h" 1 3
+# 11 ".././main.c" 2
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 1 3
+# 45 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay_basic.h" 1 3
+# 40 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay_basic.h" 3
+static __inline__ void _delay_loop_1(uint8_t __count) __attribute__((__always_inline__));
+static __inline__ void _delay_loop_2(uint16_t __count) __attribute__((__always_inline__));
+# 80 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay_basic.h" 3
+void
+_delay_loop_1(uint8_t __count)
+{
+ __asm__ volatile (
+  "1: dec %0" "\n\t"
+  "brne 1b"
+  : "=r" (__count)
+  : "0" (__count)
+ );
+}
+# 102 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay_basic.h" 3
+void
+_delay_loop_2(uint16_t __count)
+{
+ __asm__ volatile (
+  "1: sbiw %0,1" "\n\t"
+  "brne 1b"
+  : "=w" (__count)
+  : "0" (__count)
+ );
+}
+# 46 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 2 3
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 1 3
+# 127 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double cos(double __x) __attribute__((__const__));
 
-# 14 ".././DRAMHandler/DRAMHandler.h"
+
+
+
+
+extern double sin(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double tan(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double fabs(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double fmod(double __x, double __y) __attribute__((__const__));
+# 168 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double modf(double __x, double *__iptr);
+
+
+extern float modff (float __x, float *__iptr);
+
+
+
+
+extern double sqrt(double __x) __attribute__((__const__));
+
+
+extern float sqrtf (float) __attribute__((__const__));
+
+
+
+
+extern double cbrt(double __x) __attribute__((__const__));
+# 195 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double hypot (double __x, double __y) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double square(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double floor(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double ceil(double __x) __attribute__((__const__));
+# 235 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double frexp(double __x, int *__pexp);
+
+
+
+
+
+
+
+extern double ldexp(double __x, int __exp) __attribute__((__const__));
+
+
+
+
+
+extern double exp(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double cosh(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double sinh(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double tanh(double __x) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double acos(double __x) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double asin(double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double atan(double __x) __attribute__((__const__));
+# 299 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double atan2(double __y, double __x) __attribute__((__const__));
+
+
+
+
+
+extern double log(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double log10(double __x) __attribute__((__const__));
+
+
+
+
+
+extern double pow(double __x, double __y) __attribute__((__const__));
+
+
+
+
+
+
+extern int isnan(double __x) __attribute__((__const__));
+# 334 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern int isinf(double __x) __attribute__((__const__));
+
+
+
+
+
+
+__attribute__((__const__)) static inline int isfinite (double __x)
+{
+    unsigned char __exp;
+    __asm__ (
+ "mov	%0, %C1		\n\t"
+ "lsl	%0		\n\t"
+ "mov	%0, %D1		\n\t"
+ "rol	%0		"
+ : "=r" (__exp)
+ : "r" (__x) );
+    return __exp != 0xff;
+}
+
+
+
+
+
+
+__attribute__((__const__)) static inline double copysign (double __x, double __y)
+{
+    __asm__ (
+ "bst	%D2, 7	\n\t"
+ "bld	%D0, 7	"
+ : "=r" (__x)
+ : "0" (__x), "r" (__y) );
+    return __x;
+}
+# 377 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern int signbit (double __x) __attribute__((__const__));
+
+
+
+
+
+
+extern double fdim (double __x, double __y) __attribute__((__const__));
+# 393 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double fma (double __x, double __y, double __z) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double fmax (double __x, double __y) __attribute__((__const__));
+
+
+
+
+
+
+
+extern double fmin (double __x, double __y) __attribute__((__const__));
+
+
+
+
+
+
+extern double trunc (double __x) __attribute__((__const__));
+# 427 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern double round (double __x) __attribute__((__const__));
+# 440 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern long lround (double __x) __attribute__((__const__));
+# 454 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\math.h" 3
+extern long lrint (double __x) __attribute__((__const__));
+# 47 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 2 3
+# 86 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+static __inline__ void _delay_us(double __us) __attribute__((__always_inline__));
+static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__));
+# 165 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+void
+_delay_ms(double __ms)
+{
+ double __tmp ;
+
+
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((
+# 174 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h"
+          20000000UL
+# 174 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+               ) / 1e3) * __ms;
+# 184 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 210 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+}
+# 254 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+void
+_delay_us(double __us)
+{
+ double __tmp ;
+
+
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((
+# 263 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h"
+          20000000UL
+# 263 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+               ) / 1e6) * __us;
+# 273 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 299 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
+}
+# 12 ".././main.c" 2
+# 1 ".././DRAMHandler/DRAMHandler.h" 1
+# 12 ".././DRAMHandler/DRAMHandler.h"
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\lib\\gcc\\avr\\5.4.0\\include\\stdbool.h" 1 3 4
+# 13 ".././DRAMHandler/DRAMHandler.h" 2
+
+# 1 ".././DRAMHandler/../Buffer/Buffer.h" 1
+# 16 ".././DRAMHandler/../Buffer/Buffer.h"
+
+# 16 ".././DRAMHandler/../Buffer/Buffer.h"
+typedef struct BUFFER {
+
+ struct PTR {
+  uint8_t *cmd;
+  uint8_t *addr1;
+  uint8_t *addr2;
+  uint8_t *addr3;
+  uint8_t *param1;
+ } PTR;
+
+ uint8_t idx;
+ uint8_t data[5];
+
+ void (*push)(struct BUFFER*, uint8_t data);
+ uint8_t (*getLength)(struct BUFFER*);
+ void (*reset)(struct BUFFER*);
+} BUFFER;
+
+void initBuffer(BUFFER *self);
+# 15 ".././DRAMHandler/DRAMHandler.h" 2
+
+typedef enum DRAM_HANDLER_STATE {
+
+ IDLE = 0,
+ READ_MODE = 1,
+ READ_MODE_RECEIVED_ADDR1 = 2,
+ READ_MODE_RECEIVED_ADDR2 = 3,
+ READ_MODE_RECEIVED_ADDR3 = 4,
+ WRITE_MODE = 5,
+ WRITE_MODE_RECEIVED_ADDR1 = 6,
+ WRITE_MODE_RECEIVED_ADDR2 = 7,
+ WRITE_MODE_RECEIVED_ADDR3 = 8
+
+} DRAM_HANDLER_STATE;
+
 typedef struct DRAM_HANDLER {
 
  PORT_t* DATA_PORT;
@@ -1722,137 +2072,252 @@ typedef struct DRAM_HANDLER {
   PORT_t *P2;
  } ADDR_PORT;
 
+ BUFFER buffer;
+
+ volatile 
+# 60 ".././DRAMHandler/DRAMHandler.h" 3 4
+         _Bool 
+# 60 ".././DRAMHandler/DRAMHandler.h"
+              hasPendingRefresh;
+ volatile 
+# 61 ".././DRAMHandler/DRAMHandler.h" 3 4
+         _Bool 
+# 61 ".././DRAMHandler/DRAMHandler.h"
+              hasPendingBufferUpdate;
+
  uint8_t (*readByte)(struct DRAM_HANDLER*, uint32_t addr);
  void (*writeByte)(struct DRAM_HANDLER*, uint32_t addr, uint8_t data);
+ void (*refreshRASonly)(struct DRAM_HANDLER*);
+ void (*processAndRespondBuffer)(struct DRAM_HANDLER*);
 } DRAM_HANDLER;
 
 void initDRAMHandler(DRAM_HANDLER *self);
-# 11 ".././main.c" 2
-# 19 ".././main.c"
+# 13 ".././main.c" 2
+
+
+
 DRAM_HANDLER dramHandler;
 
 
-# 21 ".././main.c" 3
+# 18 ".././main.c" 3
 void __vector_9 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_9 (void) 
-# 21 ".././main.c"
+# 18 ".././main.c"
                    {
+ volatile uint8_t vals[0xFF];
+ for(uint8_t i = 0; i < 0xFF; i++) {
+  vals[i] = 0;
+  vals[i] = dramHandler.readByte(&dramHandler, i);
+ }
+
+ dramHandler.hasPendingRefresh = 
+# 25 ".././main.c" 3 4
+                                1
+# 25 ".././main.c"
+                                    ;
 
  
-# 23 ".././main.c" 3
-(*(PORT_t *) 0x04A0)
-# 23 ".././main.c"
-     .OUTTGL = 
-# 23 ".././main.c" 3
-               0x01
-# 23 ".././main.c"
-                      ;
- 
-# 24 ".././main.c" 3
+# 27 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 24 ".././main.c"
+# 27 ".././main.c"
     .SINGLE.INTFLAGS |= (1 << 
-# 24 ".././main.c" 3
+# 27 ".././main.c" 3
                               4
-# 24 ".././main.c"
+# 27 ".././main.c"
                                                   );
- dramHandler.writeByte(&dramHandler, 1337, 101);
- dramHandler.readByte(&dramHandler, 1337);
+}
+
+
+# 30 ".././main.c" 3
+void __vector_16 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_16 (void) 
+# 30 ".././main.c"
+                  {
+ const uint8_t data = 
+# 31 ".././main.c" 3
+                     (*(SPI_t *) 0x08C0)
+# 31 ".././main.c"
+                         .DATA;
+ dramHandler.buffer.push(&dramHandler.buffer, data);
+ dramHandler.hasPendingBufferUpdate = 
+# 33 ".././main.c" 3 4
+                                     1
+# 33 ".././main.c"
+                                         ;
 }
 
 void initTimer0() {
 
  
-# 31 ".././main.c" 3
+# 38 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 31 ".././main.c"
+# 38 ".././main.c"
     .SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV16_gc;
 
  
-# 33 ".././main.c" 3
+# 40 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 33 ".././main.c"
+# 40 ".././main.c"
     .SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc;
 
  
-# 35 ".././main.c" 3
+# 42 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 35 ".././main.c"
+# 42 ".././main.c"
     .SINGLE.CMP0BUF = ((30 / 2) * ( (20000000UL) / (1000 * 16) ));
 
  
-# 37 ".././main.c" 3
+# 44 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 37 ".././main.c"
+# 44 ".././main.c"
     .SINGLE.INTCTRL = 
-# 37 ".././main.c" 3
+# 44 ".././main.c" 3
                       0x10
-# 37 ".././main.c"
+# 44 ".././main.c"
                                           ;
 
  
-# 39 ".././main.c" 3
+# 46 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 39 ".././main.c"
+# 46 ".././main.c"
     .SINGLE.CTRLA |= 
-# 39 ".././main.c" 3
+# 46 ".././main.c" 3
                      0x01
-# 39 ".././main.c"
+# 46 ".././main.c"
                                          ;
+}
+
+void initSPI() {
+
+ 
+# 51 ".././main.c" 3
+(*(PORT_t *) 0x0440)
+# 51 ".././main.c"
+     .DIR |= 
+# 51 ".././main.c" 3
+             0x08
+# 51 ".././main.c"
+                    ;
+ 
+# 52 ".././main.c" 3
+(*(PORT_t *) 0x0440)
+# 52 ".././main.c"
+     .OUT |= 
+# 52 ".././main.c" 3
+             0x08
+# 52 ".././main.c"
+                    ;
+
+ 
+# 54 ".././main.c" 3
+(*(SPI_t *) 0x08C0)
+# 54 ".././main.c"
+    .CTRLA |= 
+# 54 ".././main.c" 3
+              0x20
+# 54 ".././main.c"
+                           ;
+
+ 
+# 56 ".././main.c" 3
+(*(SPI_t *) 0x08C0)
+# 56 ".././main.c"
+    .CTRLA |= SPI_PRESC_DIV16_gc;
+
+ 
+# 58 ".././main.c" 3
+(*(SPI_t *) 0x08C0)
+# 58 ".././main.c"
+    .CTRLB |= 
+# 58 ".././main.c" 3
+              0x04
+# 58 ".././main.c"
+                        ;
+
+ 
+# 60 ".././main.c" 3
+(*(SPI_t *) 0x08C0)
+# 60 ".././main.c"
+    .CTRLB |= 
+# 60 ".././main.c" 3
+              0x80
+# 60 ".././main.c"
+                          ;
+
+ 
+# 62 ".././main.c" 3
+(*(SPI_t *) 0x08C0)
+# 62 ".././main.c"
+    .INTCTRL |= 
+# 62 ".././main.c" 3
+                0x80
+# 62 ".././main.c"
+                            ;
+
+ 
+# 64 ".././main.c" 3
+(*(SPI_t *) 0x08C0)
+# 64 ".././main.c"
+    .CTRLA |= 
+# 64 ".././main.c" 3
+              0x01
+# 64 ".././main.c"
+                           ;
 }
 
 void initCPU() {
 
  
-# 44 ".././main.c" 3
+# 69 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 44 ".././main.c"
+# 69 ".././main.c"
     = 0xD8;
 
  
-# 46 ".././main.c" 3
+# 71 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 46 ".././main.c"
+# 71 ".././main.c"
        .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
 
  
-# 48 ".././main.c" 3
+# 73 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 48 ".././main.c"
+# 73 ".././main.c"
     = 0xD8;
 
  
-# 50 ".././main.c" 3
+# 75 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 50 ".././main.c"
+# 75 ".././main.c"
        .MCLKCTRLB &= ~(1 << 
-# 50 ".././main.c" 3
+# 75 ".././main.c" 3
                             0
-# 50 ".././main.c"
+# 75 ".././main.c"
                                           );
 
 
  
-# 53 ".././main.c" 3
+# 78 ".././main.c" 3
 __asm__ __volatile__ ("sei" ::: "memory")
-# 53 ".././main.c"
+# 78 ".././main.c"
      ;
-
- 
-# 55 ".././main.c" 3
-(*(PORT_t *) 0x04A0)
-# 55 ".././main.c"
-     .DIR |= (1 << 
-# 55 ".././main.c" 3
-                   0
-# 55 ".././main.c"
-                          );
 }
 
 int main(void) {
- initCPU();
- initTimer0();
  initDRAMHandler(&dramHandler);
-    while (1) {
 
+ initCPU();
+ initSPI();
+ initTimer0();
+
+ for(uint8_t i = 0; i < 0xFF; i++) {
+  dramHandler.writeByte(&dramHandler, i, i);
+ }
+
+    while (1) {
+  if(dramHandler.hasPendingRefresh) {
+   dramHandler.refreshRASonly(&dramHandler);
+  }
+  if(dramHandler.hasPendingBufferUpdate) {
+   dramHandler.processAndRespondBuffer(&dramHandler);
+  }
     }
 }

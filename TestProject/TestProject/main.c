@@ -5,25 +5,32 @@
  * Author : test
  */ 
 
+#include "System.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 #include "DRAMHandler/DRAMHandler.h"
 
-#define F_CPU           20000000UL
-
-#define TIM0_PRESCALER  16
-#define TIM0_MS         30
-#define TIM0_MS_FACTOR  ( (F_CPU) / (1000 * TIM0_PRESCALER) )
-#define TIM0_COMP_VAL   ((TIM0_MS / 2) * TIM0_MS_FACTOR)
+#define RAM_READ_LENGTH		0xFF
 
 DRAM_HANDLER dramHandler;
 
 ISR(TCA0_CMP0_vect) {
+	volatile uint8_t vals[0xFF];
+	for(uint8_t i = 0; i < RAM_READ_LENGTH; i++) {
+		vals[i] = 0;
+		vals[i] = dramHandler.readByte(&dramHandler, i);
+	}
+	
+	dramHandler.hasPendingRefresh = true;
 	/* Clear interrupt flag */
-	PORTF.OUTTGL = PIN0_bm;
 	TCA0.SINGLE.INTFLAGS |= (1 << TCA_SINGLE_CMP0EN_bp);
-	dramHandler.writeByte(&dramHandler, 1337, 101);
-	dramHandler.readByte(&dramHandler, 1337);
+}
+
+ISR(SPI0_INT_vect) {
+	const uint8_t data = SPI0.DATA;
+	dramHandler.buffer.push(&dramHandler.buffer, data);
+	dramHandler.hasPendingBufferUpdate = true;
 }
 
 void initTimer0() {
@@ -39,6 +46,24 @@ void initTimer0() {
 	TCA0.SINGLE.CTRLA |= TCA_SINGLE_ENABLE_bm;
 }
 
+void initSPI() {
+	/* Configure SS Pin */
+	PORTC.DIR |= PIN3_bm;
+	PORTC.OUT |= PIN3_bm;
+	/* Set device as master */
+	SPI0.CTRLA |= SPI_MASTER_bm;
+	/* Select clock speed */
+	SPI0.CTRLA |= SPI_PRESC_DIV16_gc;
+	/* Disable multi-master support */
+	SPI0.CTRLB |= SPI_SSD_bm;
+	/* Enable buffer mode */
+	SPI0.CTRLB |= SPI_BUFEN_bm;
+	/* Enable Receive Interrupt */
+	SPI0.INTCTRL |= SPI_RXCIE_bm;
+	/* Enable SPI */
+	SPI0.CTRLA |= SPI_ENABLE_bm;
+}
+
 void initCPU() {
 	/* Disable Configuration Change Protection */
 	CCP = 0xD8;
@@ -51,15 +76,25 @@ void initCPU() {
 	
 	/* Enable interrupts globally */
 	sei();
-	
-	PORTF.DIR |= (1 << PIN0_bp);
 }
 
 int main(void) {
-	initCPU();
-	initTimer0();
 	initDRAMHandler(&dramHandler);
+
+	initCPU();
+	initSPI();
+	initTimer0();
+	
+	for(uint8_t i = 0; i < RAM_READ_LENGTH; i++) {
+		dramHandler.writeByte(&dramHandler, i, i);
+	}
+	
     while (1) {
-				
+		if(dramHandler.hasPendingRefresh) {
+			dramHandler.refreshRASonly(&dramHandler);
+		}
+		if(dramHandler.hasPendingBufferUpdate) {
+			dramHandler.processAndRespondBuffer(&dramHandler);
+		}
     }
 }

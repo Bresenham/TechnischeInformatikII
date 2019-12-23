@@ -137,6 +137,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Buffer\Buffer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Buffer\Buffer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="DRAMHandler\DRAMHandler.c">
       <SubType>compile</SubType>
     </Compile>
@@ -146,9 +152,13 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="System.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DRAMHandler" />
+    <Folder Include="Buffer" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

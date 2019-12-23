@@ -33,11 +33,13 @@ LINKER_SCRIPT_DEP:=
 
 # Every subdirectory with source files must be described here
 SUBDIRS :=  \
-../DRAMHandler
+../DRAMHandler \
+../Buffer
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../Buffer/Buffer.c \
 ../DRAMHandler/DRAMHandler.c \
 ../main.c
 
@@ -49,18 +51,22 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+Buffer/Buffer.o \
 DRAMHandler/DRAMHandler.o \
 main.o
 
 OBJS_AS_ARGS +=  \
+Buffer/Buffer.o \
 DRAMHandler/DRAMHandler.o \
 main.o
 
 C_DEPS +=  \
+Buffer/Buffer.d \
 DRAMHandler/DRAMHandler.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
+Buffer/Buffer.d \
 DRAMHandler/DRAMHandler.d \
 main.d
 
@@ -78,6 +84,13 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+Buffer/Buffer.o: ../Buffer/Buffer.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.4.346\include"  -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega809 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.4.346\gcc\dev\atmega809" -c -std=gnu99  -fverbose-asm -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 DRAMHandler/DRAMHandler.o: ../DRAMHandler/DRAMHandler.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
