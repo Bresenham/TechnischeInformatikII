@@ -47,15 +47,9 @@ void initTimer0() {
 }
 
 void initSPI() {
-	/* Configure SS Pin */
-	PORTC.DIR |= PIN3_bm;
-	PORTC.OUT |= PIN3_bm;
-	/* Set device as master */
-	SPI0.CTRLA |= SPI_MASTER_bm;
-	/* Select clock speed */
-	SPI0.CTRLA |= SPI_PRESC_DIV16_gc;
-	/* Disable multi-master support */
-	SPI0.CTRLB |= SPI_SSD_bm;
+	/* Configure SS Pin as Input */
+	PORTC.DIR &= ~PIN3_bm;
+	PORTC.OUT &= ~PIN3_bm;
 	/* Enable buffer mode */
 	SPI0.CTRLB |= SPI_BUFEN_bm;
 	/* Enable Receive Interrupt */

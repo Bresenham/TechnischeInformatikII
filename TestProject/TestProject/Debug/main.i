@@ -2191,113 +2191,87 @@ void initSPI() {
 # 51 ".././main.c" 3
 (*(PORT_t *) 0x0440)
 # 51 ".././main.c"
-     .DIR |= 
+     .DIR &= ~
 # 51 ".././main.c" 3
-             0x08
+              0x08
 # 51 ".././main.c"
-                    ;
+                     ;
  
 # 52 ".././main.c" 3
 (*(PORT_t *) 0x0440)
 # 52 ".././main.c"
-     .OUT |= 
+     .OUT &= ~
 # 52 ".././main.c" 3
-             0x08
+              0x08
 # 52 ".././main.c"
-                    ;
+                     ;
 
  
 # 54 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
 # 54 ".././main.c"
-    .CTRLA |= 
+    .CTRLB |= 
 # 54 ".././main.c" 3
-              0x20
+              0x80
 # 54 ".././main.c"
-                           ;
+                          ;
 
  
 # 56 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
 # 56 ".././main.c"
-    .CTRLA |= SPI_PRESC_DIV16_gc;
-
- 
-# 58 ".././main.c" 3
-(*(SPI_t *) 0x08C0)
-# 58 ".././main.c"
-    .CTRLB |= 
-# 58 ".././main.c" 3
-              0x04
-# 58 ".././main.c"
-                        ;
-
- 
-# 60 ".././main.c" 3
-(*(SPI_t *) 0x08C0)
-# 60 ".././main.c"
-    .CTRLB |= 
-# 60 ".././main.c" 3
-              0x80
-# 60 ".././main.c"
-                          ;
-
- 
-# 62 ".././main.c" 3
-(*(SPI_t *) 0x08C0)
-# 62 ".././main.c"
     .INTCTRL |= 
-# 62 ".././main.c" 3
+# 56 ".././main.c" 3
                 0x80
-# 62 ".././main.c"
+# 56 ".././main.c"
                             ;
 
  
-# 64 ".././main.c" 3
+# 58 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 64 ".././main.c"
+# 58 ".././main.c"
     .CTRLA |= 
-# 64 ".././main.c" 3
+# 58 ".././main.c" 3
               0x01
-# 64 ".././main.c"
+# 58 ".././main.c"
                            ;
 }
 
 void initCPU() {
 
  
-# 69 ".././main.c" 3
+# 63 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 69 ".././main.c"
+# 63 ".././main.c"
     = 0xD8;
 
  
-# 71 ".././main.c" 3
+# 65 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 71 ".././main.c"
+# 65 ".././main.c"
        .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
 
  
-# 73 ".././main.c" 3
+# 67 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 73 ".././main.c"
+# 67 ".././main.c"
     = 0xD8;
 
  
-# 75 ".././main.c" 3
+# 69 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 75 ".././main.c"
+# 69 ".././main.c"
        .MCLKCTRLB &= ~(1 << 
-# 75 ".././main.c" 3
+# 69 ".././main.c" 3
                             0
-# 75 ".././main.c"
+# 69 ".././main.c"
                                           );
 
 
  
-# 78 ".././main.c" 3
+# 72 ".././main.c" 3
 __asm__ __volatile__ ("sei" ::: "memory")
-# 78 ".././main.c"
+# 72 ".././main.c"
      ;
 }
 

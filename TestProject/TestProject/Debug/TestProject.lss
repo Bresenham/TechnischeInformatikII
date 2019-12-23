@@ -3,31 +3,31 @@ TestProject.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00803c00  00803c00  0000074c  2**0
+  0 .data         00000000  00803c00  00803c00  0000073a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000006d8  00000000  00000000  00000074  2**1
+  1 .text         000006c6  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000032  00803c00  00803c00  0000074c  2**0
+  2 .bss          00000032  00803c00  00803c00  0000073a  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000074c  2**0
+  3 .comment      00000030  00000000  00000000  0000073a  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000077c  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000076c  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000098  00000000  00000000  000007b8  2**0
+  5 .debug_aranges 00000098  00000000  00000000  000007a8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00003e43  00000000  00000000  00000850  2**0
+  6 .debug_info   00003e19  00000000  00000000  00000840  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00002756  00000000  00000000  00004693  2**0
+  7 .debug_abbrev 00002756  00000000  00000000  00004659  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000896  00000000  00000000  00006de9  2**0
+  8 .debug_line   00000883  00000000  00000000  00006daf  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000240  00000000  00000000  00007680  2**2
+  9 .debug_frame  00000240  00000000  00000000  00007634  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00001853  00000000  00000000  000078c0  2**0
+ 10 .debug_str    000017f8  00000000  00000000  00007874  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000916  00000000  00000000  00009113  2**0
+ 11 .debug_loc    00000916  00000000  00000000  0000906c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000078  00000000  00000000  00009a29  2**0
+ 12 .debug_ranges 00000078  00000000  00000000  00009982  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -95,8 +95,8 @@ Disassembly of section .text:
   b6:	a2 33       	cpi	r26, 0x32	; 50
   b8:	b2 07       	cpc	r27, r18
   ba:	e1 f7       	brne	.-8      	; 0xb4 <.do_clear_bss_loop>
-  bc:	d6 d2       	rcall	.+1452   	; 0x66a <main>
-  be:	0a c3       	rjmp	.+1556   	; 0x6d4 <_exit>
+  bc:	cd d2       	rcall	.+1434   	; 0x658 <main>
+  be:	01 c3       	rjmp	.+1538   	; 0x6c2 <_exit>
 
 000000c0 <__bad_interrupt>:
   c0:	9f cf       	rjmp	.-194    	; 0x0 <__vectors>
@@ -1035,153 +1035,138 @@ void initTimer0() {
 }
 
 void initSPI() {
-	/* Configure SS Pin */
-	PORTC.DIR |= PIN3_bm;
+	/* Configure SS Pin as Input */
+	PORTC.DIR &= ~PIN3_bm;
  61a:	e0 e4       	ldi	r30, 0x40	; 64
  61c:	f4 e0       	ldi	r31, 0x04	; 4
  61e:	80 81       	ld	r24, Z
- 620:	88 60       	ori	r24, 0x08	; 8
+ 620:	87 7f       	andi	r24, 0xF7	; 247
  622:	80 83       	st	Z, r24
-	PORTC.OUT |= PIN3_bm;
+	PORTC.OUT &= ~PIN3_bm;
  624:	84 81       	ldd	r24, Z+4	; 0x04
- 626:	88 60       	ori	r24, 0x08	; 8
+ 626:	87 7f       	andi	r24, 0xF7	; 247
  628:	84 83       	std	Z+4, r24	; 0x04
-	/* Set device as master */
-	SPI0.CTRLA |= SPI_MASTER_bm;
- 62a:	e0 ec       	ldi	r30, 0xC0	; 192
- 62c:	f8 e0       	ldi	r31, 0x08	; 8
- 62e:	80 81       	ld	r24, Z
- 630:	80 62       	ori	r24, 0x20	; 32
- 632:	80 83       	st	Z, r24
-	/* Select clock speed */
-	SPI0.CTRLA |= SPI_PRESC_DIV16_gc;
- 634:	80 81       	ld	r24, Z
- 636:	82 60       	ori	r24, 0x02	; 2
- 638:	80 83       	st	Z, r24
-	/* Disable multi-master support */
-	SPI0.CTRLB |= SPI_SSD_bm;
- 63a:	81 81       	ldd	r24, Z+1	; 0x01
- 63c:	84 60       	ori	r24, 0x04	; 4
- 63e:	81 83       	std	Z+1, r24	; 0x01
 	/* Enable buffer mode */
 	SPI0.CTRLB |= SPI_BUFEN_bm;
- 640:	81 81       	ldd	r24, Z+1	; 0x01
- 642:	80 68       	ori	r24, 0x80	; 128
- 644:	81 83       	std	Z+1, r24	; 0x01
+ 62a:	e0 ec       	ldi	r30, 0xC0	; 192
+ 62c:	f8 e0       	ldi	r31, 0x08	; 8
+ 62e:	81 81       	ldd	r24, Z+1	; 0x01
+ 630:	80 68       	ori	r24, 0x80	; 128
+ 632:	81 83       	std	Z+1, r24	; 0x01
 	/* Enable Receive Interrupt */
 	SPI0.INTCTRL |= SPI_RXCIE_bm;
- 646:	82 81       	ldd	r24, Z+2	; 0x02
- 648:	80 68       	ori	r24, 0x80	; 128
- 64a:	82 83       	std	Z+2, r24	; 0x02
+ 634:	82 81       	ldd	r24, Z+2	; 0x02
+ 636:	80 68       	ori	r24, 0x80	; 128
+ 638:	82 83       	std	Z+2, r24	; 0x02
 	/* Enable SPI */
 	SPI0.CTRLA |= SPI_ENABLE_bm;
- 64c:	80 81       	ld	r24, Z
- 64e:	81 60       	ori	r24, 0x01	; 1
- 650:	80 83       	st	Z, r24
- 652:	08 95       	ret
+ 63a:	80 81       	ld	r24, Z
+ 63c:	81 60       	ori	r24, 0x01	; 1
+ 63e:	80 83       	st	Z, r24
+ 640:	08 95       	ret
 
-00000654 <initCPU>:
+00000642 <initCPU>:
 }
 
 void initCPU() {
 	/* Disable Configuration Change Protection */
 	CCP = 0xD8;
- 654:	88 ed       	ldi	r24, 0xD8	; 216
- 656:	84 bf       	out	0x34, r24	; 52
+ 642:	88 ed       	ldi	r24, 0xD8	; 216
+ 644:	84 bf       	out	0x34, r24	; 52
 	/* Set Clock source to 20MHz internal oscillator */
 	CLKCTRL.MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
- 658:	e0 e6       	ldi	r30, 0x60	; 96
- 65a:	f0 e0       	ldi	r31, 0x00	; 0
- 65c:	10 82       	st	Z, r1
+ 646:	e0 e6       	ldi	r30, 0x60	; 96
+ 648:	f0 e0       	ldi	r31, 0x00	; 0
+ 64a:	10 82       	st	Z, r1
 	/* Disable Configuration Change Protection */
 	CCP = 0xD8;
- 65e:	84 bf       	out	0x34, r24	; 52
+ 64c:	84 bf       	out	0x34, r24	; 52
 	/* Disable prescaler */
 	CLKCTRL.MCLKCTRLB &= ~(1 << CLKCTRL_PEN_bp);
- 660:	81 81       	ldd	r24, Z+1	; 0x01
- 662:	8e 7f       	andi	r24, 0xFE	; 254
- 664:	81 83       	std	Z+1, r24	; 0x01
+ 64e:	81 81       	ldd	r24, Z+1	; 0x01
+ 650:	8e 7f       	andi	r24, 0xFE	; 254
+ 652:	81 83       	std	Z+1, r24	; 0x01
 	
 	/* Enable interrupts globally */
 	sei();
- 666:	78 94       	sei
- 668:	08 95       	ret
+ 654:	78 94       	sei
+ 656:	08 95       	ret
 
-0000066a <main>:
+00000658 <main>:
 }
 
 int main(void) {
 	initDRAMHandler(&dramHandler);
- 66a:	80 e0       	ldi	r24, 0x00	; 0
- 66c:	9c e3       	ldi	r25, 0x3C	; 60
- 66e:	f7 de       	rcall	.-530    	; 0x45e <initDRAMHandler>
+ 658:	80 e0       	ldi	r24, 0x00	; 0
+ 65a:	9c e3       	ldi	r25, 0x3C	; 60
+ 65c:	00 df       	rcall	.-512    	; 0x45e <initDRAMHandler>
 
 	initCPU();
- 670:	f1 df       	rcall	.-30     	; 0x654 <initCPU>
+ 65e:	f1 df       	rcall	.-30     	; 0x642 <initCPU>
 	initSPI();
- 672:	d3 df       	rcall	.-90     	; 0x61a <initSPI>
+ 660:	dc df       	rcall	.-72     	; 0x61a <initSPI>
 	initTimer0();
- 674:	c2 df       	rcall	.-124    	; 0x5fa <initTimer0>
- 676:	c1 2c       	mov	r12, r1
- 678:	d1 2c       	mov	r13, r1
- 67a:	76 01       	movw	r14, r12
+ 662:	cb df       	rcall	.-106    	; 0x5fa <initTimer0>
+ 664:	c1 2c       	mov	r12, r1
+ 666:	d1 2c       	mov	r13, r1
+ 668:	76 01       	movw	r14, r12
 	
 	for(uint8_t i = 0; i < RAM_READ_LENGTH; i++) {
 		dramHandler.writeByte(&dramHandler, i, i);
- 67c:	e0 91 2c 3c 	lds	r30, 0x3C2C	; 0x803c2c <__DATA_REGION_ORIGIN__+0x2c>
- 680:	f0 91 2d 3c 	lds	r31, 0x3C2D	; 0x803c2d <__DATA_REGION_ORIGIN__+0x2d>
- 684:	2c 2d       	mov	r18, r12
- 686:	b7 01       	movw	r22, r14
- 688:	a6 01       	movw	r20, r12
- 68a:	80 e0       	ldi	r24, 0x00	; 0
- 68c:	9c e3       	ldi	r25, 0x3C	; 60
- 68e:	09 95       	icall
- 690:	8f ef       	ldi	r24, 0xFF	; 255
- 692:	c8 1a       	sub	r12, r24
- 694:	d8 0a       	sbc	r13, r24
- 696:	e8 0a       	sbc	r14, r24
- 698:	f8 0a       	sbc	r15, r24
+ 66a:	e0 91 2c 3c 	lds	r30, 0x3C2C	; 0x803c2c <__DATA_REGION_ORIGIN__+0x2c>
+ 66e:	f0 91 2d 3c 	lds	r31, 0x3C2D	; 0x803c2d <__DATA_REGION_ORIGIN__+0x2d>
+ 672:	2c 2d       	mov	r18, r12
+ 674:	b7 01       	movw	r22, r14
+ 676:	a6 01       	movw	r20, r12
+ 678:	80 e0       	ldi	r24, 0x00	; 0
+ 67a:	9c e3       	ldi	r25, 0x3C	; 60
+ 67c:	09 95       	icall
+ 67e:	8f ef       	ldi	r24, 0xFF	; 255
+ 680:	c8 1a       	sub	r12, r24
+ 682:	d8 0a       	sbc	r13, r24
+ 684:	e8 0a       	sbc	r14, r24
+ 686:	f8 0a       	sbc	r15, r24
 
 	initCPU();
 	initSPI();
 	initTimer0();
 	
 	for(uint8_t i = 0; i < RAM_READ_LENGTH; i++) {
- 69a:	8f ef       	ldi	r24, 0xFF	; 255
- 69c:	c8 16       	cp	r12, r24
- 69e:	d1 04       	cpc	r13, r1
- 6a0:	e1 04       	cpc	r14, r1
- 6a2:	f1 04       	cpc	r15, r1
- 6a4:	59 f7       	brne	.-42     	; 0x67c <main+0x12>
+ 688:	8f ef       	ldi	r24, 0xFF	; 255
+ 68a:	c8 16       	cp	r12, r24
+ 68c:	d1 04       	cpc	r13, r1
+ 68e:	e1 04       	cpc	r14, r1
+ 690:	f1 04       	cpc	r15, r1
+ 692:	59 f7       	brne	.-42     	; 0x66a <main+0x12>
 		dramHandler.writeByte(&dramHandler, i, i);
 	}
 	
     while (1) {
 		if(dramHandler.hasPendingRefresh) {
- 6a6:	80 91 28 3c 	lds	r24, 0x3C28	; 0x803c28 <__DATA_REGION_ORIGIN__+0x28>
- 6aa:	88 23       	and	r24, r24
- 6ac:	39 f0       	breq	.+14     	; 0x6bc <main+0x52>
+ 694:	80 91 28 3c 	lds	r24, 0x3C28	; 0x803c28 <__DATA_REGION_ORIGIN__+0x28>
+ 698:	88 23       	and	r24, r24
+ 69a:	39 f0       	breq	.+14     	; 0x6aa <main+0x52>
 			dramHandler.refreshRASonly(&dramHandler);
- 6ae:	e0 91 2e 3c 	lds	r30, 0x3C2E	; 0x803c2e <__DATA_REGION_ORIGIN__+0x2e>
- 6b2:	f0 91 2f 3c 	lds	r31, 0x3C2F	; 0x803c2f <__DATA_REGION_ORIGIN__+0x2f>
- 6b6:	80 e0       	ldi	r24, 0x00	; 0
- 6b8:	9c e3       	ldi	r25, 0x3C	; 60
- 6ba:	09 95       	icall
+ 69c:	e0 91 2e 3c 	lds	r30, 0x3C2E	; 0x803c2e <__DATA_REGION_ORIGIN__+0x2e>
+ 6a0:	f0 91 2f 3c 	lds	r31, 0x3C2F	; 0x803c2f <__DATA_REGION_ORIGIN__+0x2f>
+ 6a4:	80 e0       	ldi	r24, 0x00	; 0
+ 6a6:	9c e3       	ldi	r25, 0x3C	; 60
+ 6a8:	09 95       	icall
 		}
 		if(dramHandler.hasPendingBufferUpdate) {
- 6bc:	80 91 29 3c 	lds	r24, 0x3C29	; 0x803c29 <__DATA_REGION_ORIGIN__+0x29>
- 6c0:	88 23       	and	r24, r24
- 6c2:	89 f3       	breq	.-30     	; 0x6a6 <main+0x3c>
+ 6aa:	80 91 29 3c 	lds	r24, 0x3C29	; 0x803c29 <__DATA_REGION_ORIGIN__+0x29>
+ 6ae:	88 23       	and	r24, r24
+ 6b0:	89 f3       	breq	.-30     	; 0x694 <main+0x3c>
 			dramHandler.processAndRespondBuffer(&dramHandler);
- 6c4:	e0 91 30 3c 	lds	r30, 0x3C30	; 0x803c30 <__DATA_REGION_ORIGIN__+0x30>
- 6c8:	f0 91 31 3c 	lds	r31, 0x3C31	; 0x803c31 <__DATA_REGION_ORIGIN__+0x31>
- 6cc:	80 e0       	ldi	r24, 0x00	; 0
- 6ce:	9c e3       	ldi	r25, 0x3C	; 60
- 6d0:	09 95       	icall
- 6d2:	e9 cf       	rjmp	.-46     	; 0x6a6 <main+0x3c>
+ 6b2:	e0 91 30 3c 	lds	r30, 0x3C30	; 0x803c30 <__DATA_REGION_ORIGIN__+0x30>
+ 6b6:	f0 91 31 3c 	lds	r31, 0x3C31	; 0x803c31 <__DATA_REGION_ORIGIN__+0x31>
+ 6ba:	80 e0       	ldi	r24, 0x00	; 0
+ 6bc:	9c e3       	ldi	r25, 0x3C	; 60
+ 6be:	09 95       	icall
+ 6c0:	e9 cf       	rjmp	.-46     	; 0x694 <main+0x3c>
 
-000006d4 <_exit>:
- 6d4:	f8 94       	cli
+000006c2 <_exit>:
+ 6c2:	f8 94       	cli
 
-000006d6 <__stop_program>:
- 6d6:	ff cf       	rjmp	.-2      	; 0x6d6 <__stop_program>
+000006c4 <__stop_program>:
+ 6c4:	ff cf       	rjmp	.-2      	; 0x6c4 <__stop_program>
