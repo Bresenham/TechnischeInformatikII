@@ -121,10 +121,10 @@ void processAndRespondBuffer(DRAM_HANDLER *self) {
 	const uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
 	const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
 
-	if(*self->buffer.PTR.cmd == READ_ADDR_CMD && bufferLen == READ_CMD_LEN) {
+	if(bufferLen == READ_CMD_LEN && *self->buffer.PTR.cmd) {
 		const uint8_t data = self->readByte(self, addr);
 		SPI0.DATA = data;
-	} else if(*self->buffer.PTR.cmd == WRITE_CMD && bufferLen == WRITE_CMD_LEN) {
+	} else if(bufferLen == WRITE_CMD_LEN && *self->buffer.PTR.cmd == WRITE_CMD) {
 		const uint8_t data = *self->buffer.PTR.param1;
 		self->writeByte(self, addr, data);
 	}
@@ -160,6 +160,14 @@ void initDRAMHandler(DRAM_HANDLER *self) {
 	/* Set all address pins as output */
 	self->ADDR_PORT.P1->DIR = 0xFF;
 	self->ADDR_PORT.P2->DIR = 0xFF;
+	
+	self->SPI.PORT = &PORTC;
+	self->SPI.MOSI = PIN0_bm;
+	self->SPI.MISO = PIN1_bm;
+	self->SPI.SCK = PIN2_bm;
+	self->SPI.SS = PIN3_bm;
+	
+	self->SPI.PORT->DIR |= self->SPI.MISO;
 	
 	resetPins(self);
 }

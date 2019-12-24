@@ -10,7 +10,7 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 Allocating common symbols
 Common symbol       size              file
 
-dramHandler         0x32              main.o
+dramHandler         0x38              main.o
 
 Discarded input sections
 
@@ -32,7 +32,7 @@ Discarded input sections
                 0x00000000       0x38 Buffer/Buffer.o
  .debug_ranges  0x00000000       0x28 Buffer/Buffer.o
  .debug_line    0x00000000      0x12c Buffer/Buffer.o
- .debug_str     0x00000000      0x1f7 Buffer/Buffer.o
+ .debug_str     0x00000000      0x1f5 Buffer/Buffer.o
  .comment       0x00000000       0x31 Buffer/Buffer.o
  .debug_frame   0x00000000       0x54 Buffer/Buffer.o
  .text          0x00000000        0x0 DRAMHandler/DRAMHandler.o
@@ -41,7 +41,6 @@ Discarded input sections
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
- .text.initSPI  0x00000000       0x28 main.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_udivmodqi4.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_udivmodqi4.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_udivmodqi4.o)
@@ -219,7 +218,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x6a6
+.text           0x00000000      0x6c8
  *(.vectors)
  .vectors       0x00000000       0xa0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.346/gcc/dev/atmega809/avrxmega3/short-calls/crtatmega809.o
                 0x00000000                __vector_default
@@ -317,48 +316,50 @@ END GROUP
                 0x000000c2                . = ALIGN (0x2)
  *(.text.*)
  .text.processAndRespondBuffer
-                0x000000c2       0x96 DRAMHandler/DRAMHandler.o
+                0x000000c2       0x9c DRAMHandler/DRAMHandler.o
                 0x000000c2                processAndRespondBuffer
  .text.writeToAddrPort
-                0x00000158       0x2a DRAMHandler/DRAMHandler.o
-                0x00000158                writeToAddrPort
+                0x0000015e       0x2a DRAMHandler/DRAMHandler.o
+                0x0000015e                writeToAddrPort
  .text.refreshRASonly
-                0x00000182       0xaa DRAMHandler/DRAMHandler.o
-                0x00000182                refreshRASonly
+                0x00000188       0xaa DRAMHandler/DRAMHandler.o
+                0x00000188                refreshRASonly
  .text.readByte
-                0x0000022c       0xb4 DRAMHandler/DRAMHandler.o
-                0x0000022c                readByte
+                0x00000232       0xb4 DRAMHandler/DRAMHandler.o
+                0x00000232                readByte
  .text.writeByte
-                0x000002e0       0xfa DRAMHandler/DRAMHandler.o
-                0x000002e0                writeByte
+                0x000002e6       0xfa DRAMHandler/DRAMHandler.o
+                0x000002e6                writeByte
  .text.resetPins
-                0x000003da       0x80 DRAMHandler/DRAMHandler.o
-                0x000003da                resetPins
+                0x000003e0       0x80 DRAMHandler/DRAMHandler.o
+                0x000003e0                resetPins
  .text.initDRAMHandler
-                0x0000045a       0x70 DRAMHandler/DRAMHandler.o
-                0x0000045a                initDRAMHandler
+                0x00000460       0x86 DRAMHandler/DRAMHandler.o
+                0x00000460                initDRAMHandler
  .text.__vector_9
-                0x000004ca      0x102 main.o
-                0x000004ca                __vector_9
+                0x000004e6      0x102 main.o
+                0x000004e6                __vector_9
  .text.__vector_16
-                0x000005cc       0x62 main.o
-                0x000005cc                __vector_16
+                0x000005e8       0x62 main.o
+                0x000005e8                __vector_16
  .text.initTimer0
-                0x0000062e       0x20 main.o
-                0x0000062e                initTimer0
- .text.initCPU  0x0000064e       0x16 main.o
-                0x0000064e                initCPU
+                0x0000064a       0x20 main.o
+                0x0000064a                initTimer0
+ .text.initSPI  0x0000066a       0x1c main.o
+                0x0000066a                initSPI
+ .text.initCPU  0x00000686       0x16 main.o
+                0x00000686                initCPU
  .text.startup.main
-                0x00000664       0x26 main.o
-                0x00000664                main
+                0x0000069c       0x10 main.o
+                0x0000069c                main
  .text.libgcc.div
-                0x0000068a       0x18 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_udivmodqi4.o)
-                0x0000068a                __udivmodqi4
-                0x000006a2                . = ALIGN (0x2)
+                0x000006ac       0x18 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_udivmodqi4.o)
+                0x000006ac                __udivmodqi4
+                0x000006c4                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000006a2        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
-                0x000006a2                _exit
-                0x000006a2                exit
+ .fini9         0x000006c4        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
+                0x000006c4                _exit
+                0x000006c4                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -377,16 +378,16 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000006a2        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
+ .fini0         0x000006c4        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
  *(.fini0)
-                0x000006a6                _etext = .
+                0x000006c8                _etext = .
 
 .rodata
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.r*)
 
-.data           0x00803c00        0x0 load address 0x000006a6
+.data           0x00803c00        0x0 load address 0x000006c8
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -395,22 +396,22 @@ END GROUP
                 0x00803c00                _edata = .
                 [!provide]                PROVIDE (__data_end, .)
 
-.bss            0x00803c00       0x32
+.bss            0x00803c00       0x38
                 0x00803c00                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  *(COMMON)
- COMMON         0x00803c00       0x32 main.o
+ COMMON         0x00803c00       0x38 main.o
                 0x00803c00                dramHandler
-                0x00803c32                PROVIDE (__bss_end, .)
-                0x000006a6                __data_load_start = LOADADDR (.data)
-                0x000006a6                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00803c38                PROVIDE (__bss_end, .)
+                0x000006c8                __data_load_start = LOADADDR (.data)
+                0x000006c8                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00803c32        0x0
+.noinit         0x00803c38        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00803c32                _end = .
+                0x00803c38                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -486,11 +487,11 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x3dff
+.debug_info     0x00000000     0x3f76
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000     0x248a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.346/gcc/dev/atmega809/avrxmega3/short-calls/crtatmega809.o
- .debug_info    0x0000248a      0xa28 DRAMHandler/DRAMHandler.o
- .debug_info    0x00002eb2      0xf4d main.o
+ .debug_info    0x0000248a      0xa88 DRAMHandler/DRAMHandler.o
+ .debug_info    0x00002f12     0x1064 main.o
 
 .debug_abbrev   0x00000000     0x2757
  *(.debug_abbrev)
@@ -498,24 +499,24 @@ END GROUP
  .debug_abbrev  0x00002296      0x281 DRAMHandler/DRAMHandler.o
  .debug_abbrev  0x00002517      0x240 main.o
 
-.debug_line     0x00000000      0x880
+.debug_line     0x00000000      0x895
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x18a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.346/gcc/dev/atmega809/avrxmega3/short-calls/crtatmega809.o
- .debug_line    0x0000018a      0x479 DRAMHandler/DRAMHandler.o
- .debug_line    0x00000603      0x27d main.o
+ .debug_line    0x0000018a      0x49d DRAMHandler/DRAMHandler.o
+ .debug_line    0x00000627      0x26e main.o
 
 .debug_frame    0x00000000      0x240
  *(.debug_frame)
  .debug_frame   0x00000000      0x104 DRAMHandler/DRAMHandler.o
  .debug_frame   0x00000104      0x13c main.o
 
-.debug_str      0x00000000     0x17f8
+.debug_str      0x00000000     0x18c5
  *(.debug_str)
  .debug_str     0x00000000      0xf85 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.4.346/gcc/dev/atmega809/avrxmega3/short-calls/crtatmega809.o
- .debug_str     0x00000f85      0x3d4 DRAMHandler/DRAMHandler.o
-                                0x419 (size before relaxing)
- .debug_str     0x00001359      0x49f main.o
-                                0x829 (size before relaxing)
+ .debug_str     0x00000f85      0x3dc DRAMHandler/DRAMHandler.o
+                                0x421 (size before relaxing)
+ .debug_str     0x00001361      0x564 main.o
+                                0x8f6 (size before relaxing)
 
 .debug_loc      0x00000000      0x917
  *(.debug_loc)

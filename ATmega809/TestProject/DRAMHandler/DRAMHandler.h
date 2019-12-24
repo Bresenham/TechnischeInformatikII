@@ -55,6 +55,14 @@ typedef struct DRAM_HANDLER {
 		PORT_t *P2;
 	} ADDR_PORT;
 	
+	struct SPI {
+		PORT_t *PORT;
+		uint8_t SS;
+		uint8_t MOSI;
+		uint8_t MISO;
+		uint8_t SCK;
+	} SPI;
+	
 	BUFFER buffer;
 	
 	volatile bool hasPendingRefresh;

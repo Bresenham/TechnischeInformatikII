@@ -107,52 +107,52 @@ processAndRespondBuffer:
 .L__stack_usage = 8
 	movw r28,r24	 ;  self, self
 	.loc 1 121 0
-	ldd r30,Y+20	 ;  self_3(D)->buffer.PTR.addr1, self_3(D)->buffer.PTR.addr1
-	ldd r31,Y+21	 ;  self_3(D)->buffer.PTR.addr1, self_3(D)->buffer.PTR.addr1
+	ldd r30,Y+26	 ;  self_3(D)->buffer.PTR.addr1, self_3(D)->buffer.PTR.addr1
+	ldd r31,Y+27	 ;  self_3(D)->buffer.PTR.addr1, self_3(D)->buffer.PTR.addr1
 	ld r24,Z	 ;  *_4, *_4
 .LVL1:
-	ldd r30,Y+22	 ;  self_3(D)->buffer.PTR.addr2, self_3(D)->buffer.PTR.addr2
-	ldd r31,Y+23	 ;  self_3(D)->buffer.PTR.addr2, self_3(D)->buffer.PTR.addr2
+	ldd r30,Y+28	 ;  self_3(D)->buffer.PTR.addr2, self_3(D)->buffer.PTR.addr2
+	ldd r31,Y+29	 ;  self_3(D)->buffer.PTR.addr2, self_3(D)->buffer.PTR.addr2
 	ld r12,Z	 ;  *_8, *_8
-	mov r13,__zero_reg__	 ;  D.3347
-	mov r14,__zero_reg__	 ;  D.3347
-	mov r15,__zero_reg__	 ;  D.3347
-	mov r15,r14	 ;  D.3347, D.3347
-	mov r14,r13	 ;  D.3347, D.3347
-	mov r13,r12	 ;  D.3347, D.3347
-	clr r12	 ;  D.3347
-	or r14,r24	 ;  D.3347, *_4
-	ldd r30,Y+24	 ;  self_3(D)->buffer.PTR.addr3, self_3(D)->buffer.PTR.addr3
-	ldd r31,Y+25	 ;  self_3(D)->buffer.PTR.addr3, self_3(D)->buffer.PTR.addr3
+	mov r13,__zero_reg__	 ;  D.3358
+	mov r14,__zero_reg__	 ;  D.3358
+	mov r15,__zero_reg__	 ;  D.3358
+	mov r15,r14	 ;  D.3358, D.3358
+	mov r14,r13	 ;  D.3358, D.3358
+	mov r13,r12	 ;  D.3358, D.3358
+	clr r12	 ;  D.3358
+	or r14,r24	 ;  D.3358, *_4
+	ldd r30,Y+30	 ;  self_3(D)->buffer.PTR.addr3, self_3(D)->buffer.PTR.addr3
+	ldd r31,Y+31	 ;  self_3(D)->buffer.PTR.addr3, self_3(D)->buffer.PTR.addr3
 	ld r24,Z	 ;  *_13, *_13
 	or r12,r24	 ;  addr, *_13
 .LVL2:
 	.loc 1 122 0
-	movw r16,r28	 ;  D.3349, self
-	subi r16,-18	 ;  D.3349,
-	sbci r17,-1	 ;  D.3349,
-	ldd r30,Y+36	 ;  self_3(D)->buffer.getLength, self_3(D)->buffer.getLength
-	ldd r31,Y+37	 ;  self_3(D)->buffer.getLength, self_3(D)->buffer.getLength
-	movw r24,r16	 ; , D.3349
+	movw r16,r28	 ;  D.3360, self
+	subi r16,-24	 ;  D.3360,
+	sbci r17,-1	 ;  D.3360,
+	ldd r30,Y+42	 ;  self_3(D)->buffer.getLength, self_3(D)->buffer.getLength
+	ldd r31,Y+43	 ;  self_3(D)->buffer.getLength, self_3(D)->buffer.getLength
+	movw r24,r16	 ; , D.3360
 	icall
 .LVL3:
 	.loc 1 124 0
-	ldd r30,Y+18	 ;  self_3(D)->buffer.PTR.cmd, self_3(D)->buffer.PTR.cmd
-	ldd r31,Y+19	 ;  self_3(D)->buffer.PTR.cmd, self_3(D)->buffer.PTR.cmd
-	ld r25,Z	 ;  D.3346, *_21
-	cpi r25,lo8(19)	 ;  D.3346,
+	cpi r24,lo8(4)	 ;  bufferLen,
 	brne .L2	 ; ,
 	.loc 1 124 0 is_stmt 0 discriminator 1
-	cpi r24,lo8(4)	 ;  bufferLen,
-	brne .L3	 ; ,
+	ldd r30,Y+24	 ;  self_3(D)->buffer.PTR.cmd, self_3(D)->buffer.PTR.cmd
+	ldd r31,Y+25	 ;  self_3(D)->buffer.PTR.cmd, self_3(D)->buffer.PTR.cmd
+	ld r24,Z	 ;  *_21, *_21
+.LVL4:
+	tst r24	 ;  *_21
+	breq .L3	 ; ,
 .LBB11:
 	.loc 1 125 0 is_stmt 1
-	ldd r30,Y+42	 ;  self_3(D)->readByte, self_3(D)->readByte
-	ldd r31,Y+43	 ;  self_3(D)->readByte, self_3(D)->readByte
+	ldd r30,Y+48	 ;  self_3(D)->readByte, self_3(D)->readByte
+	ldd r31,Y+49	 ;  self_3(D)->readByte, self_3(D)->readByte
 	movw r22,r14	 ; , addr
 	movw r20,r12	 ; , addr
 	movw r24,r28	 ; , self
-.LVL4:
 	icall
 .LVL5:
 	.loc 1 126 0
@@ -163,32 +163,35 @@ processAndRespondBuffer:
 .LVL6:
 .L2:
 	.loc 1 127 0
-	cpi r25,lo8(18)	 ;  D.3346,
-	brne .L3	 ; ,
-	.loc 1 127 0 is_stmt 0 discriminator 1
 	cpi r24,lo8(5)	 ;  bufferLen,
 	brne .L3	 ; ,
+	.loc 1 127 0 is_stmt 0 discriminator 1
+	ldd r30,Y+24	 ;  self_3(D)->buffer.PTR.cmd, self_3(D)->buffer.PTR.cmd
+	ldd r31,Y+25	 ;  self_3(D)->buffer.PTR.cmd, self_3(D)->buffer.PTR.cmd
+	ld r24,Z	 ;  *_27, *_27
 .LVL7:
+	cpi r24,lo8(18)	 ;  *_27,
+	brne .L3	 ; ,
+.LVL8:
 .LBB12:
 	.loc 1 128 0 is_stmt 1
-	ldd r26,Y+26	 ;  self_3(D)->buffer.PTR.param1, self_3(D)->buffer.PTR.param1
-	ldd r27,Y+27	 ;  self_3(D)->buffer.PTR.param1, self_3(D)->buffer.PTR.param1
+	ldd r26,Y+32	 ;  self_3(D)->buffer.PTR.param1, self_3(D)->buffer.PTR.param1
+	ldd r27,Y+33	 ;  self_3(D)->buffer.PTR.param1, self_3(D)->buffer.PTR.param1
 	.loc 1 129 0
-	ldd r30,Y+44	 ;  self_3(D)->writeByte, self_3(D)->writeByte
-	ldd r31,Y+45	 ;  self_3(D)->writeByte, self_3(D)->writeByte
-	ld r18,X	 ; , *_27
+	ldd r30,Y+50	 ;  self_3(D)->writeByte, self_3(D)->writeByte
+	ldd r31,Y+51	 ;  self_3(D)->writeByte, self_3(D)->writeByte
+	ld r18,X	 ; , *_29
 	movw r22,r14	 ; , addr
 	movw r20,r12	 ; , addr
 	movw r24,r28	 ; , self
-.LVL8:
 	icall
 .LVL9:
 .L3:
 .LBE12:
 	.loc 1 132 0
-	ldd r30,Y+38	 ;  self_3(D)->buffer.reset, self_3(D)->buffer.reset
-	ldd r31,Y+39	 ;  self_3(D)->buffer.reset, self_3(D)->buffer.reset
-	movw r24,r16	 ; , D.3349
+	ldd r30,Y+44	 ;  self_3(D)->buffer.reset, self_3(D)->buffer.reset
+	ldd r31,Y+45	 ;  self_3(D)->buffer.reset, self_3(D)->buffer.reset
+	movw r24,r16	 ; , D.3360
 /* epilogue start */
 	.loc 1 133 0
 	pop r29	 ; 
@@ -223,27 +226,27 @@ writeToAddrPort:
 	.loc 1 29 0
 	movw r26,r24	 ; , self
 	adiw r26,14	 ;  self_2(D)->ADDR_PORT.P1
-	ld r30,X+	 ;  D.3355
-	ld r31,X	 ;  D.3355
+	ld r30,X+	 ;  D.3366
+	ld r31,X	 ;  D.3366
 	sbiw r26,14+1	 ;  self_2(D)->ADDR_PORT.P1
-	mov r18,r22	 ;  D.3356,
-	swap r18	 ;  D.3356
-	lsl r18	 ;  D.3356
-	andi r18,lo8(-32)	 ;  D.3356,
-	std Z+4,r18	 ;  _3->OUT, D.3356
+	mov r18,r22	 ;  D.3367,
+	swap r18	 ;  D.3367
+	lsl r18	 ;  D.3367
+	andi r18,lo8(-32)	 ;  D.3367,
+	std Z+4,r18	 ;  _3->OUT, D.3367
 	.loc 1 30 0
 	adiw r26,16	 ;  self_2(D)->ADDR_PORT.P2
-	ld r30,X+	 ;  D.3355
-	ld r31,X	 ;  D.3355
+	ld r30,X+	 ;  D.3366
+	ld r31,X	 ;  D.3366
 	sbiw r26,16+1	 ;  self_2(D)->ADDR_PORT.P2
 	ldi r24,3	 ; ,
 	1:
-	lsr r23	 ;  D.3357
-	ror r22	 ;  D.3357
+	lsr r23	 ;  D.3368
+	ror r22	 ;  D.3368
 	dec r24	 ; 
 	brne 1b
 .LVL15:
-	std Z+4,r22	 ;  _8->OUT, D.3357
+	std Z+4,r22	 ;  _8->OUT, D.3368
 	ret
 	.cfi_endproc
 .LFE6:
@@ -278,48 +281,48 @@ refreshRASonly:
 .L__stack_usage = 4
 	movw r28,r24	 ;  self, self
 	.loc 1 45 0
-	ldd r30,Y+2	 ;  D.3366, self_4(D)->RAS.PORT
-	ldd r31,Y+3	 ;  D.3366, self_4(D)->RAS.PORT
-	ldd r25,Z+4	 ;  D.3367, _5->OUT
+	ldd r30,Y+2	 ;  D.3377, self_4(D)->RAS.PORT
+	ldd r31,Y+3	 ;  D.3377, self_4(D)->RAS.PORT
+	ldd r25,Z+4	 ;  D.3378, _5->OUT
 	ldd r24,Y+4	 ;  self_4(D)->RAS.PIN, self_4(D)->RAS.PIN
 .LVL17:
-	or r24,r25	 ;  D.3367, D.3367
-	std Z+4,r24	 ;  _5->OUT, D.3367
+	or r24,r25	 ;  D.3378, D.3378
+	std Z+4,r24	 ;  _5->OUT, D.3378
 	.loc 1 46 0
-	ldd r30,Y+5	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3367, _10->OUT
+	ldd r30,Y+5	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3378, _10->OUT
 	ldd r24,Y+7	 ;  self_4(D)->CAS.PIN, self_4(D)->CAS.PIN
-	com r24	 ;  D.3368
-	and r24,r25	 ;  D.3367, D.3367
-	std Z+4,r24	 ;  _10->OUT, D.3367
+	com r24	 ;  D.3379
+	and r24,r25	 ;  D.3378, D.3378
+	std Z+4,r24	 ;  _10->OUT, D.3378
 .LVL18:
 .LBB13:
 	.loc 1 48 0
 	ldi r16,0	 ;  row
 	ldi r17,0	 ;  row
 .LVL19:
-.L7:
+.L10:
 	.loc 1 49 0 discriminator 3
-	ldd r30,Y+5	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3367, _19->OUT
+	ldd r30,Y+5	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3378, _19->OUT
 	ldd r24,Y+7	 ;  self_4(D)->CAS.PIN, self_4(D)->CAS.PIN
-	or r24,r25	 ;  D.3367, D.3367
-	std Z+4,r24	 ;  _19->OUT, D.3367
+	or r24,r25	 ;  D.3378, D.3378
+	std Z+4,r24	 ;  _19->OUT, D.3378
 	.loc 1 50 0 discriminator 3
 	movw r22,r16	 ; , row
 	movw r24,r28	 ; , self
 	rcall writeToAddrPort	 ; 
 .LVL20:
 	.loc 1 51 0 discriminator 3
-	ldd r30,Y+2	 ;  D.3366, self_4(D)->RAS.PORT
-	ldd r31,Y+3	 ;  D.3366, self_4(D)->RAS.PORT
-	ldd r25,Z+4	 ;  D.3367, _25->OUT
+	ldd r30,Y+2	 ;  D.3377, self_4(D)->RAS.PORT
+	ldd r31,Y+3	 ;  D.3377, self_4(D)->RAS.PORT
+	ldd r25,Z+4	 ;  D.3378, _25->OUT
 	ldd r24,Y+4	 ;  self_4(D)->RAS.PIN, self_4(D)->RAS.PIN
-	com r24	 ;  D.3368
-	and r24,r25	 ;  D.3367, D.3367
-	std Z+4,r24	 ;  _25->OUT, D.3367
+	com r24	 ;  D.3379
+	and r24,r25	 ;  D.3378, D.3378
+	std Z+4,r24	 ;  _25->OUT, D.3378
 .LVL21:
 .LBB14:
 .LBB15:
@@ -333,12 +336,12 @@ refreshRASonly:
 .LBE15:
 .LBE14:
 	.loc 1 55 0 discriminator 3
-	ldd r30,Y+2	 ;  D.3366, self_4(D)->RAS.PORT
-	ldd r31,Y+3	 ;  D.3366, self_4(D)->RAS.PORT
-	ldd r25,Z+4	 ;  D.3367, _35->OUT
+	ldd r30,Y+2	 ;  D.3377, self_4(D)->RAS.PORT
+	ldd r31,Y+3	 ;  D.3377, self_4(D)->RAS.PORT
+	ldd r25,Z+4	 ;  D.3378, _35->OUT
 	ldd r24,Y+4	 ;  self_4(D)->RAS.PIN, self_4(D)->RAS.PIN
-	or r24,r25	 ;  D.3367, D.3367
-	std Z+4,r24	 ;  _35->OUT, D.3367
+	or r24,r25	 ;  D.3378, D.3378
+	std Z+4,r24	 ;  _35->OUT, D.3378
 .LVL23:
 .LBB16:
 .LBB17:
@@ -351,20 +354,20 @@ refreshRASonly:
 .LBE17:
 .LBE16:
 	.loc 1 58 0 discriminator 3
-	ldd r30,Y+5	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3367, _40->OUT
+	ldd r30,Y+5	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3378, _40->OUT
 	ldd r24,Y+7	 ;  self_4(D)->CAS.PIN, self_4(D)->CAS.PIN
-	com r24	 ;  D.3368
-	and r24,r25	 ;  D.3367, D.3367
-	std Z+4,r24	 ;  _40->OUT, D.3367
+	com r24	 ;  D.3379
+	and r24,r25	 ;  D.3378, D.3378
+	std Z+4,r24	 ;  _40->OUT, D.3378
 	.loc 1 59 0 discriminator 3
-	ldd r30,Y+5	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3367, _49->OUT
+	ldd r30,Y+5	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3378, _49->OUT
 	ldd r24,Y+7	 ;  self_4(D)->CAS.PIN, self_4(D)->CAS.PIN
-	or r24,r25	 ;  D.3367, D.3367
-	std Z+4,r24	 ;  _49->OUT, D.3367
+	or r24,r25	 ;  D.3378, D.3378
+	std Z+4,r24	 ;  _49->OUT, D.3378
 .LVL25:
 .LBB18:
 .LBB19:
@@ -377,13 +380,13 @@ refreshRASonly:
 .LBE19:
 .LBE18:
 	.loc 1 62 0 discriminator 3
-	ldd r30,Y+5	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3366, self_4(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3367, _54->OUT
+	ldd r30,Y+5	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3377, self_4(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3378, _54->OUT
 	ldd r24,Y+7	 ;  self_4(D)->CAS.PIN, self_4(D)->CAS.PIN
-	com r24	 ;  D.3368
-	and r24,r25	 ;  D.3367, D.3367
-	std Z+4,r24	 ;  _54->OUT, D.3367
+	com r24	 ;  D.3379
+	and r24,r25	 ;  D.3378, D.3378
+	std Z+4,r24	 ;  _54->OUT, D.3378
 	.loc 1 48 0 discriminator 3
 	subi r16,-1	 ;  row,
 	sbci r17,-1	 ;  row,
@@ -391,7 +394,7 @@ refreshRASonly:
 	cp r16,__zero_reg__	 ;  row
 	ldi r24,2	 ; ,
 	cpc r17,r24	 ;  row,
-	brne .L7	 ; ,
+	brne .L10	 ; ,
 /* epilogue start */
 .LBE13:
 	.loc 1 64 0
@@ -446,50 +449,50 @@ readByte:
 	movw r14,r22	 ;  addr, addr
 .LVL31:
 	.loc 1 69 0
-	ld r30,Y	 ;  D.3373, self_8(D)->DATA_PORT
-	ldd r31,Y+1	 ;  D.3373, self_8(D)->DATA_PORT
+	ld r30,Y	 ;  D.3384, self_8(D)->DATA_PORT
+	ldd r31,Y+1	 ;  D.3384, self_8(D)->DATA_PORT
 	st Z,__zero_reg__	 ;  _9->DIR,
 	.loc 1 71 0
-	ldd r30,Y+5	 ;  D.3373, self_8(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3373, self_8(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3374, _11->OUT
+	ldd r30,Y+5	 ;  D.3384, self_8(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3384, self_8(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3385, _11->OUT
 	ldd r24,Y+7	 ;  self_8(D)->CAS.PIN, self_8(D)->CAS.PIN
 .LVL32:
-	or r24,r25	 ;  D.3374, D.3374
-	std Z+4,r24	 ;  _11->OUT, D.3374
+	or r24,r25	 ;  D.3385, D.3385
+	std Z+4,r24	 ;  _11->OUT, D.3385
 	.loc 1 72 0
-	movw r26,r22	 ;  D.3371, addr
-	movw r24,r20	 ;  D.3371, addr
-	andi r26,3	 ;  D.3371,
-	clr r27	 ;  D.3371
-	movw r22,r24	 ;  D.3371, D.3371
-	movw r24,r26	 ;  D.3371, D.3371
+	movw r26,r22	 ;  D.3382, addr
+	movw r24,r20	 ;  D.3382, addr
+	andi r26,3	 ;  D.3382,
+	clr r27	 ;  D.3382
+	movw r22,r24	 ;  D.3382, D.3382
+	movw r24,r26	 ;  D.3382, D.3382
 	ldi r18,9	 ; ,
 	1:
-	lsr r25	 ;  D.3371
-	ror r24	 ;  D.3371
-	ror r23	 ;  D.3371
-	ror r22	 ;  D.3371
+	lsr r25	 ;  D.3382
+	ror r24	 ;  D.3382
+	ror r23	 ;  D.3382
+	ror r22	 ;  D.3382
 	dec r18	 ; 
 	brne 1b
 	movw r24,r28	 ; , self
 	rcall writeToAddrPort	 ; 
 .LVL33:
 	.loc 1 74 0
-	ldd r30,Y+2	 ;  D.3373, self_8(D)->RAS.PORT
-	ldd r31,Y+3	 ;  D.3373, self_8(D)->RAS.PORT
-	ldd r25,Z+4	 ;  D.3374, _17->OUT
+	ldd r30,Y+2	 ;  D.3384, self_8(D)->RAS.PORT
+	ldd r31,Y+3	 ;  D.3384, self_8(D)->RAS.PORT
+	ldd r25,Z+4	 ;  D.3385, _17->OUT
 	ldd r24,Y+4	 ;  self_8(D)->RAS.PIN, self_8(D)->RAS.PIN
-	com r24	 ;  D.3375
-	and r24,r25	 ;  D.3374, D.3374
-	std Z+4,r24	 ;  _17->OUT, D.3374
+	com r24	 ;  D.3386
+	and r24,r25	 ;  D.3385, D.3385
+	std Z+4,r24	 ;  _17->OUT, D.3385
 	.loc 1 76 0
-	ldd r30,Y+11	 ;  D.3373, self_8(D)->W.PORT
-	ldd r31,Y+12	 ;  D.3373, self_8(D)->W.PORT
-	ldd r25,Z+4	 ;  D.3374, _26->OUT
+	ldd r30,Y+11	 ;  D.3384, self_8(D)->W.PORT
+	ldd r31,Y+12	 ;  D.3384, self_8(D)->W.PORT
+	ldd r25,Z+4	 ;  D.3385, _26->OUT
 	ldd r24,Y+13	 ;  self_8(D)->W.PIN, self_8(D)->W.PIN
-	or r24,r25	 ;  D.3374, D.3374
-	std Z+4,r24	 ;  _26->OUT, D.3374
+	or r24,r25	 ;  D.3385, D.3385
+	std Z+4,r24	 ;  _26->OUT, D.3385
 	.loc 1 77 0
 	movw r22,r12	 ;  colAddr,
 	andi r23,1	 ;  colAddr,
@@ -497,43 +500,43 @@ readByte:
 	rcall writeToAddrPort	 ; 
 .LVL34:
 	.loc 1 78 0
-	ldd r30,Y+5	 ;  D.3373, self_8(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3373, self_8(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3374, _32->OUT
+	ldd r30,Y+5	 ;  D.3384, self_8(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3384, self_8(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3385, _32->OUT
 	ldd r24,Y+7	 ;  self_8(D)->CAS.PIN, self_8(D)->CAS.PIN
-	com r24	 ;  D.3375
-	and r24,r25	 ;  D.3374, D.3374
-	std Z+4,r24	 ;  _32->OUT, D.3374
+	com r24	 ;  D.3386
+	and r24,r25	 ;  D.3385, D.3385
+	std Z+4,r24	 ;  _32->OUT, D.3385
 	.loc 1 80 0
-	ldd r30,Y+8	 ;  D.3373, self_8(D)->OE.PORT
-	ldd r31,Y+9	 ;  D.3373, self_8(D)->OE.PORT
-	ldd r25,Z+4	 ;  D.3374, _41->OUT
+	ldd r30,Y+8	 ;  D.3384, self_8(D)->OE.PORT
+	ldd r31,Y+9	 ;  D.3384, self_8(D)->OE.PORT
+	ldd r25,Z+4	 ;  D.3385, _41->OUT
 	ldd r24,Y+10	 ;  self_8(D)->OE.PIN, self_8(D)->OE.PIN
-	com r24	 ;  D.3375
-	and r24,r25	 ;  D.3374, D.3374
-	std Z+4,r24	 ;  _41->OUT, D.3374
+	com r24	 ;  D.3386
+	and r24,r25	 ;  D.3385, D.3385
+	std Z+4,r24	 ;  _41->OUT, D.3385
 	.loc 1 82 0
-	ld r30,Y	 ;  D.3373, self_8(D)->DATA_PORT
-	ldd r31,Y+1	 ;  D.3373, self_8(D)->DATA_PORT
+	ld r30,Y	 ;  D.3384, self_8(D)->DATA_PORT
+	ldd r31,Y+1	 ;  D.3384, self_8(D)->DATA_PORT
 	ldd r24,Z+8	 ;  validDataOut, _50->IN
 .LVL35:
 	.loc 1 84 0
-	ldd r30,Y+5	 ;  D.3373, self_8(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3373, self_8(D)->CAS.PORT
-	ldd r18,Z+4	 ;  D.3374, _52->OUT
+	ldd r30,Y+5	 ;  D.3384, self_8(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3384, self_8(D)->CAS.PORT
+	ldd r18,Z+4	 ;  D.3385, _52->OUT
 	ldd r25,Y+7	 ;  self_8(D)->CAS.PIN, self_8(D)->CAS.PIN
-	or r25,r18	 ;  D.3374, D.3374
-	std Z+4,r25	 ;  _52->OUT, D.3374
+	or r25,r18	 ;  D.3385, D.3385
+	std Z+4,r25	 ;  _52->OUT, D.3385
 	.loc 1 85 0
-	ldd r30,Y+2	 ;  D.3373, self_8(D)->RAS.PORT
-	ldd r31,Y+3	 ;  D.3373, self_8(D)->RAS.PORT
-	ldd r18,Z+4	 ;  D.3374, _57->OUT
+	ldd r30,Y+2	 ;  D.3384, self_8(D)->RAS.PORT
+	ldd r31,Y+3	 ;  D.3384, self_8(D)->RAS.PORT
+	ldd r18,Z+4	 ;  D.3385, _57->OUT
 	ldd r25,Y+4	 ;  self_8(D)->RAS.PIN, self_8(D)->RAS.PIN
-	or r25,r18	 ;  D.3374, D.3374
-	std Z+4,r25	 ;  _57->OUT, D.3374
+	or r25,r18	 ;  D.3385, D.3385
+	std Z+4,r25	 ;  _57->OUT, D.3385
 	.loc 1 87 0
-	ld r30,Y	 ;  D.3373, self_8(D)->DATA_PORT
-	ldd r31,Y+1	 ;  D.3373, self_8(D)->DATA_PORT
+	ld r30,Y	 ;  D.3384, self_8(D)->DATA_PORT
+	ldd r31,Y+1	 ;  D.3384, self_8(D)->DATA_PORT
 	ldi r25,lo8(-1)	 ;  tmp107,
 	st Z,r25	 ;  _62->DIR, tmp107
 /* epilogue start */
@@ -596,38 +599,38 @@ writeByte:
 	mov r17,r18	 ;  data, data
 .LVL39:
 	.loc 1 95 0
-	ld r30,Y	 ;  D.3380, self_8(D)->DATA_PORT
-	ldd r31,Y+1	 ;  D.3380, self_8(D)->DATA_PORT
+	ld r30,Y	 ;  D.3391, self_8(D)->DATA_PORT
+	ldd r31,Y+1	 ;  D.3391, self_8(D)->DATA_PORT
 	ldi r24,lo8(-1)	 ;  tmp119,
 .LVL40:
 	st Z,r24	 ;  _9->DIR, tmp119
 	.loc 1 96 0
-	ldd r30,Y+2	 ;  D.3380, self_8(D)->RAS.PORT
-	ldd r31,Y+3	 ;  D.3380, self_8(D)->RAS.PORT
-	ldd r25,Z+4	 ;  D.3381, _11->OUT
+	ldd r30,Y+2	 ;  D.3391, self_8(D)->RAS.PORT
+	ldd r31,Y+3	 ;  D.3391, self_8(D)->RAS.PORT
+	ldd r25,Z+4	 ;  D.3392, _11->OUT
 	ldd r24,Y+4	 ;  self_8(D)->RAS.PIN, self_8(D)->RAS.PIN
-	or r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _11->OUT, D.3381
+	or r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _11->OUT, D.3392
 	.loc 1 98 0
-	ldd r30,Y+5	 ;  D.3380, self_8(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3380, self_8(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3381, _16->OUT
+	ldd r30,Y+5	 ;  D.3391, self_8(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3391, self_8(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3392, _16->OUT
 	ldd r24,Y+7	 ;  self_8(D)->CAS.PIN, self_8(D)->CAS.PIN
-	or r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _16->OUT, D.3381
+	or r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _16->OUT, D.3392
 	.loc 1 99 0
-	movw r26,r22	 ;  D.3378, addr
-	movw r24,r20	 ;  D.3378, addr
-	andi r26,3	 ;  D.3378,
-	clr r27	 ;  D.3378
-	movw r22,r24	 ;  D.3378, D.3378
-	movw r24,r26	 ;  D.3378, D.3378
+	movw r26,r22	 ;  D.3389, addr
+	movw r24,r20	 ;  D.3389, addr
+	andi r26,3	 ;  D.3389,
+	clr r27	 ;  D.3389
+	movw r22,r24	 ;  D.3389, D.3389
+	movw r24,r26	 ;  D.3389, D.3389
 	ldi r18,9	 ; ,
 	1:
-	lsr r25	 ;  D.3378
-	ror r24	 ;  D.3378
-	ror r23	 ;  D.3378
-	ror r22	 ;  D.3378
+	lsr r25	 ;  D.3389
+	ror r24	 ;  D.3389
+	ror r23	 ;  D.3389
+	ror r22	 ;  D.3389
 	dec r18	 ; 
 	brne 1b
 .LVL41:
@@ -635,20 +638,20 @@ writeByte:
 	rcall writeToAddrPort	 ; 
 .LVL42:
 	.loc 1 100 0
-	ldd r30,Y+2	 ;  D.3380, self_8(D)->RAS.PORT
-	ldd r31,Y+3	 ;  D.3380, self_8(D)->RAS.PORT
-	ldd r25,Z+4	 ;  D.3381, _22->OUT
+	ldd r30,Y+2	 ;  D.3391, self_8(D)->RAS.PORT
+	ldd r31,Y+3	 ;  D.3391, self_8(D)->RAS.PORT
+	ldd r25,Z+4	 ;  D.3392, _22->OUT
 	ldd r24,Y+4	 ;  self_8(D)->RAS.PIN, self_8(D)->RAS.PIN
-	com r24	 ;  D.3382
-	and r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _22->OUT, D.3381
+	com r24	 ;  D.3393
+	and r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _22->OUT, D.3392
 	.loc 1 102 0
-	ldd r30,Y+8	 ;  D.3380, self_8(D)->OE.PORT
-	ldd r31,Y+9	 ;  D.3380, self_8(D)->OE.PORT
-	ldd r25,Z+4	 ;  D.3381, _31->OUT
+	ldd r30,Y+8	 ;  D.3391, self_8(D)->OE.PORT
+	ldd r31,Y+9	 ;  D.3391, self_8(D)->OE.PORT
+	ldd r25,Z+4	 ;  D.3392, _31->OUT
 	ldd r24,Y+10	 ;  self_8(D)->OE.PIN, self_8(D)->OE.PIN
-	or r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _31->OUT, D.3381
+	or r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _31->OUT, D.3392
 	.loc 1 103 0
 	movw r22,r12	 ;  colAddr,
 	andi r23,1	 ;  colAddr,
@@ -656,76 +659,76 @@ writeByte:
 	rcall writeToAddrPort	 ; 
 .LVL43:
 	.loc 1 104 0
-	ldd r30,Y+5	 ;  D.3380, self_8(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3380, self_8(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3381, _37->OUT
+	ldd r30,Y+5	 ;  D.3391, self_8(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3391, self_8(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3392, _37->OUT
 	ldd r24,Y+7	 ;  self_8(D)->CAS.PIN, self_8(D)->CAS.PIN
-	com r24	 ;  D.3382
-	and r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _37->OUT, D.3381
+	com r24	 ;  D.3393
+	and r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _37->OUT, D.3392
 	.loc 1 105 0
-	ld r30,Y	 ;  D.3380, self_8(D)->DATA_PORT
-	ldd r31,Y+1	 ;  D.3380, self_8(D)->DATA_PORT
+	ld r30,Y	 ;  D.3391, self_8(D)->DATA_PORT
+	ldd r31,Y+1	 ;  D.3391, self_8(D)->DATA_PORT
 	std Z+4,r17	 ;  _46->OUT, data
 	.loc 1 106 0
-	ldd r30,Y+11	 ;  D.3380, self_8(D)->W.PORT
-	ldd r31,Y+12	 ;  D.3380, self_8(D)->W.PORT
-	ldd r25,Z+4	 ;  D.3381, _49->OUT
+	ldd r30,Y+11	 ;  D.3391, self_8(D)->W.PORT
+	ldd r31,Y+12	 ;  D.3391, self_8(D)->W.PORT
+	ldd r25,Z+4	 ;  D.3392, _49->OUT
 	ldd r24,Y+13	 ;  self_8(D)->W.PIN, self_8(D)->W.PIN
-	com r24	 ;  D.3382
-	and r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _49->OUT, D.3381
+	com r24	 ;  D.3393
+	and r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _49->OUT, D.3392
 	.loc 1 108 0
-	ldd r30,Y+8	 ;  D.3380, self_8(D)->OE.PORT
-	ldd r31,Y+9	 ;  D.3380, self_8(D)->OE.PORT
-	ldd r25,Z+4	 ;  D.3381, _58->OUT
+	ldd r30,Y+8	 ;  D.3391, self_8(D)->OE.PORT
+	ldd r31,Y+9	 ;  D.3391, self_8(D)->OE.PORT
+	ldd r25,Z+4	 ;  D.3392, _58->OUT
 	ldd r24,Y+10	 ;  self_8(D)->OE.PIN, self_8(D)->OE.PIN
-	com r24	 ;  D.3382
-	and r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _58->OUT, D.3381
+	com r24	 ;  D.3393
+	and r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _58->OUT, D.3392
 	.loc 1 110 0
-	ldd r30,Y+5	 ;  D.3380, self_8(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3380, self_8(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3381, _67->OUT
+	ldd r30,Y+5	 ;  D.3391, self_8(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3391, self_8(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3392, _67->OUT
 	ldd r24,Y+7	 ;  self_8(D)->CAS.PIN, self_8(D)->CAS.PIN
-	or r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _67->OUT, D.3381
+	or r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _67->OUT, D.3392
 	.loc 1 111 0
-	ldd r30,Y+2	 ;  D.3380, self_8(D)->RAS.PORT
-	ldd r31,Y+3	 ;  D.3380, self_8(D)->RAS.PORT
-	ldd r25,Z+4	 ;  D.3381, _72->OUT
+	ldd r30,Y+2	 ;  D.3391, self_8(D)->RAS.PORT
+	ldd r31,Y+3	 ;  D.3391, self_8(D)->RAS.PORT
+	ldd r25,Z+4	 ;  D.3392, _72->OUT
 	ldd r24,Y+4	 ;  self_8(D)->RAS.PIN, self_8(D)->RAS.PIN
-	or r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _72->OUT, D.3381
+	or r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _72->OUT, D.3392
 	.loc 1 113 0
-	ldd r30,Y+5	 ;  D.3380, self_8(D)->CAS.PORT
-	ldd r31,Y+6	 ;  D.3380, self_8(D)->CAS.PORT
-	ldd r25,Z+4	 ;  D.3381, _77->OUT
+	ldd r30,Y+5	 ;  D.3391, self_8(D)->CAS.PORT
+	ldd r31,Y+6	 ;  D.3391, self_8(D)->CAS.PORT
+	ldd r25,Z+4	 ;  D.3392, _77->OUT
 	ldd r24,Y+7	 ;  self_8(D)->CAS.PIN, self_8(D)->CAS.PIN
-	com r24	 ;  D.3382
-	and r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _77->OUT, D.3381
+	com r24	 ;  D.3393
+	and r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _77->OUT, D.3392
 	.loc 1 114 0
-	ldd r30,Y+11	 ;  D.3380, self_8(D)->W.PORT
-	ldd r31,Y+12	 ;  D.3380, self_8(D)->W.PORT
-	ldd r25,Z+4	 ;  D.3381, _86->OUT
+	ldd r30,Y+11	 ;  D.3391, self_8(D)->W.PORT
+	ldd r31,Y+12	 ;  D.3391, self_8(D)->W.PORT
+	ldd r25,Z+4	 ;  D.3392, _86->OUT
 	ldd r24,Y+13	 ;  self_8(D)->W.PIN, self_8(D)->W.PIN
-	or r24,r25	 ;  D.3381, D.3381
-	std Z+4,r24	 ;  _86->OUT, D.3381
+	or r24,r25	 ;  D.3392, D.3392
+	std Z+4,r24	 ;  _86->OUT, D.3392
 	.loc 1 116 0
-	ld r30,Y	 ;  D.3380, self_8(D)->DATA_PORT
-	ldd r31,Y+1	 ;  D.3380, self_8(D)->DATA_PORT
+	ld r30,Y	 ;  D.3391, self_8(D)->DATA_PORT
+	ldd r31,Y+1	 ;  D.3391, self_8(D)->DATA_PORT
 	std Z+4,__zero_reg__	 ;  _91->OUT,
 .LVL44:
 .LBB20:
 .LBB21:
 	.loc 1 29 0
-	ldd r30,Y+14	 ;  D.3380, self_8(D)->ADDR_PORT.P1
-	ldd r31,Y+15	 ;  D.3380, self_8(D)->ADDR_PORT.P1
+	ldd r30,Y+14	 ;  D.3391, self_8(D)->ADDR_PORT.P1
+	ldd r31,Y+15	 ;  D.3391, self_8(D)->ADDR_PORT.P1
 	std Z+4,__zero_reg__	 ;  _94->OUT,
 	.loc 1 30 0
-	ldd r30,Y+16	 ;  D.3380, self_8(D)->ADDR_PORT.P2
-	ldd r31,Y+17	 ;  D.3380, self_8(D)->ADDR_PORT.P2
+	ldd r30,Y+16	 ;  D.3391, self_8(D)->ADDR_PORT.P2
+	ldd r31,Y+17	 ;  D.3391, self_8(D)->ADDR_PORT.P2
 	std Z+4,__zero_reg__	 ;  _95->OUT,
 .LVL45:
 /* epilogue start */
@@ -760,76 +763,76 @@ resetPins:
 .L__stack_usage = 0
 	movw r30,r24	 ;  self, self
 	.loc 1 34 0
-	ldd r26,Z+2	 ;  D.3385, self_2(D)->RAS.PORT
-	ldd r27,Z+3	 ;  D.3385, self_2(D)->RAS.PORT
-	ld r25,X	 ;  D.3386, _3->DIR
+	ldd r26,Z+2	 ;  D.3396, self_2(D)->RAS.PORT
+	ldd r27,Z+3	 ;  D.3396, self_2(D)->RAS.PORT
+	ld r25,X	 ;  D.3397, _3->DIR
 	ldd r24,Z+4	 ;  self_2(D)->RAS.PIN, self_2(D)->RAS.PIN
 .LVL50:
-	or r24,r25	 ;  D.3386, D.3386
-	st X,r24	 ;  _3->DIR, D.3386
+	or r24,r25	 ;  D.3397, D.3397
+	st X,r24	 ;  _3->DIR, D.3397
 	.loc 1 35 0
-	ldd r26,Z+2	 ;  D.3385, self_2(D)->RAS.PORT
-	ldd r27,Z+3	 ;  D.3385, self_2(D)->RAS.PORT
+	ldd r26,Z+2	 ;  D.3396, self_2(D)->RAS.PORT
+	ldd r27,Z+3	 ;  D.3396, self_2(D)->RAS.PORT
 	adiw r26,4	 ;  _8->OUT
-	ld r25,X	 ;  D.3386
+	ld r25,X	 ;  D.3397
 	sbiw r26,4	 ;  _8->OUT
 	ldd r24,Z+4	 ;  self_2(D)->RAS.PIN, self_2(D)->RAS.PIN
-	or r24,r25	 ;  D.3386, D.3386
+	or r24,r25	 ;  D.3397, D.3397
 	adiw r26,4	 ;  _8->OUT
-	st X,r24	 ;  D.3386
+	st X,r24	 ;  D.3397
 	.loc 1 36 0
-	ldd r26,Z+5	 ;  D.3385, self_2(D)->CAS.PORT
-	ldd r27,Z+6	 ;  D.3385, self_2(D)->CAS.PORT
-	ld r25,X	 ;  D.3386, _13->DIR
+	ldd r26,Z+5	 ;  D.3396, self_2(D)->CAS.PORT
+	ldd r27,Z+6	 ;  D.3396, self_2(D)->CAS.PORT
+	ld r25,X	 ;  D.3397, _13->DIR
 	ldd r24,Z+7	 ;  self_2(D)->CAS.PIN, self_2(D)->CAS.PIN
-	or r24,r25	 ;  D.3386, D.3386
-	st X,r24	 ;  _13->DIR, D.3386
+	or r24,r25	 ;  D.3397, D.3397
+	st X,r24	 ;  _13->DIR, D.3397
 	.loc 1 37 0
-	ldd r26,Z+5	 ;  D.3385, self_2(D)->CAS.PORT
-	ldd r27,Z+6	 ;  D.3385, self_2(D)->CAS.PORT
+	ldd r26,Z+5	 ;  D.3396, self_2(D)->CAS.PORT
+	ldd r27,Z+6	 ;  D.3396, self_2(D)->CAS.PORT
 	adiw r26,4	 ;  _18->OUT
-	ld r25,X	 ;  D.3386
+	ld r25,X	 ;  D.3397
 	sbiw r26,4	 ;  _18->OUT
 	ldd r24,Z+7	 ;  self_2(D)->CAS.PIN, self_2(D)->CAS.PIN
-	com r24	 ;  D.3387
-	and r24,r25	 ;  D.3386, D.3386
+	com r24	 ;  D.3398
+	and r24,r25	 ;  D.3397, D.3397
 	adiw r26,4	 ;  _18->OUT
-	st X,r24	 ;  D.3386
+	st X,r24	 ;  D.3397
 	.loc 1 38 0
-	ldd r26,Z+8	 ;  D.3385, self_2(D)->OE.PORT
-	ldd r27,Z+9	 ;  D.3385, self_2(D)->OE.PORT
-	ld r25,X	 ;  D.3386, _27->DIR
+	ldd r26,Z+8	 ;  D.3396, self_2(D)->OE.PORT
+	ldd r27,Z+9	 ;  D.3396, self_2(D)->OE.PORT
+	ld r25,X	 ;  D.3397, _27->DIR
 	ldd r24,Z+10	 ;  self_2(D)->OE.PIN, self_2(D)->OE.PIN
-	or r24,r25	 ;  D.3386, D.3386
-	st X,r24	 ;  _27->DIR, D.3386
+	or r24,r25	 ;  D.3397, D.3397
+	st X,r24	 ;  _27->DIR, D.3397
 	.loc 1 39 0
-	ldd r26,Z+8	 ;  D.3385, self_2(D)->OE.PORT
-	ldd r27,Z+9	 ;  D.3385, self_2(D)->OE.PORT
+	ldd r26,Z+8	 ;  D.3396, self_2(D)->OE.PORT
+	ldd r27,Z+9	 ;  D.3396, self_2(D)->OE.PORT
 	adiw r26,4	 ;  _32->OUT
-	ld r25,X	 ;  D.3386
+	ld r25,X	 ;  D.3397
 	sbiw r26,4	 ;  _32->OUT
 	ldd r24,Z+10	 ;  self_2(D)->OE.PIN, self_2(D)->OE.PIN
-	com r24	 ;  D.3387
-	and r24,r25	 ;  D.3386, D.3386
+	com r24	 ;  D.3398
+	and r24,r25	 ;  D.3397, D.3397
 	adiw r26,4	 ;  _32->OUT
-	st X,r24	 ;  D.3386
+	st X,r24	 ;  D.3397
 	.loc 1 40 0
-	ldd r26,Z+11	 ;  D.3385, self_2(D)->W.PORT
-	ldd r27,Z+12	 ;  D.3385, self_2(D)->W.PORT
-	ld r25,X	 ;  D.3386, _41->DIR
+	ldd r26,Z+11	 ;  D.3396, self_2(D)->W.PORT
+	ldd r27,Z+12	 ;  D.3396, self_2(D)->W.PORT
+	ld r25,X	 ;  D.3397, _41->DIR
 	ldd r24,Z+13	 ;  self_2(D)->W.PIN, self_2(D)->W.PIN
-	or r24,r25	 ;  D.3386, D.3386
-	st X,r24	 ;  _41->DIR, D.3386
+	or r24,r25	 ;  D.3397, D.3397
+	st X,r24	 ;  _41->DIR, D.3397
 	.loc 1 41 0
-	ldd r26,Z+11	 ;  D.3385, self_2(D)->W.PORT
-	ldd r27,Z+12	 ;  D.3385, self_2(D)->W.PORT
+	ldd r26,Z+11	 ;  D.3396, self_2(D)->W.PORT
+	ldd r27,Z+12	 ;  D.3396, self_2(D)->W.PORT
 	adiw r26,4	 ;  _46->OUT
-	ld r25,X	 ;  D.3386
+	ld r25,X	 ;  D.3397
 	sbiw r26,4	 ;  _46->OUT
 	ldd r24,Z+13	 ;  self_2(D)->W.PIN, self_2(D)->W.PIN
-	or r24,r25	 ;  D.3386, D.3386
+	or r24,r25	 ;  D.3397, D.3397
 	adiw r26,4	 ;  _46->OUT
-	st X,r24	 ;  D.3386
+	st X,r24	 ;  D.3397
 	ret
 	.cfi_endproc
 .LFE7:
@@ -848,79 +851,96 @@ initDRAMHandler:
 .L__stack_usage = 0
 	movw r30,r24	 ;  self, self
 	.loc 1 136 0
-	ldi r24,lo8(gs(readByte))	 ;  tmp44,
+	ldi r24,lo8(gs(readByte))	 ;  tmp46,
 	ldi r25,hi8(gs(readByte))	 ; ,
 .LVL52:
-	std Z+42,r24	 ;  self_2(D)->readByte, tmp44
-	std Z+43,r25	 ;  self_2(D)->readByte, tmp44
+	std Z+48,r24	 ;  self_2(D)->readByte, tmp46
+	std Z+49,r25	 ;  self_2(D)->readByte, tmp46
 	.loc 1 137 0
-	ldi r24,lo8(gs(writeByte))	 ;  tmp45,
+	ldi r24,lo8(gs(writeByte))	 ;  tmp47,
 	ldi r25,hi8(gs(writeByte))	 ; ,
-	std Z+44,r24	 ;  self_2(D)->writeByte, tmp45
-	std Z+45,r25	 ;  self_2(D)->writeByte, tmp45
+	std Z+50,r24	 ;  self_2(D)->writeByte, tmp47
+	std Z+51,r25	 ;  self_2(D)->writeByte, tmp47
 	.loc 1 138 0
-	ldi r24,lo8(gs(refreshRASonly))	 ;  tmp46,
+	ldi r24,lo8(gs(refreshRASonly))	 ;  tmp48,
 	ldi r25,hi8(gs(refreshRASonly))	 ; ,
-	std Z+46,r24	 ;  self_2(D)->refreshRASonly, tmp46
-	std Z+47,r25	 ;  self_2(D)->refreshRASonly, tmp46
+	std Z+52,r24	 ;  self_2(D)->refreshRASonly, tmp48
+	std Z+53,r25	 ;  self_2(D)->refreshRASonly, tmp48
 	.loc 1 139 0
-	ldi r24,lo8(gs(processAndRespondBuffer))	 ;  tmp47,
+	ldi r24,lo8(gs(processAndRespondBuffer))	 ;  tmp49,
 	ldi r25,hi8(gs(processAndRespondBuffer))	 ; ,
-	std Z+48,r24	 ;  self_2(D)->processAndRespondBuffer, tmp47
-	std Z+49,r25	 ;  self_2(D)->processAndRespondBuffer, tmp47
+	std Z+54,r24	 ;  self_2(D)->processAndRespondBuffer, tmp49
+	std Z+55,r25	 ;  self_2(D)->processAndRespondBuffer, tmp49
 	.loc 1 141 0
-	std Z+40,__zero_reg__	 ;  self_2(D)->hasPendingRefresh,
+	std Z+46,__zero_reg__	 ;  self_2(D)->hasPendingRefresh,
 	.loc 1 142 0
-	std Z+41,__zero_reg__	 ;  self_2(D)->hasPendingBufferUpdate,
+	std Z+47,__zero_reg__	 ;  self_2(D)->hasPendingBufferUpdate,
 	.loc 1 144 0
-	ldi r24,lo8(96)	 ;  tmp48,
+	ldi r24,lo8(96)	 ;  tmp50,
 	ldi r25,lo8(4)	 ; ,
-	st Z,r24	 ;  self_2(D)->DATA_PORT, tmp48
-	std Z+1,r25	 ;  self_2(D)->DATA_PORT, tmp48
+	st Z,r24	 ;  self_2(D)->DATA_PORT, tmp50
+	std Z+1,r25	 ;  self_2(D)->DATA_PORT, tmp50
 	.loc 1 146 0
-	ldi r24,lo8(-128)	 ;  tmp49,
+	ldi r24,lo8(-128)	 ;  tmp51,
 	ldi r25,lo8(4)	 ; ,
-	std Z+2,r24	 ;  self_2(D)->RAS.PORT, tmp49
-	std Z+3,r25	 ;  self_2(D)->RAS.PORT, tmp49
+	std Z+2,r24	 ;  self_2(D)->RAS.PORT, tmp51
+	std Z+3,r25	 ;  self_2(D)->RAS.PORT, tmp51
 	.loc 1 147 0
-	ldi r18,lo8(1)	 ;  tmp50,
-	std Z+4,r18	 ;  self_2(D)->RAS.PIN, tmp50
+	ldi r20,lo8(1)	 ;  tmp52,
+	std Z+4,r20	 ;  self_2(D)->RAS.PIN, tmp52
 	.loc 1 149 0
-	std Z+5,r24	 ;  self_2(D)->CAS.PORT, tmp49
-	std Z+6,r25	 ;  self_2(D)->CAS.PORT, tmp49
+	std Z+5,r24	 ;  self_2(D)->CAS.PORT, tmp51
+	std Z+6,r25	 ;  self_2(D)->CAS.PORT, tmp51
 	.loc 1 150 0
-	ldi r18,lo8(2)	 ;  tmp52,
-	std Z+7,r18	 ;  self_2(D)->CAS.PIN, tmp52
+	ldi r19,lo8(2)	 ;  tmp54,
+	std Z+7,r19	 ;  self_2(D)->CAS.PIN, tmp54
 	.loc 1 152 0
-	std Z+8,r24	 ;  self_2(D)->OE.PORT, tmp49
-	std Z+9,r25	 ;  self_2(D)->OE.PORT, tmp49
+	std Z+8,r24	 ;  self_2(D)->OE.PORT, tmp51
+	std Z+9,r25	 ;  self_2(D)->OE.PORT, tmp51
 	.loc 1 153 0
-	ldi r18,lo8(4)	 ;  tmp54,
-	std Z+10,r18	 ;  self_2(D)->OE.PIN, tmp54
+	ldi r18,lo8(4)	 ;  tmp56,
+	std Z+10,r18	 ;  self_2(D)->OE.PIN, tmp56
 	.loc 1 155 0
-	std Z+11,r24	 ;  self_2(D)->W.PORT, tmp49
-	std Z+12,r25	 ;  self_2(D)->W.PORT, tmp49
+	std Z+11,r24	 ;  self_2(D)->W.PORT, tmp51
+	std Z+12,r25	 ;  self_2(D)->W.PORT, tmp51
 	.loc 1 156 0
-	ldi r24,lo8(8)	 ;  tmp56,
-	std Z+13,r24	 ;  self_2(D)->W.PIN, tmp56
+	ldi r24,lo8(8)	 ;  tmp58,
+	std Z+13,r24	 ;  self_2(D)->W.PIN, tmp58
 	.loc 1 158 0
-	ldi r26,0	 ;  tmp57
+	ldi r26,0	 ;  tmp59
 	ldi r27,lo8(4)	 ; ,
-	std Z+14,r26	 ;  self_2(D)->ADDR_PORT.P1, tmp57
-	std Z+15,r27	 ;  self_2(D)->ADDR_PORT.P1, tmp57
+	std Z+14,r26	 ;  self_2(D)->ADDR_PORT.P1, tmp59
+	std Z+15,r27	 ;  self_2(D)->ADDR_PORT.P1, tmp59
 	.loc 1 159 0
-	ldi r24,lo8(32)	 ;  tmp58,
-	ldi r25,lo8(4)	 ; ,
-	std Z+16,r24	 ;  self_2(D)->ADDR_PORT.P2, tmp58
-	std Z+17,r25	 ;  self_2(D)->ADDR_PORT.P2, tmp58
+	ldi r22,lo8(32)	 ;  tmp60,
+	ldi r23,lo8(4)	 ; ,
+	std Z+16,r22	 ;  self_2(D)->ADDR_PORT.P2, tmp60
+	std Z+17,r23	 ;  self_2(D)->ADDR_PORT.P2, tmp60
 	.loc 1 161 0
-	ldi r24,lo8(-1)	 ;  tmp60,
-	st X,r24	 ;  MEM[(struct PORT_t *)1024B].DIR, tmp60
+	ldi r25,lo8(-1)	 ;  tmp62,
+	st X,r25	 ;  MEM[(struct PORT_t *)1024B].DIR, tmp62
 	.loc 1 162 0
-	ldd r26,Z+16	 ;  D.3390, self_2(D)->ADDR_PORT.P2
-	ldd r27,Z+17	 ;  D.3390, self_2(D)->ADDR_PORT.P2
-	st X,r24	 ;  _21->DIR, tmp60
+	ldd r26,Z+16	 ;  D.3401, self_2(D)->ADDR_PORT.P2
+	ldd r27,Z+17	 ;  D.3401, self_2(D)->ADDR_PORT.P2
+	st X,r25	 ;  _21->DIR, tmp62
 	.loc 1 164 0
+	ldi r26,lo8(64)	 ;  tmp64,
+	ldi r27,lo8(4)	 ; ,
+	std Z+18,r26	 ;  self_2(D)->SPI.PORT, tmp64
+	std Z+19,r27	 ;  self_2(D)->SPI.PORT, tmp64
+	.loc 1 165 0
+	std Z+21,r20	 ;  self_2(D)->SPI.MOSI, tmp52
+	.loc 1 166 0
+	std Z+22,r19	 ;  self_2(D)->SPI.MISO, tmp54
+	.loc 1 167 0
+	std Z+23,r18	 ;  self_2(D)->SPI.SCK, tmp56
+	.loc 1 168 0
+	std Z+20,r24	 ;  self_2(D)->SPI.SS, tmp58
+	.loc 1 170 0
+	ld r24,X	 ;  D.3402, MEM[(struct PORT_t *)1088B].DIR
+	ori r24,lo8(2)	 ;  D.3402,
+	st X,r24	 ;  MEM[(struct PORT_t *)1088B].DIR, D.3402
+	.loc 1 172 0
 	movw r24,r30	 ; , self
 	rjmp resetPins	 ; 
 .LVL53:
@@ -935,15 +955,15 @@ initDRAMHandler:
 	.file 6 "../DRAMHandler/DRAMHandler.h"
 	.section	.debug_info,"",@progbits
 .Ldebug_info0:
-	.long	0xa24
+	.long	0xa84
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF70
-	.byte	0xc
-	.long	.LASF71
 	.long	.LASF72
+	.byte	0xc
+	.long	.LASF73
+	.long	.LASF74
 	.long	.Ldebug_ranges0+0
 	.long	0
 	.long	0
@@ -1541,14 +1561,61 @@ initDRAMHandler:
 	.byte	0x23
 	.uleb128 0x2
 	.byte	0
-	.uleb128 0x10
-	.long	.LASF49
-	.byte	0x32
+	.uleb128 0xc
+	.string	"SPI"
 	.byte	0x6
-	.byte	0x1e
-	.long	0x548
+	.byte	0x6
+	.byte	0x3a
+	.long	0x4da
+	.uleb128 0xe
+	.long	.LASF47
+	.byte	0x6
+	.byte	0x3b
+	.long	0x3e3
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0
+	.uleb128 0xd
+	.string	"SS"
+	.byte	0x6
+	.byte	0x3c
+	.long	0x30
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x2
+	.uleb128 0xe
+	.long	.LASF49
+	.byte	0x6
+	.byte	0x3d
+	.long	0x30
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x3
 	.uleb128 0xe
 	.long	.LASF50
+	.byte	0x6
+	.byte	0x3e
+	.long	0x30
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x4
+	.uleb128 0xd
+	.string	"SCK"
+	.byte	0x6
+	.byte	0x3f
+	.long	0x30
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x10
+	.long	.LASF51
+	.byte	0x38
+	.byte	0x6
+	.byte	0x1e
+	.long	0x5a8
+	.uleb128 0xe
+	.long	.LASF52
 	.byte	0x6
 	.byte	0x20
 	.long	0x3e3
@@ -1595,89 +1662,97 @@ initDRAMHandler:
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0xe
-	.uleb128 0xe
-	.long	.LASF51
+	.uleb128 0xd
+	.string	"SPI"
 	.byte	0x6
-	.byte	0x3a
-	.long	0x3af
+	.byte	0x40
+	.long	0x488
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x12
 	.uleb128 0xe
-	.long	.LASF52
-	.byte	0x6
-	.byte	0x3c
-	.long	0x54f
-	.byte	0x2
-	.byte	0x23
-	.uleb128 0x28
-	.uleb128 0xe
 	.long	.LASF53
 	.byte	0x6
-	.byte	0x3d
-	.long	0x54f
+	.byte	0x42
+	.long	0x3af
 	.byte	0x2
 	.byte	0x23
-	.uleb128 0x29
+	.uleb128 0x18
 	.uleb128 0xe
 	.long	.LASF54
 	.byte	0x6
-	.byte	0x3f
-	.long	0x56f
-	.byte	0x2
-	.byte	0x23
-	.uleb128 0x2a
-	.uleb128 0xe
-	.long	.LASF55
-	.byte	0x6
-	.byte	0x40
-	.long	0x58b
-	.byte	0x2
-	.byte	0x23
-	.uleb128 0x2c
-	.uleb128 0xe
-	.long	.LASF56
-	.byte	0x6
-	.byte	0x41
-	.long	0x59d
+	.byte	0x44
+	.long	0x5af
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2e
 	.uleb128 0xe
-	.long	.LASF57
+	.long	.LASF55
 	.byte	0x6
-	.byte	0x42
-	.long	0x59d
+	.byte	0x45
+	.long	0x5af
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x2f
+	.uleb128 0xe
+	.long	.LASF56
+	.byte	0x6
+	.byte	0x47
+	.long	0x5cf
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x30
+	.uleb128 0xe
+	.long	.LASF57
+	.byte	0x6
+	.byte	0x48
+	.long	0x5eb
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x32
+	.uleb128 0xe
+	.long	.LASF58
+	.byte	0x6
+	.byte	0x49
+	.long	0x5fd
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x34
+	.uleb128 0xe
+	.long	.LASF59
+	.byte	0x6
+	.byte	0x4a
+	.long	0x5fd
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x36
 	.byte	0
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x2
-	.long	.LASF58
+	.long	.LASF60
 	.uleb128 0x5
-	.long	0x548
+	.long	0x5a8
 	.uleb128 0x13
 	.byte	0x1
 	.long	0x30
-	.long	0x569
+	.long	0x5c9
 	.uleb128 0x12
-	.long	0x569
+	.long	0x5c9
 	.uleb128 0x12
 	.long	0x62
 	.byte	0
 	.uleb128 0xf
 	.byte	0x2
-	.long	0x488
+	.long	0x4da
 	.uleb128 0xf
 	.byte	0x2
-	.long	0x554
+	.long	0x5b4
 	.uleb128 0x11
 	.byte	0x1
-	.long	0x58b
+	.long	0x5eb
 	.uleb128 0x12
-	.long	0x569
+	.long	0x5c9
 	.uleb128 0x12
 	.long	0x62
 	.uleb128 0x12
@@ -1685,46 +1760,46 @@ initDRAMHandler:
 	.byte	0
 	.uleb128 0xf
 	.byte	0x2
-	.long	0x575
+	.long	0x5d5
 	.uleb128 0x11
 	.byte	0x1
-	.long	0x59d
+	.long	0x5fd
 	.uleb128 0x12
-	.long	0x569
+	.long	0x5c9
 	.byte	0
 	.uleb128 0xf
 	.byte	0x2
-	.long	0x591
+	.long	0x5f1
 	.uleb128 0x3
-	.long	.LASF49
+	.long	.LASF51
 	.byte	0x6
-	.byte	0x43
-	.long	0x488
+	.byte	0x4b
+	.long	0x4da
 	.uleb128 0x14
-	.long	.LASF73
+	.long	.LASF75
 	.byte	0x2
 	.byte	0xff
 	.byte	0x1
 	.byte	0x3
-	.long	0x5ea
+	.long	0x64a
 	.uleb128 0x15
-	.long	.LASF62
+	.long	.LASF64
 	.byte	0x2
 	.byte	0xff
-	.long	0x5ea
+	.long	0x64a
 	.uleb128 0x16
-	.long	.LASF59
+	.long	.LASF61
 	.byte	0x2
 	.word	0x101
-	.long	0x5ea
+	.long	0x64a
 	.uleb128 0x16
-	.long	.LASF60
+	.long	.LASF62
 	.byte	0x2
 	.word	0x105
 	.long	0x62
 	.uleb128 0x17
 	.byte	0x1
-	.long	.LASF74
+	.long	.LASF76
 	.byte	0x2
 	.word	0x106
 	.byte	0x1
@@ -1733,32 +1808,32 @@ initDRAMHandler:
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x4
-	.long	.LASF61
+	.long	.LASF63
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF75
+	.long	.LASF77
 	.byte	0x1
 	.byte	0x1c
 	.byte	0x1
 	.byte	0x1
-	.long	0x616
+	.long	0x676
 	.uleb128 0x15
-	.long	.LASF63
+	.long	.LASF65
 	.byte	0x1
 	.byte	0x1c
-	.long	0x616
+	.long	0x676
 	.uleb128 0x15
-	.long	.LASF64
+	.long	.LASF66
 	.byte	0x1
 	.byte	0x1c
 	.long	0x49
 	.byte	0
 	.uleb128 0xf
 	.byte	0x2
-	.long	0x5a3
+	.long	0x603
 	.uleb128 0x19
 	.byte	0x1
-	.long	.LASF57
+	.long	.LASF59
 	.byte	0x1
 	.byte	0x78
 	.byte	0x1
@@ -1766,34 +1841,34 @@ initDRAMHandler:
 	.long	.LFE11
 	.long	.LLST0
 	.byte	0x1
-	.long	0x70c
+	.long	0x76c
 	.uleb128 0x1a
-	.long	.LASF63
-	.byte	0x1
-	.byte	0x78
-	.long	0x616
-	.long	.LLST1
-	.uleb128 0x1b
-	.long	.LASF64
-	.byte	0x1
-	.byte	0x79
-	.long	0x70c
-	.long	.LLST2
-	.uleb128 0x1b
 	.long	.LASF65
 	.byte	0x1
+	.byte	0x78
+	.long	0x676
+	.long	.LLST1
+	.uleb128 0x1b
+	.long	.LASF66
+	.byte	0x1
+	.byte	0x79
+	.long	0x76c
+	.long	.LLST2
+	.uleb128 0x1b
+	.long	.LASF67
+	.byte	0x1
 	.byte	0x7a
-	.long	0x711
+	.long	0x771
 	.long	.LLST3
 	.uleb128 0x1c
 	.long	.LBB11
 	.long	.LBE11
-	.long	0x6a2
+	.long	0x702
 	.uleb128 0x1b
 	.long	.LASF43
 	.byte	0x1
 	.byte	0x7d
-	.long	0x711
+	.long	0x771
 	.long	.LLST4
 	.uleb128 0x1d
 	.long	.LVL5
@@ -1830,12 +1905,12 @@ initDRAMHandler:
 	.uleb128 0x1c
 	.long	.LBB12
 	.long	.LBE12
-	.long	0x6e1
+	.long	0x741
 	.uleb128 0x1b
 	.long	.LASF43
 	.byte	0x1
 	.byte	0x80
-	.long	0x711
+	.long	0x771
 	.long	.LLST5
 	.uleb128 0x1d
 	.long	.LVL9
@@ -1871,7 +1946,7 @@ initDRAMHandler:
 	.byte	0
 	.uleb128 0x1f
 	.long	.LVL3
-	.long	0x6f6
+	.long	0x756
 	.uleb128 0x1e
 	.byte	0x6
 	.byte	0x68
@@ -1900,7 +1975,7 @@ initDRAMHandler:
 	.uleb128 0x1
 	.byte	0x68
 	.byte	0x23
-	.uleb128 0x12
+	.uleb128 0x18
 	.byte	0
 	.byte	0
 	.uleb128 0x21
@@ -1908,7 +1983,7 @@ initDRAMHandler:
 	.uleb128 0x21
 	.long	0x30
 	.uleb128 0x22
-	.long	0x5f1
+	.long	0x651
 	.long	.LFB6
 	.long	.LFE6
 	.byte	0x3
@@ -1916,17 +1991,17 @@ initDRAMHandler:
 	.uleb128 0x20
 	.sleb128 2
 	.byte	0x1
-	.long	0x73f
+	.long	0x79f
 	.uleb128 0x23
-	.long	0x5ff
+	.long	0x65f
 	.long	.LLST6
 	.uleb128 0x23
-	.long	0x60a
+	.long	0x66a
 	.long	.LLST7
 	.byte	0
 	.uleb128 0x19
 	.byte	0x1
-	.long	.LASF56
+	.long	.LASF58
 	.byte	0x1
 	.byte	0x2c
 	.byte	0x1
@@ -1934,12 +2009,12 @@ initDRAMHandler:
 	.long	.LFE8
 	.long	.LLST8
 	.byte	0x1
-	.long	0x84d
+	.long	0x8ad
 	.uleb128 0x1a
-	.long	.LASF63
+	.long	.LASF65
 	.byte	0x1
 	.byte	0x2c
-	.long	0x616
+	.long	0x676
 	.long	.LLST9
 	.uleb128 0x24
 	.long	.LBB13
@@ -1951,71 +2026,71 @@ initDRAMHandler:
 	.long	0x49
 	.long	.LLST10
 	.uleb128 0x26
-	.long	0x5ae
+	.long	0x60e
 	.long	.LBB14
 	.long	.LBE14
 	.byte	0x1
 	.byte	0x35
-	.long	0x7b9
+	.long	0x819
 	.uleb128 0x23
-	.long	0x5bb
+	.long	0x61b
 	.long	.LLST11
 	.uleb128 0x24
 	.long	.LBB15
 	.long	.LBE15
 	.uleb128 0x27
-	.long	0x5c6
+	.long	0x626
 	.long	.LLST12
 	.uleb128 0x27
-	.long	0x5d2
+	.long	0x632
 	.long	.LLST13
 	.byte	0
 	.byte	0
 	.uleb128 0x26
-	.long	0x5ae
+	.long	0x60e
 	.long	.LBB16
 	.long	.LBE16
 	.byte	0x1
 	.byte	0x38
-	.long	0x7f2
+	.long	0x852
 	.uleb128 0x23
-	.long	0x5bb
+	.long	0x61b
 	.long	.LLST14
 	.uleb128 0x24
 	.long	.LBB17
 	.long	.LBE17
 	.uleb128 0x27
-	.long	0x5c6
+	.long	0x626
 	.long	.LLST15
 	.uleb128 0x27
-	.long	0x5d2
+	.long	0x632
 	.long	.LLST16
 	.byte	0
 	.byte	0
 	.uleb128 0x26
-	.long	0x5ae
+	.long	0x60e
 	.long	.LBB18
 	.long	.LBE18
 	.byte	0x1
 	.byte	0x3c
-	.long	0x82b
+	.long	0x88b
 	.uleb128 0x23
-	.long	0x5bb
+	.long	0x61b
 	.long	.LLST17
 	.uleb128 0x24
 	.long	.LBB19
 	.long	.LBE19
 	.uleb128 0x27
-	.long	0x5c6
+	.long	0x626
 	.long	.LLST18
 	.uleb128 0x27
-	.long	0x5d2
+	.long	0x632
 	.long	.LLST19
 	.byte	0
 	.byte	0
 	.uleb128 0x28
 	.long	.LVL20
-	.long	0x5f1
+	.long	0x651
 	.uleb128 0x1e
 	.byte	0x6
 	.byte	0x68
@@ -2043,7 +2118,7 @@ initDRAMHandler:
 	.byte	0
 	.uleb128 0x29
 	.byte	0x1
-	.long	.LASF54
+	.long	.LASF56
 	.byte	0x1
 	.byte	0x42
 	.byte	0x1
@@ -2052,42 +2127,42 @@ initDRAMHandler:
 	.long	.LFE9
 	.long	.LLST20
 	.byte	0x1
-	.long	0x8f2
+	.long	0x952
 	.uleb128 0x1a
-	.long	.LASF63
+	.long	.LASF65
 	.byte	0x1
 	.byte	0x42
-	.long	0x616
+	.long	0x676
 	.long	.LLST21
 	.uleb128 0x1a
-	.long	.LASF64
+	.long	.LASF66
 	.byte	0x1
 	.byte	0x42
 	.long	0x62
 	.long	.LLST22
 	.uleb128 0x1b
-	.long	.LASF66
-	.byte	0x1
-	.byte	0x43
-	.long	0x8f2
-	.long	.LLST23
-	.uleb128 0x1b
-	.long	.LASF67
-	.byte	0x1
-	.byte	0x44
-	.long	0x8f2
-	.long	.LLST24
-	.uleb128 0x2a
 	.long	.LASF68
 	.byte	0x1
+	.byte	0x43
+	.long	0x952
+	.long	.LLST23
+	.uleb128 0x1b
+	.long	.LASF69
+	.byte	0x1
+	.byte	0x44
+	.long	0x952
+	.long	.LLST24
+	.uleb128 0x2a
+	.long	.LASF70
+	.byte	0x1
 	.byte	0x52
-	.long	0x711
+	.long	0x771
 	.byte	0x1
 	.byte	0x68
 	.uleb128 0x2b
 	.long	.LVL33
-	.long	0x5f1
-	.long	0x8cd
+	.long	0x651
+	.long	0x92d
 	.uleb128 0x1e
 	.byte	0x6
 	.byte	0x68
@@ -2102,7 +2177,7 @@ initDRAMHandler:
 	.byte	0
 	.uleb128 0x28
 	.long	.LVL34
-	.long	0x5f1
+	.long	0x651
 	.uleb128 0x1e
 	.byte	0x6
 	.byte	0x68
@@ -2134,7 +2209,7 @@ initDRAMHandler:
 	.long	0x49
 	.uleb128 0x19
 	.byte	0x1
-	.long	.LASF55
+	.long	.LASF57
 	.byte	0x1
 	.byte	0x5c
 	.byte	0x1
@@ -2142,15 +2217,15 @@ initDRAMHandler:
 	.long	.LFE10
 	.long	.LLST25
 	.byte	0x1
-	.long	0x9c0
+	.long	0xa20
 	.uleb128 0x1a
-	.long	.LASF63
+	.long	.LASF65
 	.byte	0x1
 	.byte	0x5c
-	.long	0x616
+	.long	0x676
 	.long	.LLST26
 	.uleb128 0x1a
-	.long	.LASF64
+	.long	.LASF66
 	.byte	0x1
 	.byte	0x5c
 	.long	0x62
@@ -2162,35 +2237,35 @@ initDRAMHandler:
 	.long	0x30
 	.long	.LLST28
 	.uleb128 0x1b
-	.long	.LASF66
+	.long	.LASF68
 	.byte	0x1
 	.byte	0x5d
-	.long	0x8f2
+	.long	0x952
 	.long	.LLST29
 	.uleb128 0x1b
-	.long	.LASF67
+	.long	.LASF69
 	.byte	0x1
 	.byte	0x5e
-	.long	0x8f2
+	.long	0x952
 	.long	.LLST30
 	.uleb128 0x26
-	.long	0x5f1
+	.long	0x651
 	.long	.LBB20
 	.long	.LBE20
 	.byte	0x1
 	.byte	0x75
-	.long	0x982
+	.long	0x9e2
 	.uleb128 0x23
-	.long	0x60a
+	.long	0x66a
 	.long	.LLST31
 	.uleb128 0x23
-	.long	0x5ff
+	.long	0x65f
 	.long	.LLST32
 	.byte	0
 	.uleb128 0x2b
 	.long	.LVL42
-	.long	0x5f1
-	.long	0x99b
+	.long	0x651
+	.long	0x9fb
 	.uleb128 0x1e
 	.byte	0x6
 	.byte	0x68
@@ -2205,7 +2280,7 @@ initDRAMHandler:
 	.byte	0
 	.uleb128 0x28
 	.long	.LVL43
-	.long	0x5f1
+	.long	0x651
 	.uleb128 0x1e
 	.byte	0x6
 	.byte	0x68
@@ -2235,7 +2310,7 @@ initDRAMHandler:
 	.byte	0
 	.uleb128 0x2c
 	.byte	0x1
-	.long	.LASF69
+	.long	.LASF71
 	.byte	0x1
 	.byte	0x21
 	.byte	0x1
@@ -2246,17 +2321,17 @@ initDRAMHandler:
 	.uleb128 0x20
 	.sleb128 2
 	.byte	0x1
-	.long	0x9ea
+	.long	0xa4a
 	.uleb128 0x1a
-	.long	.LASF63
+	.long	.LASF65
 	.byte	0x1
 	.byte	0x21
-	.long	0x616
+	.long	0x676
 	.long	.LLST33
 	.byte	0
 	.uleb128 0x2d
 	.byte	0x1
-	.long	.LASF76
+	.long	.LASF78
 	.byte	0x1
 	.byte	0x87
 	.byte	0x1
@@ -2268,15 +2343,15 @@ initDRAMHandler:
 	.sleb128 2
 	.byte	0x1
 	.uleb128 0x1a
-	.long	.LASF63
+	.long	.LASF65
 	.byte	0x1
 	.byte	0x87
-	.long	0x616
+	.long	0x676
 	.long	.LLST34
 	.uleb128 0x2e
 	.long	.LVL53
 	.byte	0x1
-	.long	0x9c0
+	.long	0xa20
 	.uleb128 0x1e
 	.byte	0x6
 	.byte	0x68
@@ -2995,13 +3070,13 @@ initDRAMHandler:
 	.long	.LVL11
 	.word	0x3
 	.byte	0x80
-	.sleb128 -18
+	.sleb128 -24
 	.byte	0x9f
 	.long	.LVL11
 	.long	.LVL13-1
 	.word	0x3
 	.byte	0x88
-	.sleb128 -18
+	.sleb128 -24
 	.byte	0x9f
 	.long	.LVL13-1
 	.long	.LFE11
@@ -3036,7 +3111,7 @@ initDRAMHandler:
 	.word	0x1
 	.byte	0x68
 	.long	.LVL6
-	.long	.LVL8
+	.long	.LVL7
 	.word	0x1
 	.byte	0x68
 	.long	0
@@ -3049,11 +3124,11 @@ initDRAMHandler:
 	.long	0
 	.long	0
 .LLST5:
-	.long	.LVL7
+	.long	.LVL8
 	.long	.LVL9-1
 	.word	0x4
 	.byte	0x8c
-	.sleb128 26
+	.sleb128 32
 	.byte	0x94
 	.byte	0x2
 	.long	0
@@ -3765,25 +3840,25 @@ initDRAMHandler:
 	.string	"addr2"
 .LASF14:
 	.string	"DIRTGL"
-.LASF54:
+.LASF56:
 	.string	"readByte"
-.LASF68:
+.LASF70:
 	.string	"validDataOut"
-.LASF74:
+.LASF76:
 	.string	"__builtin_avr_delay_cycles"
-.LASF59:
+.LASF61:
 	.string	"__tmp"
 .LASF45:
 	.string	"getLength"
 .LASF11:
 	.string	"sizetype"
-.LASF75:
+.LASF77:
 	.string	"writeToAddrPort"
-.LASF55:
+.LASF57:
 	.string	"writeByte"
-.LASF67:
+.LASF69:
 	.string	"colAddr"
-.LASF53:
+.LASF55:
 	.string	"hasPendingBufferUpdate"
 .LASF41:
 	.string	"param1"
@@ -3793,31 +3868,31 @@ initDRAMHandler:
 	.string	"reserved_2"
 .LASF2:
 	.string	"uint8_t"
-.LASF73:
+.LASF75:
 	.string	"_delay_us"
 .LASF37:
 	.string	"SPI_t"
+.LASF21:
+	.string	"PIN0CTRL"
 .LASF44:
 	.string	"push"
-.LASF72:
-	.string	"C:\\\\Users\\\\test\\\\Documents\\\\Studium\\\\TechnischeInformatikIIProject\\\\TestProject\\\\TestProject\\\\Debug"
 .LASF33:
 	.string	"CTRLA"
 .LASF34:
 	.string	"CTRLB"
 .LASF8:
 	.string	"long long int"
-.LASF76:
+.LASF78:
 	.string	"initDRAMHandler"
 .LASF5:
 	.string	"long int"
 .LASF28:
 	.string	"PIN7CTRL"
-.LASF64:
+.LASF66:
 	.string	"addr"
 .LASF17:
 	.string	"OUTTGL"
-.LASF70:
+.LASF72:
 	.string	"GNU C99 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avrxmega3 -mshort-calls -g2 -Os -std=gnu99 -funsigned-char -funsigned-bitfields -ffunction-sections -fdata-sections -fpack-struct -fshort-enums"
 .LASF36:
 	.string	"DATA"
@@ -3833,15 +3908,13 @@ initDRAMHandler:
 	.string	"ADDR_PORT"
 .LASF0:
 	.string	"signed char"
-.LASF63:
-	.string	"self"
 .LASF9:
 	.string	"long long unsigned int"
 .LASF6:
 	.string	"uint32_t"
 .LASF4:
 	.string	"unsigned int"
-.LASF65:
+.LASF67:
 	.string	"bufferLen"
 .LASF3:
 	.string	"uint16_t"
@@ -3849,39 +3922,43 @@ initDRAMHandler:
 	.string	"DIRCLR"
 .LASF15:
 	.string	"OUTSET"
-.LASF71:
+.LASF65:
+	.string	"self"
+.LASF73:
 	.string	"../DRAMHandler/DRAMHandler.c"
 .LASF23:
 	.string	"PIN2CTRL"
-.LASF57:
-	.string	"processAndRespondBuffer"
 .LASF50:
+	.string	"MISO"
+.LASF52:
 	.string	"DATA_PORT"
 .LASF26:
 	.string	"PIN5CTRL"
-.LASF58:
+.LASF60:
 	.string	"_Bool"
 .LASF40:
 	.string	"addr3"
-.LASF69:
+.LASF59:
+	.string	"processAndRespondBuffer"
+.LASF71:
 	.string	"resetPins"
 .LASF43:
 	.string	"data"
-.LASF52:
+.LASF54:
 	.string	"hasPendingRefresh"
 .LASF16:
 	.string	"OUTCLR"
-.LASF51:
+.LASF53:
 	.string	"buffer"
 .LASF7:
 	.string	"long unsigned int"
-.LASF66:
+.LASF68:
 	.string	"rowAddr"
-.LASF61:
+.LASF63:
 	.string	"double"
 .LASF19:
 	.string	"PORTCTRL"
-.LASF49:
+.LASF51:
 	.string	"DRAM_HANDLER"
 .LASF31:
 	.string	"PORT_struct"
@@ -3893,20 +3970,22 @@ initDRAMHandler:
 	.string	"PORT_t"
 .LASF12:
 	.string	"DIRSET"
-.LASF56:
+.LASF58:
 	.string	"refreshRASonly"
 .LASF32:
 	.string	"SPI_struct"
-.LASF60:
+.LASF62:
 	.string	"__ticks_dc"
 .LASF10:
 	.string	"register8_t"
 .LASF35:
 	.string	"INTCTRL"
-.LASF21:
-	.string	"PIN0CTRL"
+.LASF74:
+	.string	"C:\\\\Users\\\\test\\\\Documents\\\\Studium\\\\TechnischeInformatikIIProject\\\\ATmega809\\\\TestProject\\\\Debug"
+.LASF49:
+	.string	"MOSI"
 .LASF24:
 	.string	"PIN3CTRL"
-.LASF62:
+.LASF64:
 	.string	"__us"
 	.ident	"GCC: (AVR_8_bit_GNU_Toolchain_3.6.2_1778) 5.4.0"

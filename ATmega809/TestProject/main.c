@@ -51,13 +51,10 @@ void initTimer0() {
 }
 
 void initSPI() {
-	/* Configure SS Pin as Input */
-	PORTC.DIR &= ~PIN3_bm;
-	PORTC.OUT &= ~PIN3_bm;
-	/* Enable buffer mode */
-	SPI0.CTRLB |= SPI_BUFEN_bm;
+	/* Set alternative SPI pins */
+	PORTMUX.TWISPIROUTEA |= PORTMUX_SPI0_ALT1_gc;
 	/* Enable Receive Interrupt */
-	SPI0.INTCTRL |= SPI_RXCIE_bm;
+	SPI0.INTCTRL |= SPI_IE_bm;
 	/* Enable SPI */
 	SPI0.CTRLA |= SPI_ENABLE_bm;
 }
@@ -80,14 +77,15 @@ int main(void) {
 	initDRAMHandler(&dramHandler);
 
 	initCPU();
-	// initSPI();
+	initSPI();
 	initTimer0();
 	
     while (1) {
-		if(dramHandler.hasPendingRefresh) {
-			dramHandler.refreshRASonly(&dramHandler);
-			dramHandler.hasPendingRefresh = false;
-		}
+		asm("nop");
+		//if(dramHandler.hasPendingRefresh) {
+			//dramHandler.refreshRASonly(&dramHandler);
+			//dramHandler.hasPendingRefresh = false;
+		//}
 		//if(dramHandler.hasPendingBufferUpdate) {
 			//dramHandler.processAndRespondBuffer(&dramHandler);
 			//dramHandler.hasPendingBufferUpdate = false;

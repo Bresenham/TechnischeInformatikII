@@ -888,7 +888,7 @@ initBuffer:
 .LASF5:
 	.string	"long long int"
 .LASF21:
-	.string	"C:\\\\Users\\\\test\\\\Documents\\\\Studium\\\\TechnischeInformatikIIProject\\\\TestProject\\\\TestProject\\\\Debug"
+	.string	"C:\\\\Users\\\\test\\\\Documents\\\\Studium\\\\TechnischeInformatikIIProject\\\\ATmega809\\\\TestProject\\\\Debug"
 .LASF3:
 	.string	"long int"
 .LASF11:

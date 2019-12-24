@@ -1,5 +1,5 @@
 # 1 ".././main.c"
-# 1 "C:\\Users\\test\\Documents\\Studium\\TechnischeInformatikIIProject\\TestProject\\TestProject\\Debug//"
+# 1 "C:\\Users\\test\\Documents\\Studium\\TechnischeInformatikIIProject\\ATmega809\\TestProject\\Debug//"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 ".././main.c"
@@ -2072,17 +2072,25 @@ typedef struct DRAM_HANDLER {
   PORT_t *P2;
  } ADDR_PORT;
 
+ struct SPI {
+  PORT_t *PORT;
+  uint8_t SS;
+  uint8_t MOSI;
+  uint8_t MISO;
+  uint8_t SCK;
+ } SPI;
+
  BUFFER buffer;
 
  volatile 
-# 60 ".././DRAMHandler/DRAMHandler.h" 3 4
+# 68 ".././DRAMHandler/DRAMHandler.h" 3 4
          _Bool 
-# 60 ".././DRAMHandler/DRAMHandler.h"
+# 68 ".././DRAMHandler/DRAMHandler.h"
               hasPendingRefresh;
  volatile 
-# 61 ".././DRAMHandler/DRAMHandler.h" 3 4
+# 69 ".././DRAMHandler/DRAMHandler.h" 3 4
          _Bool 
-# 61 ".././DRAMHandler/DRAMHandler.h"
+# 69 ".././DRAMHandler/DRAMHandler.h"
               hasPendingBufferUpdate;
 
  uint8_t (*readByte)(struct DRAM_HANDLER*, uint32_t addr);
@@ -2193,89 +2201,66 @@ void initSPI() {
 
  
 # 55 ".././main.c" 3
-(*(PORT_t *) 0x0440)
+(*(PORTMUX_t *) 0x05E0)
 # 55 ".././main.c"
-     .DIR &= ~
-# 55 ".././main.c" 3
-              0x08
-# 55 ".././main.c"
-                     ;
- 
-# 56 ".././main.c" 3
-(*(PORT_t *) 0x0440)
-# 56 ".././main.c"
-     .OUT &= ~
-# 56 ".././main.c" 3
-              0x08
-# 56 ".././main.c"
-                     ;
+       .TWISPIROUTEA |= PORTMUX_SPI0_ALT1_gc;
 
  
-# 58 ".././main.c" 3
+# 57 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 58 ".././main.c"
-    .CTRLB |= 
-# 58 ".././main.c" 3
-              0x80
-# 58 ".././main.c"
-                          ;
-
- 
-# 60 ".././main.c" 3
-(*(SPI_t *) 0x08C0)
-# 60 ".././main.c"
+# 57 ".././main.c"
     .INTCTRL |= 
-# 60 ".././main.c" 3
-                0x80
-# 60 ".././main.c"
-                            ;
+# 57 ".././main.c" 3
+                0x01
+# 57 ".././main.c"
+                         ;
 
  
-# 62 ".././main.c" 3
+# 59 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 62 ".././main.c"
+# 59 ".././main.c"
     .CTRLA |= 
-# 62 ".././main.c" 3
+# 59 ".././main.c" 3
               0x01
-# 62 ".././main.c"
+# 59 ".././main.c"
                            ;
 }
 
 void initCPU() {
 
  
-# 67 ".././main.c" 3
+# 64 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 67 ".././main.c"
+# 64 ".././main.c"
     = 0xD8;
 
  
-# 69 ".././main.c" 3
+# 66 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 69 ".././main.c"
+# 66 ".././main.c"
        .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
 
  
-# 71 ".././main.c" 3
+# 68 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 71 ".././main.c"
+# 68 ".././main.c"
     = 0xD8;
 
  
-# 73 ".././main.c" 3
+# 70 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 73 ".././main.c"
+# 70 ".././main.c"
        .MCLKCTRLB &= ~(1 << 
-# 73 ".././main.c" 3
+# 70 ".././main.c" 3
                             0
-# 73 ".././main.c"
+# 70 ".././main.c"
                                           );
 
 
  
-# 76 ".././main.c" 3
+# 73 ".././main.c" 3
 __asm__ __volatile__ ("sei" ::: "memory")
-# 76 ".././main.c"
+# 73 ".././main.c"
      ;
 }
 
@@ -2283,21 +2268,11 @@ int main(void) {
  initDRAMHandler(&dramHandler);
 
  initCPU();
-
+ initSPI();
  initTimer0();
 
     while (1) {
-  if(dramHandler.hasPendingRefresh) {
-   dramHandler.refreshRASonly(&dramHandler);
-   dramHandler.hasPendingRefresh = 
-# 89 ".././main.c" 3 4
-                                  0
-# 89 ".././main.c"
-                                       ;
-  }
-
-
-
-
+  asm("nop");
+# 93 ".././main.c"
     }
 }

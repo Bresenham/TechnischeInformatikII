@@ -1,5 +1,5 @@
 # 1 "../DRAMHandler/DRAMHandler.c"
-# 1 "C:\\Users\\test\\Documents\\Studium\\TechnischeInformatikIIProject\\TestProject\\TestProject\\Debug//"
+# 1 "C:\\Users\\test\\Documents\\Studium\\TechnischeInformatikIIProject\\ATmega809\\TestProject\\Debug//"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "../DRAMHandler/DRAMHandler.c"
@@ -2070,17 +2070,25 @@ typedef struct DRAM_HANDLER {
   PORT_t *P2;
  } ADDR_PORT;
 
+ struct SPI {
+  PORT_t *PORT;
+  uint8_t SS;
+  uint8_t MOSI;
+  uint8_t MISO;
+  uint8_t SCK;
+ } SPI;
+
  BUFFER buffer;
 
  volatile 
-# 60 "../DRAMHandler/DRAMHandler.h" 3 4
+# 68 "../DRAMHandler/DRAMHandler.h" 3 4
          _Bool 
-# 60 "../DRAMHandler/DRAMHandler.h"
+# 68 "../DRAMHandler/DRAMHandler.h"
               hasPendingRefresh;
  volatile 
-# 61 "../DRAMHandler/DRAMHandler.h" 3 4
+# 69 "../DRAMHandler/DRAMHandler.h" 3 4
          _Bool 
-# 61 "../DRAMHandler/DRAMHandler.h"
+# 69 "../DRAMHandler/DRAMHandler.h"
               hasPendingBufferUpdate;
 
  uint8_t (*readByte)(struct DRAM_HANDLER*, uint32_t addr);
@@ -2188,14 +2196,14 @@ void processAndRespondBuffer(DRAM_HANDLER *self) {
  const uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
  const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
 
- if(*self->buffer.PTR.cmd == 0x13 && bufferLen == 4) {
+ if(bufferLen == 4 && *self->buffer.PTR.cmd) {
   const uint8_t data = self->readByte(self, addr);
   
 # 126 "../DRAMHandler/DRAMHandler.c" 3
  (*(SPI_t *) 0x08C0)
 # 126 "../DRAMHandler/DRAMHandler.c"
      .DATA = data;
- } else if(*self->buffer.PTR.cmd == 0x12 && bufferLen == 5) {
+ } else if(bufferLen == 5 && *self->buffer.PTR.cmd == 0x12) {
   const uint8_t data = *self->buffer.PTR.param1;
   self->writeByte(self, addr, data);
  }
@@ -2283,6 +2291,34 @@ void initDRAMHandler(DRAM_HANDLER *self) {
 
  self->ADDR_PORT.P1->DIR = 0xFF;
  self->ADDR_PORT.P2->DIR = 0xFF;
+
+ self->SPI.PORT = &
+# 164 "../DRAMHandler/DRAMHandler.c" 3
+                  (*(PORT_t *) 0x0440)
+# 164 "../DRAMHandler/DRAMHandler.c"
+                       ;
+ self->SPI.MOSI = 
+# 165 "../DRAMHandler/DRAMHandler.c" 3
+                 0x01
+# 165 "../DRAMHandler/DRAMHandler.c"
+                        ;
+ self->SPI.MISO = 
+# 166 "../DRAMHandler/DRAMHandler.c" 3
+                 0x02
+# 166 "../DRAMHandler/DRAMHandler.c"
+                        ;
+ self->SPI.SCK = 
+# 167 "../DRAMHandler/DRAMHandler.c" 3
+                0x04
+# 167 "../DRAMHandler/DRAMHandler.c"
+                       ;
+ self->SPI.SS = 
+# 168 "../DRAMHandler/DRAMHandler.c" 3
+               0x08
+# 168 "../DRAMHandler/DRAMHandler.c"
+                      ;
+
+ self->SPI.PORT->DIR |= self->SPI.MISO;
 
  resetPins(self);
 }
