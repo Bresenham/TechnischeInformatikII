@@ -32,4 +32,6 @@ void initBuffer(BUFFER *self) {
 	self->PTR.addr2 = &self->data[2];
 	self->PTR.addr3 = &self->data[3];
 	self->PTR.param1 = &self->data[4];
+	
+	self->idx = 0;
 }

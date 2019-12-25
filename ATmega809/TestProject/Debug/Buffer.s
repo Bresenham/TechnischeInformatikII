@@ -181,6 +181,8 @@ initBuffer:
 	adiw r24,1	 ;  D.1660,
 	std Z+8,r24	 ;  self_2(D)->PTR.param1, D.1660
 	std Z+9,r25	 ;  self_2(D)->PTR.param1, D.1660
+	.loc 1 36 0
+	std Z+10,__zero_reg__	 ;  self_2(D)->idx,
 	ret
 	.cfi_endproc
 .LFE3:

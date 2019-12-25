@@ -19,11 +19,11 @@
 
 #define AMOUNT_OF_ROWS		512
 
-#define READ_ADDR_CMD	0x13
-#define READ_CMD_LEN	4
+#define READ_CMD			0x13
+#define READ_CMD_LEN		4
 
-#define WRITE_CMD		0x12
-#define WRITE_CMD_LEN	5
+#define WRITE_CMD			0x12
+#define WRITE_CMD_LEN		5
 
 void writeToAddrPort(DRAM_HANDLER *self, uint16_t addr) {
 	self->ADDR_PORT.P1->OUT = (addr << ADDR_PORT1_SHIFT);
@@ -118,21 +118,26 @@ void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
 }
 
 void processAndRespondBuffer(DRAM_HANDLER *self) {
-	const uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
-	const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
-
-	if(bufferLen == READ_CMD_LEN && *self->buffer.PTR.cmd) {
-		const uint8_t data = self->readByte(self, addr);
-		SPI0.DATA = data;
-	} else if(bufferLen == WRITE_CMD_LEN && *self->buffer.PTR.cmd == WRITE_CMD) {
-		const uint8_t data = *self->buffer.PTR.param1;
-		self->writeByte(self, addr, data);
+	const uint8_t cmd = *self->buffer.PTR.cmd;
+	if(cmd == READ_CMD || cmd == WRITE_CMD) {
+		const uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
+		const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
+		if(bufferLen == READ_CMD_LEN && cmd == READ_CMD) {
+			const uint8_t data = self->readByte(self, addr);
+			self->buffer.reset(&self->buffer);
+			SPI0.DATA = data;
+		} else if(bufferLen == WRITE_CMD_LEN && cmd == WRITE_CMD) {
+			const uint8_t data = *self->buffer.PTR.param1;
+			self->writeByte(self, addr, data);
+			self->buffer.reset(&self->buffer);
+		}
+	} else {
+		self->buffer.reset(&self->buffer);
 	}
-	
-	self->buffer.reset(&self->buffer);
 }
 
 void initDRAMHandler(DRAM_HANDLER *self) {
+	initBuffer(&self->buffer);
 	self->readByte = &readByte;
 	self->writeByte = &writeByte;
 	self->refreshRASonly = &refreshRASonly;
@@ -168,6 +173,9 @@ void initDRAMHandler(DRAM_HANDLER *self) {
 	self->SPI.SS = PIN3_bm;
 	
 	self->SPI.PORT->DIR |= self->SPI.MISO;
+	self->SPI.PORT->DIR &= ~self->SPI.MOSI;
+	self->SPI.PORT->DIR &= ~self->SPI.SS;
+	self->SPI.PORT->DIR &= ~self->SPI.SCK;
 	
 	resetPins(self);
 }

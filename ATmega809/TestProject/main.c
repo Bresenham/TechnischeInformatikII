@@ -53,8 +53,10 @@ void initTimer0() {
 void initSPI() {
 	/* Set alternative SPI pins */
 	PORTMUX.TWISPIROUTEA |= PORTMUX_SPI0_ALT1_gc;
+	/* Enable Buffer Mode */
+	SPI0.CTRLB |= SPI_BUFEN_bm;
 	/* Enable Receive Interrupt */
-	SPI0.INTCTRL |= SPI_IE_bm;
+	SPI0.INTCTRL |= SPI_RXCIE_bm;
 	/* Enable SPI */
 	SPI0.CTRLA |= SPI_ENABLE_bm;
 }
@@ -86,9 +88,9 @@ int main(void) {
 			//dramHandler.refreshRASonly(&dramHandler);
 			//dramHandler.hasPendingRefresh = false;
 		//}
-		//if(dramHandler.hasPendingBufferUpdate) {
-			//dramHandler.processAndRespondBuffer(&dramHandler);
-			//dramHandler.hasPendingBufferUpdate = false;
-		//}
+		if(dramHandler.hasPendingBufferUpdate) {
+			dramHandler.processAndRespondBuffer(&dramHandler);
+			dramHandler.hasPendingBufferUpdate = false;
+		}
     }
 }

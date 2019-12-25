@@ -188,7 +188,7 @@ __vector_9:
 	rcall __udivmodqi4
 	lds r30,dramHandler+50	 ;  dramHandler.writeByte, dramHandler.writeByte
 	lds r31,dramHandler+50+1	 ;  dramHandler.writeByte, dramHandler.writeByte
-	mov r18,r25	 ; , D.3182
+	mov r18,r25	 ; , D.3188
 	movw r22,r14	 ; , ivtmp.24
 	movw r20,r12	 ; , ivtmp.24
 	ldi r24,lo8(dramHandler)	 ; ,
@@ -234,7 +234,7 @@ __vector_9:
 	icall
 .LVL5:
 	movw r30,r16	 ; , tmp63
-	st Z,r24	 ;  vals, D.3182
+	st Z,r24	 ;  vals, D.3188
 .LVL6:
 	ldi r31,-1	 ; ,
 	sub r12,r31	 ;  ivtmp.16,
@@ -254,9 +254,9 @@ __vector_9:
 	ldi r24,lo8(1)	 ;  tmp68,
 	sts dramHandler+46,r24	 ;  dramHandler.hasPendingRefresh, tmp68
 	.loc 1 31 0
-	lds r24,2571	 ;  D.3182, MEM[(union TCA_t *)2560B].SINGLE.INTFLAGS
-	ori r24,lo8(16)	 ;  D.3182,
-	sts 2571,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.INTFLAGS, D.3182
+	lds r24,2571	 ;  D.3188, MEM[(union TCA_t *)2560B].SINGLE.INTFLAGS
+	ori r24,lo8(16)	 ;  D.3188,
+	sts 2571,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.INTFLAGS, D.3188
 /* epilogue start */
 	.loc 1 32 0
 	subi r28,1	 ; ,
@@ -437,9 +437,9 @@ initTimer0:
 	ldi r24,lo8(16)	 ;  tmp51,
 	std Z+10,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.INTCTRL, tmp51
 	.loc 1 50 0
-	ld r24,Z	 ;  D.3191, MEM[(union TCA_t *)2560B].SINGLE.CTRLA
-	ori r24,lo8(1)	 ;  D.3191,
-	st Z,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.CTRLA, D.3191
+	ld r24,Z	 ;  D.3197, MEM[(union TCA_t *)2560B].SINGLE.CTRLA
+	ori r24,lo8(1)	 ;  D.3197,
+	st Z,r24	 ;  MEM[(union TCA_t *)2560B].SINGLE.CTRLA, D.3197
 	ret
 	.cfi_endproc
 .LFE8:
@@ -456,21 +456,25 @@ initSPI:
 /* stack size = 0 */
 .L__stack_usage = 0
 	.loc 1 55 0
-	ldi r30,lo8(-32)	 ;  tmp48,
+	ldi r30,lo8(-32)	 ;  tmp50,
 	ldi r31,lo8(5)	 ; ,
-	ldd r24,Z+3	 ;  D.3194, MEM[(struct PORTMUX_t *)1504B].TWISPIROUTEA
-	ori r24,lo8(1)	 ;  D.3194,
-	std Z+3,r24	 ;  MEM[(struct PORTMUX_t *)1504B].TWISPIROUTEA, D.3194
+	ldd r24,Z+3	 ;  D.3200, MEM[(struct PORTMUX_t *)1504B].TWISPIROUTEA
+	ori r24,lo8(1)	 ;  D.3200,
+	std Z+3,r24	 ;  MEM[(struct PORTMUX_t *)1504B].TWISPIROUTEA, D.3200
 	.loc 1 57 0
-	ldi r30,lo8(-64)	 ;  tmp50,
+	ldi r30,lo8(-64)	 ;  tmp52,
 	ldi r31,lo8(8)	 ; ,
-	ldd r24,Z+2	 ;  D.3194, MEM[(struct SPI_t *)2240B].INTCTRL
-	ori r24,lo8(1)	 ;  D.3194,
-	std Z+2,r24	 ;  MEM[(struct SPI_t *)2240B].INTCTRL, D.3194
+	ldd r24,Z+1	 ;  D.3200, MEM[(struct SPI_t *)2240B].CTRLB
+	ori r24,lo8(-128)	 ;  D.3200,
+	std Z+1,r24	 ;  MEM[(struct SPI_t *)2240B].CTRLB, D.3200
 	.loc 1 59 0
-	ld r24,Z	 ;  D.3194, MEM[(struct SPI_t *)2240B].CTRLA
-	ori r24,lo8(1)	 ;  D.3194,
-	st Z,r24	 ;  MEM[(struct SPI_t *)2240B].CTRLA, D.3194
+	ldd r24,Z+2	 ;  D.3200, MEM[(struct SPI_t *)2240B].INTCTRL
+	ori r24,lo8(-128)	 ;  D.3200,
+	std Z+2,r24	 ;  MEM[(struct SPI_t *)2240B].INTCTRL, D.3200
+	.loc 1 61 0
+	ld r24,Z	 ;  D.3200, MEM[(struct SPI_t *)2240B].CTRLA
+	ori r24,lo8(1)	 ;  D.3200,
+	st Z,r24	 ;  MEM[(struct SPI_t *)2240B].CTRLA, D.3200
 	ret
 	.cfi_endproc
 .LFE9:
@@ -480,28 +484,28 @@ initSPI:
 	.type	initCPU, @function
 initCPU:
 .LFB10:
-	.loc 1 62 0
+	.loc 1 64 0
 	.cfi_startproc
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-	.loc 1 64 0
+	.loc 1 66 0
 	ldi r24,lo8(-40)	 ;  tmp45,
 	out __CCP__,r24	 ;  MEM[(volatile uint8_t *)52B], tmp45
-	.loc 1 66 0
+	.loc 1 68 0
 	ldi r30,lo8(96)	 ;  tmp46,
 	ldi r31,0	 ; 
 	st Z,__zero_reg__	 ;  MEM[(struct CLKCTRL_t *)96B].MCLKCTRLA,
-	.loc 1 68 0
-	out __CCP__,r24	 ;  MEM[(volatile uint8_t *)52B], tmp45
 	.loc 1 70 0
-	ldd r24,Z+1	 ;  D.3197, MEM[(struct CLKCTRL_t *)96B].MCLKCTRLB
-	andi r24,lo8(-2)	 ;  D.3197,
-	std Z+1,r24	 ;  MEM[(struct CLKCTRL_t *)96B].MCLKCTRLB, D.3197
-	.loc 1 73 0
+	out __CCP__,r24	 ;  MEM[(volatile uint8_t *)52B], tmp45
+	.loc 1 72 0
+	ldd r24,Z+1	 ;  D.3203, MEM[(struct CLKCTRL_t *)96B].MCLKCTRLB
+	andi r24,lo8(-2)	 ;  D.3203,
+	std Z+1,r24	 ;  MEM[(struct CLKCTRL_t *)96B].MCLKCTRLB, D.3203
+	.loc 1 75 0
 /* #APP */
- ;  73 ".././main.c" 1
+ ;  75 ".././main.c" 1
 	sei
  ;  0 "" 2
 /* #NOAPP */
@@ -514,33 +518,46 @@ initCPU:
 	.type	main, @function
 main:
 .LFB11:
-	.loc 1 76 0
+	.loc 1 78 0
 	.cfi_startproc
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-	.loc 1 77 0
+	.loc 1 79 0
 	ldi r24,lo8(dramHandler)	 ; ,
 	ldi r25,hi8(dramHandler)	 ; ,
 	rcall initDRAMHandler	 ; 
 .LVL11:
-	.loc 1 79 0
+	.loc 1 81 0
 	rcall initCPU	 ; 
 .LVL12:
-	.loc 1 80 0
+	.loc 1 82 0
 	rcall initSPI	 ; 
 .LVL13:
-	.loc 1 81 0
+	.loc 1 83 0
 	rcall initTimer0	 ; 
 .LVL14:
 .L12:
-	.loc 1 84 0 discriminator 1
+	.loc 1 86 0
 /* #APP */
- ;  84 ".././main.c" 1
+ ;  86 ".././main.c" 1
 	nop
  ;  0 "" 2
+	.loc 1 91 0
 /* #NOAPP */
+	lds r24,dramHandler+47	 ;  D.3206, dramHandler.hasPendingBufferUpdate
+	tst r24	 ;  D.3206
+	breq .L12	 ; ,
+	.loc 1 92 0
+	lds r30,dramHandler+54	 ;  dramHandler.processAndRespondBuffer, dramHandler.processAndRespondBuffer
+	lds r31,dramHandler+54+1	 ;  dramHandler.processAndRespondBuffer, dramHandler.processAndRespondBuffer
+	ldi r24,lo8(dramHandler)	 ; ,
+	ldi r25,hi8(dramHandler)	 ; ,
+	icall
+.LVL15:
+	.loc 1 93 0
+	sts dramHandler+47,__zero_reg__	 ;  dramHandler.hasPendingBufferUpdate,
 	rjmp .L12	 ; 
 	.cfi_endproc
 .LFE11:
@@ -554,7 +571,7 @@ main:
 	.file 5 ".././DRAMHandler/DRAMHandler.h"
 	.section	.debug_info,"",@progbits
 .Ldebug_info0:
-	.long	0x1060
+	.long	0x1074
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
@@ -2684,7 +2701,7 @@ main:
 	.byte	0x1
 	.long	.LASF167
 	.byte	0x1
-	.byte	0x3e
+	.byte	0x40
 	.long	.LFB10
 	.long	.LFE10
 	.byte	0x3
@@ -2696,7 +2713,7 @@ main:
 	.byte	0x1
 	.long	.LASF172
 	.byte	0x1
-	.byte	0x4c
+	.byte	0x4e
 	.byte	0x1
 	.long	0x42
 	.byte	0x1
@@ -2707,10 +2724,10 @@ main:
 	.uleb128 0x20
 	.sleb128 2
 	.byte	0x1
-	.long	0x1044
+	.long	0x1058
 	.uleb128 0x28
 	.long	.LVL11
-	.long	0x1056
+	.long	0x106a
 	.long	0x1028
 	.uleb128 0x22
 	.byte	0x6
@@ -2733,6 +2750,20 @@ main:
 	.uleb128 0x29
 	.long	.LVL14
 	.long	0xfae
+	.uleb128 0x21
+	.long	.LVL15
+	.uleb128 0x22
+	.byte	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x5
+	.byte	0x3
+	.long	dramHandler
+	.byte	0
 	.byte	0
 	.uleb128 0x2a
 	.long	.LASF173

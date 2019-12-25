@@ -2209,58 +2209,68 @@ void initSPI() {
 # 57 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
 # 57 ".././main.c"
-    .INTCTRL |= 
+    .CTRLB |= 
 # 57 ".././main.c" 3
-                0x01
+              0x80
 # 57 ".././main.c"
-                         ;
+                          ;
 
  
 # 59 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
 # 59 ".././main.c"
-    .CTRLA |= 
+    .INTCTRL |= 
 # 59 ".././main.c" 3
-              0x01
+                0x80
 # 59 ".././main.c"
+                            ;
+
+ 
+# 61 ".././main.c" 3
+(*(SPI_t *) 0x08C0)
+# 61 ".././main.c"
+    .CTRLA |= 
+# 61 ".././main.c" 3
+              0x01
+# 61 ".././main.c"
                            ;
 }
 
 void initCPU() {
 
  
-# 64 ".././main.c" 3
-(*(volatile uint8_t *)(0x0034)) 
-# 64 ".././main.c"
-    = 0xD8;
-
- 
 # 66 ".././main.c" 3
-(*(CLKCTRL_t *) 0x0060)
+(*(volatile uint8_t *)(0x0034)) 
 # 66 ".././main.c"
-       .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
+    = 0xD8;
 
  
 # 68 ".././main.c" 3
-(*(volatile uint8_t *)(0x0034)) 
+(*(CLKCTRL_t *) 0x0060)
 # 68 ".././main.c"
-    = 0xD8;
+       .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
 
  
 # 70 ".././main.c" 3
+(*(volatile uint8_t *)(0x0034)) 
+# 70 ".././main.c"
+    = 0xD8;
+
+ 
+# 72 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 70 ".././main.c"
+# 72 ".././main.c"
        .MCLKCTRLB &= ~(1 << 
-# 70 ".././main.c" 3
+# 72 ".././main.c" 3
                             0
-# 70 ".././main.c"
+# 72 ".././main.c"
                                           );
 
 
  
-# 73 ".././main.c" 3
+# 75 ".././main.c" 3
 __asm__ __volatile__ ("sei" ::: "memory")
-# 73 ".././main.c"
+# 75 ".././main.c"
      ;
 }
 
@@ -2273,6 +2283,17 @@ int main(void) {
 
     while (1) {
   asm("nop");
+
+
+
+
+  if(dramHandler.hasPendingBufferUpdate) {
+   dramHandler.processAndRespondBuffer(&dramHandler);
+   dramHandler.hasPendingBufferUpdate = 
+# 93 ".././main.c" 3 4
+                                       0
 # 93 ".././main.c"
+                                            ;
+  }
     }
 }
