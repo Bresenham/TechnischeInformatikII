@@ -21,33 +21,6 @@ bool isLEDon = false;
 SemaphoreHandle_t mutex;
 TaskHandle_t spi_task_handle;
 
-void send_spi(spi_trans_t *trans, uint8_t *data, uint8_t length) {
-  memset(trans, 0, sizeof(*trans));
-  
-  trans->bits.mosi = length * 8;
-  trans->mosi = data;
-  trans->addr = NULL;
-  trans->cmd = NULL;
-
-  spi_trans(HSPI_HOST, trans);
-}
-
-void read_spi(spi_trans_t *trans, uint8_t *buf) {
-  memset(trans, 0, sizeof(*trans));
-  
-  trans->bits.miso = 8;
-  trans->miso = buf;
-  trans->addr = NULL;
-  trans->cmd = NULL;
-  
-  spi_trans(HSPI_HOST, trans);
-}
-
-uint8_t readMsgBuf[4];
-uint8_t writeMsgBuf[5];
-uint8_t recvBuf[1];
-spi_trans_t trans;
-
 typedef enum STATE {
 	IDLE = 0,
 	SENT_WRITE = 1,
@@ -56,30 +29,38 @@ typedef enum STATE {
 
 void ICACHE_FLASH_ATTR spi_master_write_slave_task(void *arg) {
 	printf("SPI Write-Task started...\n");
+	
+	uint8_t trans_data[5];
+	uint8_t recv_data[1];
+
 	STATE state = IDLE;
+	spi_trans_t trans;
+	
+	memset(&trans, 0, sizeof(trans));
+	trans.bits.miso = 0;
+	trans.bits.mosi = 0;
+	trans.mosi = trans_data;
+	trans.miso = recv_data;
+	trans.addr = NULL;
+	trans.cmd = NULL;
 
 	const uint32_t addr = 5829;
 	const uint8_t addrMSB =  (addr >> 16);
 	const uint8_t addrMLSB = (addr >> 8);
 	const uint8_t addrLSB = (addr & 0xFF);
 
-	readMsgBuf[0] = READ_CMD;
-	readMsgBuf[1] = addrMSB;
-	readMsgBuf[2] = addrMLSB;
-	readMsgBuf[3] = addrLSB;
-
-	writeMsgBuf[0] = WRITE_CMD;
-	writeMsgBuf[1] = addrMSB;
-	writeMsgBuf[2] = addrMLSB;
-	writeMsgBuf[3] = addrLSB;
-	writeMsgBuf[4] = 133;
-
 	while(true) {
 		switch(state) {
 			case IDLE: {
-				send_spi(&trans, writeMsgBuf, sizeof(writeMsgBuf));
-
 				xSemaphoreTake(mutex, portMAX_DELAY);
+				trans.bits.miso = 0;
+				trans.bits.mosi = 5 * 8;
+				trans_data[0] = WRITE_CMD;
+				trans_data[1] = addrMSB;
+				trans_data[2] = addrMLSB;
+				trans_data[3] = addrLSB;
+				trans_data[4] = 133;
+				spi_trans(HSPI_HOST, &trans);
 				//vTaskSuspend(spi_task_handle);
 
 				state = SENT_WRITE;
@@ -87,9 +68,14 @@ void ICACHE_FLASH_ATTR spi_master_write_slave_task(void *arg) {
 			break;
 
 			case SENT_WRITE: {
-				send_spi(&trans, readMsgBuf, sizeof(readMsgBuf));
-
 				xSemaphoreTake(mutex, portMAX_DELAY);
+				trans.bits.miso = 0;
+				trans.bits.mosi = 4 * 8;
+				trans_data[0] = READ_CMD;
+				trans_data[1] = addrMSB;
+				trans_data[2] = addrMLSB;
+				trans_data[3] = addrLSB;
+				spi_trans(HSPI_HOST, &trans);
 				//vTaskSuspend(spi_task_handle);
 
 				state = SENT_READ;
@@ -97,8 +83,10 @@ void ICACHE_FLASH_ATTR spi_master_write_slave_task(void *arg) {
 			break;
 
 			case SENT_READ: {
-				read_spi(&trans, recvBuf);
-
+				xSemaphoreTake(mutex, portMAX_DELAY);
+				trans.bits.mosi = 0;
+				trans.bits.miso = 8;
+				spi_trans(HSPI_HOST, &trans);
 				state = IDLE;
 			}
 			break;
