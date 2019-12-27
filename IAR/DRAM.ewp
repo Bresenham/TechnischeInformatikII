@@ -127,19 +127,23 @@
                 <option>
                     <name>GRuntimeLibSelect</name>
                     <version>0</version>
-                    <state>4</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>RTDescription</name>
-                    <state>Use the legacy C runtime library.</state>
+                    <state>Use the full configuration of the C/C++</state>
+                    <state>runtime library. Full locale interface,</state>
+                    <state>C locale, file descriptor support,</state>
+                    <state>multibytes in printf and scanf, and</state>
+                    <state>hex floats in strtod.</state>
                 </option>
                 <option>
                     <name>RTConfigPath</name>
-                    <state></state>
+                    <state>$TOOLKIT_DIR$\LIB\DLIB\dlAVR-1s-arch4-f.h</state>
                 </option>
                 <option>
                     <name>RTLibraryPath</name>
-                    <state>$TOOLKIT_DIR$\LIB\CLIB\cl1s-arch4.r90</state>
+                    <state>$TOOLKIT_DIR$\LIB\DLIB\dlAVR-1s-arch4-f.r90</state>
                 </option>
                 <option>
                     <name>Input variant</name>
@@ -162,7 +166,7 @@
                 <option>
                     <name>GRuntimeLibSelectSlave</name>
                     <version>0</version>
-                    <state>4</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -220,7 +224,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>7.20.2.1517</state>
+                    <state>7.20.6.1575</state>
                 </option>
             </data>
         </settings>
@@ -764,7 +768,7 @@
                 </option>
                 <option>
                     <name>XclOverride</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>XclFile</name>
@@ -2098,6 +2102,21 @@
         </settings>
     </configuration>
     <file>
+        <name>$PROJ_DIR$\Buffer\Buffer.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\Buffer\Buffer.h</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\DRAMHandler\DRAMHandler.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\DRAMHandler\DRAMHandler.h</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\main.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\System.h</name>
     </file>
 </project>

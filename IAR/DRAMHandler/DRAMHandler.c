@@ -6,8 +6,7 @@
  */ 
 
 #include "../System.h"
-#include <avr/io.h>
-#include <util/delay.h>
+#include <iom809.h>
 #include "DRAMHandler.h"
 
 #define ADDR_MASK			0x0003FFFF	/* mask first 18-bits */
@@ -50,14 +49,10 @@ void refreshRASonly(DRAM_HANDLER *self) {
 		writeToAddrPort(self, row);
 		self->RAS.PORT->OUT &= ~self->RAS.PIN;
 		
-		_delay_us(2);
-		
 		self->RAS.PORT->OUT |= self->RAS.PIN;
-		_delay_us(1);
 
 		self->CAS.PORT->OUT &= ~self->CAS.PIN;
 		self->CAS.PORT->OUT |= self->CAS.PIN;
-		_delay_us(1);
 		
 		self->CAS.PORT->OUT &= ~self->CAS.PIN;
 	}
@@ -120,11 +115,12 @@ void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
 void processAndRespondBuffer(DRAM_HANDLER *self) {
 	const uint8_t cmd = *self->buffer.PTR.cmd;
 	if(cmd == READ_CMD || cmd == WRITE_CMD) {
-		volatile uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
+		const uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
 		const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
 		if(bufferLen == READ_CMD_LEN && cmd == READ_CMD) {
-			SPI0.DATA = self->readByte(self, addr);
+			const uint8_t data = self->readByte(self, addr);
 			self->buffer.reset(&self->buffer);
+			SPI0.DATA = data;
 		} else if(bufferLen == WRITE_CMD_LEN && cmd == WRITE_CMD) {
 			const uint8_t data = *self->buffer.PTR.param1;
 			self->writeByte(self, addr, data);

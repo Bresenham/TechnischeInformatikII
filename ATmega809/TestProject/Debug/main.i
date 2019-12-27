@@ -2111,132 +2111,156 @@ DRAM_HANDLER dramHandler;
 void __vector_9 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_9 (void) 
 # 18 ".././main.c"
                    {
- for(uint8_t i = 0; i < 0xFF; i++) {
-  dramHandler.writeByte(&dramHandler, i, i % 5);
- }
-
- volatile uint8_t vals[0xFF];
- for(uint8_t i = 0; i < 0xFF; i++) {
-  vals[i] = 0;
-  vals[i] = dramHandler.readByte(&dramHandler, i);
- }
-
  dramHandler.hasPendingRefresh = 
-# 29 ".././main.c" 3 4
+# 19 ".././main.c" 3 4
                                 1
-# 29 ".././main.c"
+# 19 ".././main.c"
                                     ;
 
+
  
-# 31 ".././main.c" 3
+# 22 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 31 ".././main.c"
+# 22 ".././main.c"
     .SINGLE.INTFLAGS |= (1 << 
-# 31 ".././main.c" 3
+# 22 ".././main.c" 3
                               4
-# 31 ".././main.c"
+# 22 ".././main.c"
                                                   );
 }
 
 
-# 34 ".././main.c" 3
+# 25 ".././main.c" 3
 void __vector_16 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_16 (void) 
-# 34 ".././main.c"
+# 25 ".././main.c"
                   {
- const uint8_t data = 
-# 35 ".././main.c" 3
-                     (*(SPI_t *) 0x08C0)
-# 35 ".././main.c"
-                         .DATA;
- dramHandler.buffer.push(&dramHandler.buffer, data);
- dramHandler.hasPendingBufferUpdate = 
-# 37 ".././main.c" 3 4
-                                     1
-# 37 ".././main.c"
-                                         ;
+ if(
+# 26 ".././main.c" 3
+   (*(SPI_t *) 0x08C0)
+# 26 ".././main.c"
+       .INTFLAGS & 
+# 26 ".././main.c" 3
+                   0x80
+# 26 ".././main.c"
+                               ) {
+  const uint8_t data = 
+# 27 ".././main.c" 3
+                      (*(SPI_t *) 0x08C0)
+# 27 ".././main.c"
+                          .DATA;
+  dramHandler.buffer.push(&dramHandler.buffer, data);
+  dramHandler.hasPendingBufferUpdate = 
+# 29 ".././main.c" 3 4
+                                      1
+# 29 ".././main.c"
+                                          ;
+ }
 }
 
 void initTimer0() {
 
  
-# 42 ".././main.c" 3
+# 35 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 42 ".././main.c"
+# 35 ".././main.c"
     .SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV16_gc;
 
  
-# 44 ".././main.c" 3
+# 37 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 44 ".././main.c"
+# 37 ".././main.c"
     .SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc;
 
  
-# 46 ".././main.c" 3
+# 39 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 46 ".././main.c"
+# 39 ".././main.c"
     .SINGLE.CMP0BUF = ((30 / 2) * ( (20000000UL) / (1000 * 16) ));
 
  
-# 48 ".././main.c" 3
+# 41 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 48 ".././main.c"
+# 41 ".././main.c"
     .SINGLE.INTCTRL = 
-# 48 ".././main.c" 3
+# 41 ".././main.c" 3
                       0x10
-# 48 ".././main.c"
+# 41 ".././main.c"
                                           ;
 
  
-# 50 ".././main.c" 3
+# 43 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 50 ".././main.c"
+# 43 ".././main.c"
     .SINGLE.CTRLA |= 
-# 50 ".././main.c" 3
+# 43 ".././main.c" 3
                      0x01
-# 50 ".././main.c"
+# 43 ".././main.c"
                                          ;
 }
 
 void initSPI() {
 
  
-# 55 ".././main.c" 3
+# 48 ".././main.c" 3
 (*(PORTMUX_t *) 0x05E0)
-# 55 ".././main.c"
+# 48 ".././main.c"
        .TWISPIROUTEA |= PORTMUX_SPI0_ALT1_gc;
 
  
-# 57 ".././main.c" 3
+# 50 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 57 ".././main.c"
+# 50 ".././main.c"
+    .CTRLB = 
+# 50 ".././main.c" 3
+             0x80
+# 50 ".././main.c"
+                         ;
+
+ 
+# 52 ".././main.c" 3
+(*(SPI_t *) 0x08C0)
+# 52 ".././main.c"
     .CTRLB |= 
-# 57 ".././main.c" 3
-              0x80
-# 57 ".././main.c"
+# 52 ".././main.c" 3
+              0x40
+# 52 ".././main.c"
                           ;
 
  
-# 59 ".././main.c" 3
+# 54 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 59 ".././main.c"
-    .INTCTRL |= 
-# 59 ".././main.c" 3
-                0x80
-# 59 ".././main.c"
-                            ;
+# 54 ".././main.c"
+    .INTCTRL = 
+# 54 ".././main.c" 3
+               0x80
+# 54 ".././main.c"
+                           ;
+
 
  
-# 61 ".././main.c" 3
+# 57 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 61 ".././main.c"
+# 57 ".././main.c"
     .CTRLA |= 
-# 61 ".././main.c" 3
+# 57 ".././main.c" 3
               0x01
-# 61 ".././main.c"
+# 57 ".././main.c"
                            ;
 }
 
 void initCPU() {
+
+ 
+# 62 ".././main.c" 3
+(*(volatile uint8_t *)(0x0034)) 
+# 62 ".././main.c"
+    = 0xD8;
+
+ 
+# 64 ".././main.c" 3
+(*(CLKCTRL_t *) 0x0060)
+# 64 ".././main.c"
+       .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
 
  
 # 66 ".././main.c" 3
@@ -2248,29 +2272,17 @@ void initCPU() {
 # 68 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
 # 68 ".././main.c"
-       .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
-
- 
-# 70 ".././main.c" 3
-(*(volatile uint8_t *)(0x0034)) 
-# 70 ".././main.c"
-    = 0xD8;
-
- 
-# 72 ".././main.c" 3
-(*(CLKCTRL_t *) 0x0060)
-# 72 ".././main.c"
        .MCLKCTRLB &= ~(1 << 
-# 72 ".././main.c" 3
+# 68 ".././main.c" 3
                             0
-# 72 ".././main.c"
+# 68 ".././main.c"
                                           );
 
 
  
-# 75 ".././main.c" 3
+# 71 ".././main.c" 3
 __asm__ __volatile__ ("sei" ::: "memory")
-# 75 ".././main.c"
+# 71 ".././main.c"
      ;
 }
 
@@ -2282,17 +2294,20 @@ int main(void) {
  initTimer0();
 
     while (1) {
-  asm("nop");
-
-
-
-
+  if(dramHandler.hasPendingRefresh) {
+   dramHandler.refreshRASonly(&dramHandler);
+   dramHandler.hasPendingRefresh = 
+# 84 ".././main.c" 3 4
+                                  0
+# 84 ".././main.c"
+                                       ;
+  }
   if(dramHandler.hasPendingBufferUpdate) {
    dramHandler.processAndRespondBuffer(&dramHandler);
    dramHandler.hasPendingBufferUpdate = 
-# 93 ".././main.c" 3 4
+# 88 ".././main.c" 3 4
                                        0
-# 93 ".././main.c"
+# 88 ".././main.c"
                                             ;
   }
     }

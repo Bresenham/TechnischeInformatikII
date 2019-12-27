@@ -7,11 +7,12 @@
 
 #include "esp_system.h"
 #include "esp_spi_flash.h"
-#include "esp_log.h"
 
 #include "driver/gpio.h"
 #include "driver/spi.h"
 
+#define	LED_ON				0
+#define LED_OFF				1
 #define	LED_OUTPUT_PIN_SEL	(1 << GPIO_NUM_2)
 
 #define READ_CMD			0x13
@@ -19,19 +20,19 @@
 
 bool isLEDon = false;
 SemaphoreHandle_t mutex;
-TaskHandle_t spi_task_handle;
 
 typedef enum STATE {
 	IDLE = 0,
 	SENT_WRITE = 1,
-	SENT_READ = 2
+	SENT_READ = 2,
+	RECV_READ = 3
 } STATE;
 
 void ICACHE_FLASH_ATTR spi_master_write_slave_task(void *arg) {
 	printf("SPI Write-Task started...\n");
 	
 	uint8_t trans_data[5];
-	uint8_t recv_data[1];
+	uint8_t recv_data[1] = {0};
 
 	STATE state = IDLE;
 	spi_trans_t trans;
@@ -53,15 +54,16 @@ void ICACHE_FLASH_ATTR spi_master_write_slave_task(void *arg) {
 		switch(state) {
 			case IDLE: {
 				xSemaphoreTake(mutex, portMAX_DELAY);
+				gpio_set_level(GPIO_NUM_2, LED_ON);
+
 				trans.bits.miso = 0;
 				trans.bits.mosi = 5 * 8;
 				trans_data[0] = WRITE_CMD;
 				trans_data[1] = addrMSB;
 				trans_data[2] = addrMLSB;
 				trans_data[3] = addrLSB;
-				trans_data[4] = 133;
+				trans_data[4] = 137;
 				spi_trans(HSPI_HOST, &trans);
-				//vTaskSuspend(spi_task_handle);
 
 				state = SENT_WRITE;
 			}
@@ -69,6 +71,7 @@ void ICACHE_FLASH_ATTR spi_master_write_slave_task(void *arg) {
 
 			case SENT_WRITE: {
 				xSemaphoreTake(mutex, portMAX_DELAY);
+
 				trans.bits.miso = 0;
 				trans.bits.mosi = 4 * 8;
 				trans_data[0] = READ_CMD;
@@ -76,7 +79,6 @@ void ICACHE_FLASH_ATTR spi_master_write_slave_task(void *arg) {
 				trans_data[2] = addrMLSB;
 				trans_data[3] = addrLSB;
 				spi_trans(HSPI_HOST, &trans);
-				//vTaskSuspend(spi_task_handle);
 
 				state = SENT_READ;
 			}
@@ -87,27 +89,32 @@ void ICACHE_FLASH_ATTR spi_master_write_slave_task(void *arg) {
 				trans.bits.mosi = 0;
 				trans.bits.miso = 8;
 				spi_trans(HSPI_HOST, &trans);
+
+				state = RECV_READ;
+			}
+			break;
+			
+			case RECV_READ: {
+				xSemaphoreTake(mutex, portMAX_DELAY);
+
+				gpio_set_level(GPIO_NUM_2, LED_OFF);
+				printf("RECV-BYTE: %d\n", recv_data[0]);
+				
+				xSemaphoreGive(mutex);
+				
 				state = IDLE;
 			}
 			break;
+		}
+		
+		vTaskDelay(10 / portTICK_PERIOD_MS);
 	}
-
-	if(isLEDon) {
-		gpio_set_level(GPIO_NUM_2, 1);
-		isLEDon = false;
-	} else {
-		gpio_set_level(GPIO_NUM_2, 0);
-		isLEDon = true;
-	}
-
-	vTaskDelay(100 / portTICK_PERIOD_MS);
-  }
 }
 
-void spi_callback(int event, void *arg) {
+void ICACHE_FLASH_ATTR spi_callback(int event, void *arg) {
     switch (event) {
         case SPI_INIT_EVENT: {
-			xTaskCreate(spi_master_write_slave_task, "spi_master_write_slave", 2048, NULL, 3, &spi_task_handle);
+			xTaskCreate(spi_master_write_slave_task, "spi_master_write_slave", 2048, NULL, 3, NULL);
         }
         break;
 
@@ -117,7 +124,6 @@ void spi_callback(int event, void *arg) {
 
         case SPI_TRANS_DONE_EVENT: {
 			xSemaphoreGive(mutex);
-			//xTaskResumeFromISR(spi_task_handle);
         }
         break;
 
@@ -137,6 +143,8 @@ void ICACHE_FLASH_ATTR app_main() {
 	io_conf.pull_down_en = 0;
 	io_conf.pull_up_en = 0;
 	gpio_config(&io_conf);
+	
+	gpio_set_level(GPIO_NUM_2, LED_OFF);
   
 	spi_config_t spi_config;
 	spi_config.interface.val = SPI_DEFAULT_INTERFACE;

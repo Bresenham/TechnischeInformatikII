@@ -16,25 +16,18 @@
 DRAM_HANDLER dramHandler;
 
 ISR(TCA0_CMP0_vect) {
-	for(uint8_t i = 0; i < RAM_READ_LENGTH; i++) {
-		dramHandler.writeByte(&dramHandler, i, i % 5);
-	}
-
-	volatile uint8_t vals[0xFF];
-	for(uint8_t i = 0; i < RAM_READ_LENGTH; i++) {
-		vals[i] = 0;
-		vals[i] = dramHandler.readByte(&dramHandler, i);
-	}
-	
 	dramHandler.hasPendingRefresh = true;
+
 	/* Clear interrupt flag */
 	TCA0.SINGLE.INTFLAGS |= (1 << TCA_SINGLE_CMP0EN_bp);
 }
 
 ISR(SPI0_INT_vect) {
-	const uint8_t data = SPI0.DATA;
-	dramHandler.buffer.push(&dramHandler.buffer, data);
-	dramHandler.hasPendingBufferUpdate = true;
+	if(SPI0.INTFLAGS & SPI_RXCIE_bm) {
+		const uint8_t data = SPI0.DATA;
+		dramHandler.buffer.push(&dramHandler.buffer, data);
+		dramHandler.hasPendingBufferUpdate = true;
+	}
 }
 
 void initTimer0() {
@@ -54,9 +47,12 @@ void initSPI() {
 	/* Set alternative SPI pins */
 	PORTMUX.TWISPIROUTEA |= PORTMUX_SPI0_ALT1_gc;
 	/* Enable Buffer Mode */
-	SPI0.CTRLB |= SPI_BUFEN_bm;
+	SPI0.CTRLB = SPI_BUFEN_bm;
+	/* Directly write to Shift reg */
+	SPI0.CTRLB |= SPI_BUFWR_bm;
 	/* Enable Receive Interrupt */
-	SPI0.INTCTRL |= SPI_RXCIE_bm;
+	SPI0.INTCTRL = SPI_RXCIE_bm;
+	//SPI0.INTCTRL |= SPI_TXCIE_bm;
 	/* Enable SPI */
 	SPI0.CTRLA |= SPI_ENABLE_bm;
 }
@@ -83,11 +79,10 @@ int main(void) {
 	initTimer0();
 	
     while (1) {
-		asm("nop");
-		//if(dramHandler.hasPendingRefresh) {
-			//dramHandler.refreshRASonly(&dramHandler);
-			//dramHandler.hasPendingRefresh = false;
-		//}
+		if(dramHandler.hasPendingRefresh) {
+			dramHandler.refreshRASonly(&dramHandler);
+			dramHandler.hasPendingRefresh = false;
+		}
 		if(dramHandler.hasPendingBufferUpdate) {
 			dramHandler.processAndRespondBuffer(&dramHandler);
 			dramHandler.hasPendingBufferUpdate = false;
