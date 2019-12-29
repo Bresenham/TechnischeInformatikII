@@ -26,10 +26,10 @@ void ICACHE_FLASH_ATTR spi_handler_task(void *arg) {
 	while(true) {
 		if(spiHandler.state == READY) {
 			const uint8_t queue_resp = xQueueReceive(spiHandler.toSPIQueue, &req, 0);
-			if(queue_resp == pdTRUE) {
+			if(queue_resp && xSemaphoreTake(spiHandler.mutex, portMAX_DELAY )) {
 				printf("SPIHandler: Got SPI_REQUEST...");
 				if(req.type == READ_CMD) {
-					printf("of type READ\n");
+					printf("of type READ with %d\n", req.addr);
 					fillReadRequest(req.addr);
 					spiHandler.spi_t.bits.mosi = READ_REQUEST_SIZE * 8;
 					spiHandler.spi_t.bits.miso = 0;
@@ -38,7 +38,7 @@ void ICACHE_FLASH_ATTR spi_handler_task(void *arg) {
 					printf("done\n");
 					spiHandler.state = WROTE_READ_CMD;
 				} else if(req.type == WRITE_CMD) {
-					printf("of type WRITE\n");
+					printf("of type WRITE with %d|%d\n", req.addr, req.data);
 					fillWriteRequest(req.addr, req.data);
 					spiHandler.spi_t.bits.mosi = WRITE_REQUEST_SIZE * 8;
 					spiHandler.spi_t.bits.miso = 0;
@@ -49,29 +49,34 @@ void ICACHE_FLASH_ATTR spi_handler_task(void *arg) {
 				}
 			}
 		} else {
-			switch(spiHandler.state) {
-				case WROTE_READ_CMD: {
-					printf("Substate 'WROTE_READ_CMD' for READ-REQUEST, setting up SPI buffer...");
-					spiHandler.spi_t.bits.mosi = 0;
-					spiHandler.spi_t.bits.miso = 8;
-					printf("done. Transmitting...");
-					spi_trans(HSPI_HOST, &spiHandler.spi_t);
-					printf("done\n");
-					spiHandler.state = SENT_READ_CLK;
-				} break;
-				case SENT_READ_CLK: {
-					printf("Substate 'SENT_READ_CLK' for READ-Request, received response\n");
-					resp.addr = req.addr;
-					resp.data = spiHandler.recv_data[0];
-					spiHandler.state = READY;
-					printf("Push result into queue...");
-					xQueueSend(spiHandler.toWebserverQueue, &resp, 0);
-					printf("done\n");
-				} break;
-				case WROTE_WRITE_CMD: {
-					spiHandler.state = READY;
-				} break;
-				default: break;
+			if(xSemaphoreTake(spiHandler.mutex, portMAX_DELAY)) {
+				switch(spiHandler.state) {
+					case WROTE_READ_CMD: {
+						printf("Substate 'WROTE_READ_CMD' for READ-REQUEST, setting up SPI buffer...");
+						spiHandler.spi_t.bits.mosi = 0;
+						spiHandler.spi_t.bits.miso = 8;
+						printf("done. Transmitting...");
+						spi_trans(HSPI_HOST, &spiHandler.spi_t);
+						printf("done\n");
+						spiHandler.state = SENT_READ_CLK;
+					} break;
+					case SENT_READ_CLK: {
+						printf("Substate 'SENT_READ_CLK' for READ-Request, received response\n");
+						resp.addr = req.addr;
+						resp.data = spiHandler.recv_data[0];
+						spiHandler.state = READY;
+						printf("Push result into queue...");
+						xQueueSend(spiHandler.toWebserverQueue, &resp, 0);
+						printf("done\n");
+						xSemaphoreGive(spiHandler.mutex);
+					} break;
+					case WROTE_WRITE_CMD: {
+						xQueueSend(spiHandler.toWebserverQueue, &resp, 0);
+						spiHandler.state = READY;
+						xSemaphoreGive(spiHandler.mutex);
+					} break;
+					default: break;
+				}
 			}
 		}
 		
@@ -91,7 +96,7 @@ void ICACHE_FLASH_ATTR spi_callback(int event, void *arg) {
         break;
 
         case SPI_TRANS_DONE_EVENT: {
-			
+			xSemaphoreGive(spiHandler.mutex);
         }
         break;
 
@@ -109,12 +114,15 @@ void ICACHE_FLASH_ATTR initSPIHandler(SPI_HANDLER *self,
 	self->toSPIQueue = toSPIQueue;
 	self->toWebserverQueue = toWebserverQueue;
 	
+	memset(&self->spi_t, 0, sizeof(self->spi_t));
 	self->spi_t.bits.miso = 0;
 	self->spi_t.bits.mosi = 0;
 	self->spi_t.mosi = self->trans_data;
 	self->spi_t.miso = self->recv_data;
 	self->spi_t.addr = NULL;
 	self->spi_t.cmd = NULL;
+	
+	self->mutex = xSemaphoreCreateMutex();
 	
 	xTaskCreate(spi_handler_task, "spi_handler_task", 1024, NULL, 7, NULL);
 }

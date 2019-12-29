@@ -26,8 +26,8 @@
 QueueHandle_t xQueueToSPI, xQueueToWebserver;
 
 void ICACHE_FLASH_ATTR app_main() {
-	xQueueToSPI = xQueueCreate(5, sizeof(SPI_REQUEST*));
-	xQueueToWebserver = xQueueCreate(5, sizeof(SPI_RESPONSE*));
+	xQueueToSPI = xQueueCreate(5, sizeof(SPI_REQUEST));
+	xQueueToWebserver = xQueueCreate(5, sizeof(SPI_RESPONSE));
 
 	initSPIHandler(&spiHandler, xQueueToSPI, xQueueToWebserver);
 

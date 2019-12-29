@@ -15,6 +15,53 @@
 EventGroupHandle_t wifi_event_group;
 httpd_handle_t server = NULL;
 
+esp_err_t ICACHE_FLASH_ATTR set_handler(httpd_req_t *req) {
+	printf("/set handler called...\n");
+
+    char*  buf;
+    size_t buf_len;
+	char resp_msg[100];
+    buf_len = httpd_req_get_url_query_len(req) + 1;
+    if (buf_len > 1) {
+        buf = malloc(buf_len);
+        if (httpd_req_get_url_query_str(req, buf, buf_len) == ESP_OK) {
+            char addr_str[7];
+			char value_str[4];
+            if (httpd_query_key_value(buf, "addr", addr_str, sizeof(addr_str)) == ESP_OK) {
+                printf("Found parameter addr=%s\n", addr_str);
+				if(httpd_query_key_value(buf, "value", value_str, sizeof(value_str)) == ESP_OK) {
+					printf("Found parameter value=%s\n", value_str);
+
+					SPI_RESPONSE spi_resp;
+					SPI_REQUEST spi_req = {
+						.type = WRITE_CMD,
+						.addr = (uint32_t)atoi(addr_str),
+						.data = (uint8_t)atoi(value_str)
+					};
+
+					uint8_t ret = xQueueSend(webserver.toSPIQueue, &spi_req, 0);
+					if(ret == pdTRUE) {
+						ret = xQueueReceive(webserver.toWebserverQueue, &spi_resp, 5000 / portTICK_RATE_MS);
+						
+						if(ret == pdTRUE) {
+							sprintf(resp_msg, "Received confirmation");
+						} else {
+							sprintf(resp_msg, "Didn't receive confirmation within 5s");
+						}
+					} else {
+						sprintf(resp_msg, "Request-Queue of SPIHandler is full");
+					}
+
+					httpd_resp_send(req, resp_msg, strlen(resp_msg));
+				}
+            }
+        }
+        free(buf);
+    }
+
+    return ESP_OK;
+}
+
 esp_err_t ICACHE_FLASH_ATTR get_handler(httpd_req_t *req) {
 	printf("/get handler called...\n");
 
@@ -67,6 +114,13 @@ httpd_uri_t get = {
     .user_ctx  = NULL
 };
 
+httpd_uri_t set = {
+    .uri       = "/set",
+    .method    = HTTP_GET,
+    .handler   = set_handler,
+    .user_ctx  = NULL
+};
+
 httpd_handle_t ICACHE_FLASH_ATTR start_webserver() {
     httpd_handle_t server = NULL;
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
@@ -75,7 +129,7 @@ httpd_handle_t ICACHE_FLASH_ATTR start_webserver() {
     if (httpd_start(&server, &config) == ESP_OK) {
         printf("Registering URI handlers\n");
         httpd_register_uri_handler(server, &get);
-
+		httpd_register_uri_handler(server, &set);
         return server;
     }
 

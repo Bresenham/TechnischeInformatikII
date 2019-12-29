@@ -6,6 +6,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
+#include "freertos/semphr.h"
 
 #include "driver/spi.h"
 
@@ -27,6 +28,7 @@ typedef struct SPI_HANDLER {
 	
 	STATE state;
 	spi_trans_t spi_t;
+	SemaphoreHandle_t mutex;
 
 	QueueHandle_t toSPIQueue;
 	QueueHandle_t toWebserverQueue;
