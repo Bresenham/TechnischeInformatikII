@@ -4,3 +4,5 @@ cmake_minimum_required(VERSION 3.5)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(TI_II)
+
+target_include_directories(TI_II.elf PRIVATE main/include)
