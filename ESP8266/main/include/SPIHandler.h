@@ -28,8 +28,8 @@ typedef struct SPI_HANDLER {
 	STATE state;
 	spi_trans_t spi_t;
 
-	QueueHandle_t *toSPIQueue;
-	QueueHandle_t *toWebserverQueue;
+	QueueHandle_t toSPIQueue;
+	QueueHandle_t toWebserverQueue;
 
 	bool hasPendingTransmit;
 
@@ -40,6 +40,6 @@ typedef struct SPI_HANDLER {
 
 extern void ICACHE_FLASH_ATTR spi_callback(int event, void *arg);
 extern void ICACHE_FLASH_ATTR initSPIHandler(SPI_HANDLER *self,
-											QueueHandle_t *toSPIQueue, QueueHandle_t *toWebserverQueue);
+											QueueHandle_t toSPIQueue, QueueHandle_t toWebserverQueue);
 
 #endif /* SPI_HANDLER_H */

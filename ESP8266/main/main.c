@@ -10,7 +10,7 @@
 #include "esp_system.h"
 #include "esp_spi_flash.h"
 #include "esp_event_loop.h"
-#include <esp_http_server.h>
+#include "esp_http_server.h"
 
 #include "driver/gpio.h"
 #include "driver/spi.h"
@@ -26,6 +26,11 @@
 QueueHandle_t xQueueToSPI, xQueueToWebserver;
 
 void ICACHE_FLASH_ATTR app_main() {
+	xQueueToSPI = xQueueCreate(5, sizeof(SPI_REQUEST*));
+	xQueueToWebserver = xQueueCreate(5, sizeof(SPI_RESPONSE*));
+
+	initSPIHandler(&spiHandler, xQueueToSPI, xQueueToWebserver);
+
 	gpio_config_t io_conf = {
 		.intr_type = GPIO_INTR_DISABLE,
 		.mode = GPIO_MODE_OUTPUT,
@@ -45,9 +50,5 @@ void ICACHE_FLASH_ATTR app_main() {
 	};
 	spi_init(HSPI_HOST, &spi_config);
 	
-	xQueueToSPI = xQueueCreate(5, sizeof(struct SPI_REQUEST*));
-	xQueueToWebserver = xQueueCreate(5, sizeof(struct SPI_RESPONSE*));
-	
-	initSPIHandler(&spiHandler, xQueueToSPI, xQueueToWebserver);
 	initWebserver(&webserver, "Projekt", "", xQueueToSPI, xQueueToWebserver);
 }

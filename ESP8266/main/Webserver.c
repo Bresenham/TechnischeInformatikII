@@ -40,13 +40,18 @@ esp_err_t ICACHE_FLASH_ATTR get_handler(httpd_req_t *req) {
 
 				uint8_t ret = xQueueSend(webserver.toSPIQueue, &spi_req, 0);
 				if(ret == pdTRUE) {
-					ret = xQueueReceive(webserver.toWebserverQueue, &spi_resp, 1000 / portTICK_RATE_MS);
+					ret = xQueueReceive(webserver.toWebserverQueue, &spi_resp, 5000 / portTICK_RATE_MS);
 					
 					if(ret == pdTRUE) {
 						sprintf(resp_msg, "Value=%d", spi_resp.data);
-						httpd_resp_send(req, resp_msg, strlen(resp_msg));
+					} else {
+						sprintf(resp_msg, "Didn't receive answer within 5s");
 					}
+				} else {
+					sprintf(resp_msg, "Request-Queue of SPIHandler is full");
 				}
+				
+				httpd_resp_send(req, resp_msg, strlen(resp_msg));
             }
         }
         free(buf);
@@ -128,9 +133,18 @@ void ICACHE_FLASH_ATTR wifi_init(WEBSERVER *self, char *SSID, char *PW) {
         wifi_config.ap.authmode = WIFI_AUTH_OPEN;
     }
 
-    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_AP));
-    ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_AP, &wifi_config));
-    ESP_ERROR_CHECK(esp_wifi_start());
+    uint8_t err = esp_wifi_set_mode(WIFI_MODE_AP);
+	if(err != ESP_OK) {
+		printf("Error on 'esp_wifi_set_mode': %d\n", err);
+	}
+    err = esp_wifi_set_config(ESP_IF_WIFI_AP, &wifi_config);
+	if(err != ESP_OK) {
+		printf("Error on 'esp_wifi_set_config': %d\n", err);
+	}
+	err = esp_wifi_start();
+	if(err != ESP_OK) {
+		printf("Error on 'esp_wifi_start': %c\n", err);
+	}
 }
 
 void ICACHE_FLASH_ATTR webserver_taks(void *arg) {
@@ -143,10 +157,10 @@ void ICACHE_FLASH_ATTR webserver_taks(void *arg) {
 
 void ICACHE_FLASH_ATTR initWebserver(WEBSERVER *self, 
 							char *SSID, char *PW,
-							QueueHandle_t *toSPIQueue, QueueHandle_t *toWebserverQueue) {
+							QueueHandle_t toSPIQueue, QueueHandle_t toWebserverQueue) {
 	self->toSPIQueue = toSPIQueue;
 	self->toWebserverQueue = toWebserverQueue;
 	wifi_init(self, SSID, PW);
 
-	xTaskCreate(webserver_taks, "webserver_task", 1024, NULL, 2, NULL);
+	xTaskCreate(webserver_taks, "webserver_task", 1024, NULL, 10, NULL);
 }

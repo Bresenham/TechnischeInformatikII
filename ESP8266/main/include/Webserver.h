@@ -6,13 +6,13 @@
 
 typedef struct WEBSERVER {
 	
-	QueueHandle_t *toSPIQueue;
-	QueueHandle_t *toWebserverQueue;
+	QueueHandle_t toSPIQueue;
+	QueueHandle_t toWebserverQueue;
 	
 }  WEBSERVER;
 
 extern void ICACHE_FLASH_ATTR initWebserver(WEBSERVER *self, 
 											char *SSID, char *PW,
-											QueueHandle_t *toSPIQueue, QueueHandle_t *toWebserverQueue);
+											QueueHandle_t toSPIQueue, QueueHandle_t toWebserverQueue);
 
 #endif /* WEBSERVER_H */
