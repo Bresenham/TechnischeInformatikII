@@ -34,9 +34,6 @@ typedef struct SPI_HANDLER {
 	QueueHandle_t toWebserverQueue;
 
 	bool hasPendingTransmit;
-
-	uint8_t trans_data[TRANS_ARRAY_LEN];
-	uint8_t recv_data[RECV_ARRAY_LEN];
 	
 } SPI_HANDLER;
 

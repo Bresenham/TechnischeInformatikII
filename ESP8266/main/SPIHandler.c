@@ -1,21 +1,23 @@
 #include "SPIHandler.h"
 #include "System.h"
 
+uint8_t recv_data[RECV_ARRAY_LEN];
+
 void ICACHE_FLASH_ATTR fillArrayWithAddr(uint8_t *trans_data, uint32_t addr) {
 	trans_data[0] = (uint8_t)(addr >> 16);
 	trans_data[1] = (uint8_t)(addr >> 8);
 	trans_data[2] = (uint8_t)(addr & 0xFF);
 }
 
-void ICACHE_FLASH_ATTR fillReadRequest(uint32_t addr) {
-	spiHandler.trans_data[0] = READ_CMD;
-	fillArrayWithAddr(&spiHandler.trans_data[1], addr);
+void ICACHE_FLASH_ATTR fillReadRequest(uint8_t *trans_data, uint32_t addr) {
+	trans_data[0] = READ_CMD;
+	fillArrayWithAddr(&trans_data[1], addr);
 }
 
-void ICACHE_FLASH_ATTR fillWriteRequest(uint32_t addr, uint8_t data) {
-	spiHandler.trans_data[0] = WRITE_CMD;
-	fillArrayWithAddr(&spiHandler.trans_data[1], addr);
-	spiHandler.trans_data[4] = data;
+void ICACHE_FLASH_ATTR fillWriteRequest(uint8_t *trans_data, uint32_t addr, uint8_t data) {
+	trans_data[0] = WRITE_CMD;
+	fillArrayWithAddr(&trans_data[1], addr);
+	trans_data[4] = data;
 }
 
 void ICACHE_FLASH_ATTR spi_handler_task(void *arg) {
@@ -30,18 +32,23 @@ void ICACHE_FLASH_ATTR spi_handler_task(void *arg) {
 				printf("SPIHandler: Got SPI_REQUEST...");
 				if(req.type == READ_CMD) {
 					printf("of type READ with %d\n", req.addr);
-					fillReadRequest(req.addr);
+					uint8_t trans_data[READ_REQUEST_SIZE];
+					fillReadRequest(trans_data, req.addr);
+
 					spiHandler.spi_t.bits.mosi = READ_REQUEST_SIZE * 8;
 					spiHandler.spi_t.bits.miso = 0;
+					spiHandler.spi_t.mosi = trans_data;
 					printf("Set up SPI buffer, transmitting...");
 					spi_trans(HSPI_HOST, &spiHandler.spi_t);
 					printf("done\n");
 					spiHandler.state = WROTE_READ_CMD;
 				} else if(req.type == WRITE_CMD) {
 					printf("of type WRITE with %d|%d\n", req.addr, req.data);
-					fillWriteRequest(req.addr, req.data);
+					uint8_t trans_data[WRITE_REQUEST_SIZE];
+					fillWriteRequest(trans_data, req.addr, req.data);
 					spiHandler.spi_t.bits.mosi = WRITE_REQUEST_SIZE * 8;
 					spiHandler.spi_t.bits.miso = 0;
+					spiHandler.spi_t.mosi = trans_data;
 					printf("Set up SPI buffer, transmitting...");
 					spi_trans(HSPI_HOST, &spiHandler.spi_t);
 					printf("done\n");
@@ -55,6 +62,7 @@ void ICACHE_FLASH_ATTR spi_handler_task(void *arg) {
 						printf("Substate 'WROTE_READ_CMD' for READ-REQUEST, setting up SPI buffer...");
 						spiHandler.spi_t.bits.mosi = 0;
 						spiHandler.spi_t.bits.miso = 8;
+						spiHandler.spi_t.miso = recv_data;
 						printf("done. Transmitting...");
 						spi_trans(HSPI_HOST, &spiHandler.spi_t);
 						printf("done\n");
@@ -63,7 +71,7 @@ void ICACHE_FLASH_ATTR spi_handler_task(void *arg) {
 					case SENT_READ_CLK: {
 						printf("Substate 'SENT_READ_CLK' for READ-Request, received response\n");
 						resp.addr = req.addr;
-						resp.data = spiHandler.recv_data[0];
+						resp.data = recv_data[0];
 						spiHandler.state = READY;
 						printf("Push result into queue...");
 						xQueueSend(spiHandler.toWebserverQueue, &resp, 0);
@@ -80,7 +88,7 @@ void ICACHE_FLASH_ATTR spi_handler_task(void *arg) {
 			}
 		}
 		
-		vTaskDelay(100 / portTICK_RATE_MS);
+		vTaskDelay(10 / portTICK_RATE_MS);
 	}
 }
 
@@ -117,8 +125,8 @@ void ICACHE_FLASH_ATTR initSPIHandler(SPI_HANDLER *self,
 	memset(&self->spi_t, 0, sizeof(self->spi_t));
 	self->spi_t.bits.miso = 0;
 	self->spi_t.bits.mosi = 0;
-	self->spi_t.mosi = self->trans_data;
-	self->spi_t.miso = self->recv_data;
+	self->spi_t.mosi = NULL;
+	self->spi_t.miso = NULL;
 	self->spi_t.addr = NULL;
 	self->spi_t.cmd = NULL;
 	
