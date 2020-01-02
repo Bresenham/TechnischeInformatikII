@@ -1,0 +1,12 @@
+
+^^I\frametitle{Anbindung an ESP8266}
+^^I\framesubtitle{}
+^^I\begin{lstlisting}
+
+// Gestion du contexte ete2013
+// Utilisation d'un nouveau template
+if (%variables['ctpage'] == "ete2013") {
+^^Ivariables['template_files']=array('page-ete');
+}
+^^I\end{lstlisting}
+^^I
