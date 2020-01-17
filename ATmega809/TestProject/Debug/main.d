@@ -17,7 +17,7 @@ main.d main.o: .././main.c .././System.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
  .././DRAMHandler/DRAMHandler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
- .././DRAMHandler/../Buffer/Buffer.h
+ .././DRAMHandler/../Buffer/Buffer.h .././DRAMHandler/../Queue/Queue.h
 
 .././System.h:
 
@@ -58,3 +58,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
 
 .././DRAMHandler/../Buffer/Buffer.h:
+
+.././DRAMHandler/../Queue/Queue.h:

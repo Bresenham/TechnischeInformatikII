@@ -1690,6 +1690,8 @@ typedef struct
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\lock.h" 1 3
 # 642 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\io.h" 2 3
 # 10 "../DRAMHandler/DRAMHandler.c" 2
+# 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\avr\\interrupt.h" 1 3
+# 11 "../DRAMHandler/DRAMHandler.c" 2
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 1 3
 # 45 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay_basic.h" 1 3
@@ -1997,7 +1999,7 @@ _delay_us(double __us)
  __builtin_avr_delay_cycles(__ticks_dc);
 # 299 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h" 3
 }
-# 11 "../DRAMHandler/DRAMHandler.c" 2
+# 12 "../DRAMHandler/DRAMHandler.c" 2
 # 1 "../DRAMHandler/DRAMHandler.h" 1
 # 12 "../DRAMHandler/DRAMHandler.h"
 # 1 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\lib\\gcc\\avr\\5.4.0\\include\\stdbool.h" 1 3 4
@@ -2015,10 +2017,12 @@ typedef struct BUFFER {
   uint8_t *addr2;
   uint8_t *addr3;
   uint8_t *param1;
+  uint8_t *param2;
+  uint8_t *param3;
  } PTR;
 
  uint8_t idx;
- uint8_t data[5];
+ uint8_t data[7];
 
  void (*push)(struct BUFFER*, uint8_t data);
  uint8_t (*getLength)(struct BUFFER*);
@@ -2027,6 +2031,34 @@ typedef struct BUFFER {
 
 void initBuffer(BUFFER *self);
 # 15 "../DRAMHandler/DRAMHandler.h" 2
+# 1 "../DRAMHandler/../Queue/Queue.h" 1
+# 15 "../DRAMHandler/../Queue/Queue.h"
+typedef struct QUEUE_ITEM {
+
+ struct QUEUE_ITEM *next;
+ uint8_t data;
+
+} QUEUE_ITEM;
+
+typedef struct QUEUE {
+
+ QUEUE_ITEM root;
+ QUEUE_ITEM *end;
+
+ uint8_t length;
+
+ void (*push)(struct QUEUE*, uint8_t data);
+ uint8_t (*pop)(struct QUEUE*);
+ 
+# 31 "../DRAMHandler/../Queue/Queue.h" 3 4
+_Bool 
+# 31 "../DRAMHandler/../Queue/Queue.h"
+     (*isEmpty)(struct QUEUE*);
+
+} QUEUE;
+
+void initQueue(QUEUE *self);
+# 16 "../DRAMHandler/DRAMHandler.h" 2
 
 typedef enum DRAM_HANDLER_STATE {
 
@@ -2078,17 +2110,18 @@ typedef struct DRAM_HANDLER {
   uint8_t SCK;
  } SPI;
 
- BUFFER buffer;
+ BUFFER msgBuffer;
+ QUEUE burstReadQueue;
 
  volatile 
-# 68 "../DRAMHandler/DRAMHandler.h" 3 4
+# 70 "../DRAMHandler/DRAMHandler.h" 3 4
          _Bool 
-# 68 "../DRAMHandler/DRAMHandler.h"
+# 70 "../DRAMHandler/DRAMHandler.h"
               hasPendingRefresh;
  volatile 
-# 69 "../DRAMHandler/DRAMHandler.h" 3 4
+# 71 "../DRAMHandler/DRAMHandler.h" 3 4
          _Bool 
-# 69 "../DRAMHandler/DRAMHandler.h"
+# 71 "../DRAMHandler/DRAMHandler.h"
               hasPendingBufferUpdate;
 
  uint8_t (*readByte)(struct DRAM_HANDLER*, uint32_t addr);
@@ -2098,8 +2131,8 @@ typedef struct DRAM_HANDLER {
 } DRAM_HANDLER;
 
 void initDRAMHandler(DRAM_HANDLER *self);
-# 12 "../DRAMHandler/DRAMHandler.c" 2
-# 28 "../DRAMHandler/DRAMHandler.c"
+# 13 "../DRAMHandler/DRAMHandler.c" 2
+# 32 "../DRAMHandler/DRAMHandler.c"
 void writeToAddrPort(DRAM_HANDLER *self, uint16_t addr) {
  self->ADDR_PORT.P1->OUT = (addr << 5);
  self->ADDR_PORT.P2->OUT = (addr >> 3);
@@ -2139,6 +2172,11 @@ void refreshRASonly(DRAM_HANDLER *self) {
 }
 
 uint8_t readByte(DRAM_HANDLER *self, uint32_t addr) {
+ 
+# 71 "../DRAMHandler/DRAMHandler.c" 3
+__asm__ __volatile__ ("cli" ::: "memory")
+# 71 "../DRAMHandler/DRAMHandler.c"
+     ;
  const uint16_t rowAddr = (addr & 0x0003FFFF) >> 9;
  const uint16_t colAddr = (addr & 0x000001FF);
  self->DATA_PORT->DIR = 0;
@@ -2160,11 +2198,21 @@ uint8_t readByte(DRAM_HANDLER *self, uint32_t addr) {
  self->RAS.PORT->OUT |= self->RAS.PIN;
 
  self->DATA_PORT->DIR = 0xFF;
+ 
+# 93 "../DRAMHandler/DRAMHandler.c" 3
+__asm__ __volatile__ ("sei" ::: "memory")
+# 93 "../DRAMHandler/DRAMHandler.c"
+     ;
 
  return validDataOut;
 }
 
 void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
+ 
+# 99 "../DRAMHandler/DRAMHandler.c" 3
+__asm__ __volatile__ ("cli" ::: "memory")
+# 99 "../DRAMHandler/DRAMHandler.c"
+     ;
  const uint16_t rowAddr = (addr & 0x0003FFFF) >> 9;
  const uint16_t colAddr = (addr & 0x000001FF);
  self->DATA_PORT->DIR = 0xFF;
@@ -2190,136 +2238,149 @@ void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
 
  self->DATA_PORT->OUT = 0;
  writeToAddrPort(self, 0x00);
+ 
+# 125 "../DRAMHandler/DRAMHandler.c" 3
+__asm__ __volatile__ ("sei" ::: "memory")
+# 125 "../DRAMHandler/DRAMHandler.c"
+     ;
 }
 
 void processAndRespondBuffer(DRAM_HANDLER *self) {
- const uint8_t cmd = *self->buffer.PTR.cmd;
- if(cmd == 0x13 || cmd == 0x12) {
-  volatile uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
-  const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
+ const uint8_t cmd = *self->msgBuffer.PTR.cmd;
+ if(cmd == 0x13 || cmd == 0x12 || cmd == 0x11) {
+  const uint32_t addr = ( ((uint32_t)*self->msgBuffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->msgBuffer.PTR.addr2) << 8 ) | (*self->msgBuffer.PTR.addr3);
+  const uint8_t bufferLen = self->msgBuffer.getLength(&self->msgBuffer);
   if(bufferLen == 4 && cmd == 0x13) {
    
-# 126 "../DRAMHandler/DRAMHandler.c" 3
+# 134 "../DRAMHandler/DRAMHandler.c" 3
   (*(SPI_t *) 0x08C0)
-# 126 "../DRAMHandler/DRAMHandler.c"
+# 134 "../DRAMHandler/DRAMHandler.c"
       .DATA = self->readByte(self, addr);
-   self->buffer.reset(&self->buffer);
+   self->msgBuffer.reset(&self->msgBuffer);
   } else if(bufferLen == 5 && cmd == 0x12) {
-   const uint8_t data = *self->buffer.PTR.param1;
+   const uint8_t data = *self->msgBuffer.PTR.param1;
    self->writeByte(self, addr, data);
-   self->buffer.reset(&self->buffer);
+   self->msgBuffer.reset(&self->msgBuffer);
+  } else if(bufferLen == 7 && cmd == 0x11) {
+   const uint32_t addrTo = ( ((uint32_t)*self->msgBuffer.PTR.param1) << 16 ) | ( ((uint32_t)*self->msgBuffer.PTR.param2) << 8 ) | (*self->msgBuffer.PTR.param3);
+   for(uint32_t i = addr; i <= addrTo; i++) {
+    const uint8_t data = self->readByte(self, i);
+    self->burstReadQueue.push(&self->burstReadQueue, data);
+   }
   }
  } else {
-  self->buffer.reset(&self->buffer);
+  self->msgBuffer.reset(&self->msgBuffer);
  }
 }
 
 void initDRAMHandler(DRAM_HANDLER *self) {
- initBuffer(&self->buffer);
+ initBuffer(&self->msgBuffer);
+ initQueue(&self->burstReadQueue);
+
  self->readByte = &readByte;
  self->writeByte = &writeByte;
  self->refreshRASonly = &refreshRASonly;
  self->processAndRespondBuffer = &processAndRespondBuffer;
 
  self->hasPendingRefresh = 
-# 145 "../DRAMHandler/DRAMHandler.c" 3 4
+# 161 "../DRAMHandler/DRAMHandler.c" 3 4
                           0
-# 145 "../DRAMHandler/DRAMHandler.c"
+# 161 "../DRAMHandler/DRAMHandler.c"
                                ;
  self->hasPendingBufferUpdate = 
-# 146 "../DRAMHandler/DRAMHandler.c" 3 4
+# 162 "../DRAMHandler/DRAMHandler.c" 3 4
                                0
-# 146 "../DRAMHandler/DRAMHandler.c"
+# 162 "../DRAMHandler/DRAMHandler.c"
                                     ;
 
  self->DATA_PORT = &
-# 148 "../DRAMHandler/DRAMHandler.c" 3
+# 164 "../DRAMHandler/DRAMHandler.c" 3
                    (*(PORT_t *) 0x0460)
-# 148 "../DRAMHandler/DRAMHandler.c"
+# 164 "../DRAMHandler/DRAMHandler.c"
                         ;
 
  self->RAS.PORT = &
-# 150 "../DRAMHandler/DRAMHandler.c" 3
+# 166 "../DRAMHandler/DRAMHandler.c" 3
                   (*(PORT_t *) 0x0480)
-# 150 "../DRAMHandler/DRAMHandler.c"
+# 166 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->RAS.PIN = 
-# 151 "../DRAMHandler/DRAMHandler.c" 3
+# 167 "../DRAMHandler/DRAMHandler.c" 3
                 0x01
-# 151 "../DRAMHandler/DRAMHandler.c"
+# 167 "../DRAMHandler/DRAMHandler.c"
                        ;
 
  self->CAS.PORT = &
-# 153 "../DRAMHandler/DRAMHandler.c" 3
+# 169 "../DRAMHandler/DRAMHandler.c" 3
                   (*(PORT_t *) 0x0480)
-# 153 "../DRAMHandler/DRAMHandler.c"
+# 169 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->CAS.PIN = 
-# 154 "../DRAMHandler/DRAMHandler.c" 3
+# 170 "../DRAMHandler/DRAMHandler.c" 3
                 0x02
-# 154 "../DRAMHandler/DRAMHandler.c"
+# 170 "../DRAMHandler/DRAMHandler.c"
                        ;
 
  self->OE.PORT = &
-# 156 "../DRAMHandler/DRAMHandler.c" 3
+# 172 "../DRAMHandler/DRAMHandler.c" 3
                  (*(PORT_t *) 0x0480)
-# 156 "../DRAMHandler/DRAMHandler.c"
+# 172 "../DRAMHandler/DRAMHandler.c"
                       ;
  self->OE.PIN = 
-# 157 "../DRAMHandler/DRAMHandler.c" 3
+# 173 "../DRAMHandler/DRAMHandler.c" 3
                0x04
-# 157 "../DRAMHandler/DRAMHandler.c"
+# 173 "../DRAMHandler/DRAMHandler.c"
                       ;
 
  self->W.PORT = &
-# 159 "../DRAMHandler/DRAMHandler.c" 3
+# 175 "../DRAMHandler/DRAMHandler.c" 3
                 (*(PORT_t *) 0x0480)
-# 159 "../DRAMHandler/DRAMHandler.c"
+# 175 "../DRAMHandler/DRAMHandler.c"
                      ;
  self->W.PIN = 
-# 160 "../DRAMHandler/DRAMHandler.c" 3
+# 176 "../DRAMHandler/DRAMHandler.c" 3
               0x08
-# 160 "../DRAMHandler/DRAMHandler.c"
+# 176 "../DRAMHandler/DRAMHandler.c"
                      ;
 
  self->ADDR_PORT.P1 = &
-# 162 "../DRAMHandler/DRAMHandler.c" 3
+# 178 "../DRAMHandler/DRAMHandler.c" 3
                       (*(PORT_t *) 0x0400)
-# 162 "../DRAMHandler/DRAMHandler.c"
+# 178 "../DRAMHandler/DRAMHandler.c"
                            ;
  self->ADDR_PORT.P2 = &
-# 163 "../DRAMHandler/DRAMHandler.c" 3
+# 179 "../DRAMHandler/DRAMHandler.c" 3
                       (*(PORT_t *) 0x0420)
-# 163 "../DRAMHandler/DRAMHandler.c"
+# 179 "../DRAMHandler/DRAMHandler.c"
                            ;
 
  self->ADDR_PORT.P1->DIR = 0xFF;
  self->ADDR_PORT.P2->DIR = 0xFF;
 
  self->SPI.PORT = &
-# 168 "../DRAMHandler/DRAMHandler.c" 3
+# 184 "../DRAMHandler/DRAMHandler.c" 3
                   (*(PORT_t *) 0x0440)
-# 168 "../DRAMHandler/DRAMHandler.c"
+# 184 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->SPI.MOSI = 
-# 169 "../DRAMHandler/DRAMHandler.c" 3
+# 185 "../DRAMHandler/DRAMHandler.c" 3
                  0x01
-# 169 "../DRAMHandler/DRAMHandler.c"
+# 185 "../DRAMHandler/DRAMHandler.c"
                         ;
  self->SPI.MISO = 
-# 170 "../DRAMHandler/DRAMHandler.c" 3
+# 186 "../DRAMHandler/DRAMHandler.c" 3
                  0x02
-# 170 "../DRAMHandler/DRAMHandler.c"
+# 186 "../DRAMHandler/DRAMHandler.c"
                         ;
  self->SPI.SCK = 
-# 171 "../DRAMHandler/DRAMHandler.c" 3
+# 187 "../DRAMHandler/DRAMHandler.c" 3
                 0x04
-# 171 "../DRAMHandler/DRAMHandler.c"
+# 187 "../DRAMHandler/DRAMHandler.c"
                        ;
  self->SPI.SS = 
-# 172 "../DRAMHandler/DRAMHandler.c" 3
+# 188 "../DRAMHandler/DRAMHandler.c" 3
                0x08
-# 172 "../DRAMHandler/DRAMHandler.c"
+# 188 "../DRAMHandler/DRAMHandler.c"
                       ;
 
  self->SPI.PORT->DIR |= self->SPI.MISO;

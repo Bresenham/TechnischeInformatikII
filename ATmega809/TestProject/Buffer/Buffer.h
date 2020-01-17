@@ -11,7 +11,7 @@
 
 #include <stdint.h>
 
-#define BUFFER_SIZE	5
+#define BUFFER_SIZE	7
 
 typedef struct BUFFER {
 	
@@ -21,6 +21,8 @@ typedef struct BUFFER {
 		uint8_t *addr2;
 		uint8_t *addr3;
 		uint8_t *param1;
+		uint8_t *param2;
+		uint8_t *param3;
 	} PTR;
 	
 	uint8_t idx;

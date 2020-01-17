@@ -2017,10 +2017,12 @@ typedef struct BUFFER {
   uint8_t *addr2;
   uint8_t *addr3;
   uint8_t *param1;
+  uint8_t *param2;
+  uint8_t *param3;
  } PTR;
 
  uint8_t idx;
- uint8_t data[5];
+ uint8_t data[7];
 
  void (*push)(struct BUFFER*, uint8_t data);
  uint8_t (*getLength)(struct BUFFER*);
@@ -2029,6 +2031,34 @@ typedef struct BUFFER {
 
 void initBuffer(BUFFER *self);
 # 15 ".././DRAMHandler/DRAMHandler.h" 2
+# 1 ".././DRAMHandler/../Queue/Queue.h" 1
+# 15 ".././DRAMHandler/../Queue/Queue.h"
+typedef struct QUEUE_ITEM {
+
+ struct QUEUE_ITEM *next;
+ uint8_t data;
+
+} QUEUE_ITEM;
+
+typedef struct QUEUE {
+
+ QUEUE_ITEM root;
+ QUEUE_ITEM *end;
+
+ uint8_t length;
+
+ void (*push)(struct QUEUE*, uint8_t data);
+ uint8_t (*pop)(struct QUEUE*);
+ 
+# 31 ".././DRAMHandler/../Queue/Queue.h" 3 4
+_Bool 
+# 31 ".././DRAMHandler/../Queue/Queue.h"
+     (*isEmpty)(struct QUEUE*);
+
+} QUEUE;
+
+void initQueue(QUEUE *self);
+# 16 ".././DRAMHandler/DRAMHandler.h" 2
 
 typedef enum DRAM_HANDLER_STATE {
 
@@ -2080,17 +2110,18 @@ typedef struct DRAM_HANDLER {
   uint8_t SCK;
  } SPI;
 
- BUFFER buffer;
+ BUFFER msgBuffer;
+ QUEUE burstReadQueue;
 
  volatile 
-# 68 ".././DRAMHandler/DRAMHandler.h" 3 4
+# 70 ".././DRAMHandler/DRAMHandler.h" 3 4
          _Bool 
-# 68 ".././DRAMHandler/DRAMHandler.h"
+# 70 ".././DRAMHandler/DRAMHandler.h"
               hasPendingRefresh;
  volatile 
-# 69 ".././DRAMHandler/DRAMHandler.h" 3 4
+# 71 ".././DRAMHandler/DRAMHandler.h" 3 4
          _Bool 
-# 69 ".././DRAMHandler/DRAMHandler.h"
+# 71 ".././DRAMHandler/DRAMHandler.h"
               hasPendingBufferUpdate;
 
  uint8_t (*readByte)(struct DRAM_HANDLER*, uint32_t addr);
@@ -2148,141 +2179,150 @@ void __vector_16 (void) __attribute__ ((signal,used, externally_visible)) ; void
                       (*(SPI_t *) 0x08C0)
 # 27 ".././main.c"
                           .DATA;
-  dramHandler.buffer.push(&dramHandler.buffer, data);
-  dramHandler.hasPendingBufferUpdate = 
-# 29 ".././main.c" 3 4
-                                      1
-# 29 ".././main.c"
-                                          ;
+  if(!dramHandler.burstReadQueue.isEmpty(&dramHandler.burstReadQueue)) {
+   const uint8_t data = dramHandler.burstReadQueue.pop(&dramHandler.burstReadQueue);
+   
+# 30 ".././main.c" 3
+  (*(SPI_t *) 0x08C0)
+# 30 ".././main.c"
+      .DATA = data;
+  } else {
+   dramHandler.msgBuffer.push(&dramHandler.msgBuffer, data);
+   dramHandler.hasPendingBufferUpdate = 
+# 33 ".././main.c" 3 4
+                                       1
+# 33 ".././main.c"
+                                           ;
+  }
  }
 }
 
 void initTimer0() {
 
  
-# 35 ".././main.c" 3
+# 40 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 35 ".././main.c"
+# 40 ".././main.c"
     .SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV16_gc;
 
  
-# 37 ".././main.c" 3
+# 42 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 37 ".././main.c"
+# 42 ".././main.c"
     .SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc;
 
  
-# 39 ".././main.c" 3
+# 44 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 39 ".././main.c"
+# 44 ".././main.c"
     .SINGLE.CMP0BUF = ((30 / 2) * ( (20000000UL) / (1000 * 16) ));
 
  
-# 41 ".././main.c" 3
+# 46 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 41 ".././main.c"
+# 46 ".././main.c"
     .SINGLE.INTCTRL = 
-# 41 ".././main.c" 3
+# 46 ".././main.c" 3
                       0x10
-# 41 ".././main.c"
+# 46 ".././main.c"
                                           ;
 
  
-# 43 ".././main.c" 3
+# 48 ".././main.c" 3
 (*(TCA_t *) 0x0A00)
-# 43 ".././main.c"
+# 48 ".././main.c"
     .SINGLE.CTRLA |= 
-# 43 ".././main.c" 3
+# 48 ".././main.c" 3
                      0x01
-# 43 ".././main.c"
+# 48 ".././main.c"
                                          ;
 }
 
 void initSPI() {
 
  
-# 48 ".././main.c" 3
+# 53 ".././main.c" 3
 (*(PORTMUX_t *) 0x05E0)
-# 48 ".././main.c"
+# 53 ".././main.c"
        .TWISPIROUTEA |= PORTMUX_SPI0_ALT1_gc;
 
  
-# 50 ".././main.c" 3
+# 55 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 50 ".././main.c"
+# 55 ".././main.c"
     .CTRLB = 
-# 50 ".././main.c" 3
+# 55 ".././main.c" 3
              0x80
-# 50 ".././main.c"
+# 55 ".././main.c"
                          ;
 
  
-# 52 ".././main.c" 3
+# 57 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 52 ".././main.c"
+# 57 ".././main.c"
     .CTRLB |= 
-# 52 ".././main.c" 3
+# 57 ".././main.c" 3
               0x40
-# 52 ".././main.c"
+# 57 ".././main.c"
                           ;
 
  
-# 54 ".././main.c" 3
+# 59 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 54 ".././main.c"
+# 59 ".././main.c"
     .INTCTRL = 
-# 54 ".././main.c" 3
+# 59 ".././main.c" 3
                0x80
-# 54 ".././main.c"
+# 59 ".././main.c"
                            ;
 
 
  
-# 57 ".././main.c" 3
+# 62 ".././main.c" 3
 (*(SPI_t *) 0x08C0)
-# 57 ".././main.c"
+# 62 ".././main.c"
     .CTRLA |= 
-# 57 ".././main.c" 3
+# 62 ".././main.c" 3
               0x01
-# 57 ".././main.c"
+# 62 ".././main.c"
                            ;
 }
 
 void initCPU() {
 
  
-# 62 ".././main.c" 3
+# 67 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 62 ".././main.c"
+# 67 ".././main.c"
     = 0xD8;
 
  
-# 64 ".././main.c" 3
+# 69 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 64 ".././main.c"
+# 69 ".././main.c"
        .MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
 
  
-# 66 ".././main.c" 3
+# 71 ".././main.c" 3
 (*(volatile uint8_t *)(0x0034)) 
-# 66 ".././main.c"
+# 71 ".././main.c"
     = 0xD8;
 
  
-# 68 ".././main.c" 3
+# 73 ".././main.c" 3
 (*(CLKCTRL_t *) 0x0060)
-# 68 ".././main.c"
+# 73 ".././main.c"
        .MCLKCTRLB &= ~(1 << 
-# 68 ".././main.c" 3
+# 73 ".././main.c" 3
                             0
-# 68 ".././main.c"
+# 73 ".././main.c"
                                           );
 
 
  
-# 71 ".././main.c" 3
+# 76 ".././main.c" 3
 __asm__ __volatile__ ("sei" ::: "memory")
-# 71 ".././main.c"
+# 76 ".././main.c"
      ;
 }
 
@@ -2297,17 +2337,17 @@ int main(void) {
   if(dramHandler.hasPendingRefresh) {
    dramHandler.refreshRASonly(&dramHandler);
    dramHandler.hasPendingRefresh = 
-# 84 ".././main.c" 3 4
+# 89 ".././main.c" 3 4
                                   0
-# 84 ".././main.c"
+# 89 ".././main.c"
                                        ;
   }
   if(dramHandler.hasPendingBufferUpdate) {
    dramHandler.processAndRespondBuffer(&dramHandler);
    dramHandler.hasPendingBufferUpdate = 
-# 88 ".././main.c" 3 4
+# 93 ".././main.c" 3 4
                                        0
-# 88 ".././main.c"
+# 93 ".././main.c"
                                             ;
   }
     }

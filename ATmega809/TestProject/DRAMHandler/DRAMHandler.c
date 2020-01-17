@@ -7,6 +7,7 @@
 
 #include "../System.h"
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include "DRAMHandler.h"
 
@@ -20,10 +21,13 @@
 #define AMOUNT_OF_ROWS		512
 
 #define READ_CMD			0x13
-#define READ_CMD_LEN		4
+#define READ_CMD_LEN		4	/* [ID][ADDR_MSB][ADDR_MLSB][ADDR_LSB] */
 
 #define WRITE_CMD			0x12
-#define WRITE_CMD_LEN		5
+#define WRITE_CMD_LEN		5	/* [ID][ADDR_MSB][ADDR_MLSB][ADDR_LSB][DATA] */
+
+#define READ_BURST_CMD		0x11
+#define READ_BURST_CMD_LEN	7	/* [ID][ADDR1_MSB][ADDR1_MLSB][ADDR1_LSB][ADDR2_MSB][ADDR2_MLSB][ADDR2_LSB] */
 
 void writeToAddrPort(DRAM_HANDLER *self, uint16_t addr) {
 	self->ADDR_PORT.P1->OUT = (addr << ADDR_PORT1_SHIFT);
@@ -64,6 +68,7 @@ void refreshRASonly(DRAM_HANDLER *self) {
 }
 
 uint8_t readByte(DRAM_HANDLER *self, uint32_t addr) {
+	cli();
 	const uint16_t rowAddr = (addr & ADDR_MASK) >> HIGH_ADDR_SHIFT;
 	const uint16_t colAddr = (addr & LOW_ADDR_MASK);
 	self->DATA_PORT->DIR = 0;	/* Set DATA_PORT as input */
@@ -85,11 +90,13 @@ uint8_t readByte(DRAM_HANDLER *self, uint32_t addr) {
 	self->RAS.PORT->OUT |= self->RAS.PIN;
 	
 	self->DATA_PORT->DIR = 0xFF; /* Set DATA_PORT to output */
-	
+	sei();
+
 	return validDataOut;
 }
 
 void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
+	cli();
 	const uint16_t rowAddr = (addr & ADDR_MASK) >> HIGH_ADDR_SHIFT;
 	const uint16_t colAddr = (addr & LOW_ADDR_MASK);
 	self->DATA_PORT->DIR = 0xFF; /* Set DATA_PORT as output */
@@ -115,28 +122,37 @@ void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
 	
 	self->DATA_PORT->OUT = 0;
 	writeToAddrPort(self, 0x00);
+	sei();
 }
 
 void processAndRespondBuffer(DRAM_HANDLER *self) {
-	const uint8_t cmd = *self->buffer.PTR.cmd;
-	if(cmd == READ_CMD || cmd == WRITE_CMD) {
-		volatile uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
-		const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
+	const uint8_t cmd = *self->msgBuffer.PTR.cmd;
+	if(cmd == READ_CMD || cmd == WRITE_CMD || cmd == READ_BURST_CMD) {
+		const uint32_t addr = ( ((uint32_t)*self->msgBuffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->msgBuffer.PTR.addr2) << 8 ) | (*self->msgBuffer.PTR.addr3);
+		const uint8_t bufferLen = self->msgBuffer.getLength(&self->msgBuffer);
 		if(bufferLen == READ_CMD_LEN && cmd == READ_CMD) {
 			SPI0.DATA = self->readByte(self, addr);
-			self->buffer.reset(&self->buffer);
+			self->msgBuffer.reset(&self->msgBuffer);
 		} else if(bufferLen == WRITE_CMD_LEN && cmd == WRITE_CMD) {
-			const uint8_t data = *self->buffer.PTR.param1;
+			const uint8_t data = *self->msgBuffer.PTR.param1;
 			self->writeByte(self, addr, data);
-			self->buffer.reset(&self->buffer);
+			self->msgBuffer.reset(&self->msgBuffer);
+		} else if(bufferLen == READ_BURST_CMD_LEN && cmd == READ_BURST_CMD) {
+			const uint32_t addrTo = ( ((uint32_t)*self->msgBuffer.PTR.param1) << 16 ) | ( ((uint32_t)*self->msgBuffer.PTR.param2) << 8 ) | (*self->msgBuffer.PTR.param3);
+			for(uint32_t i = addr; i <= addrTo; i++) {
+				const uint8_t data = self->readByte(self, i);
+				self->burstReadQueue.push(&self->burstReadQueue, data);
+			}
 		}
 	} else {
-		self->buffer.reset(&self->buffer);
+		self->msgBuffer.reset(&self->msgBuffer);
 	}
 }
 
 void initDRAMHandler(DRAM_HANDLER *self) {
-	initBuffer(&self->buffer);
+	initBuffer(&self->msgBuffer);
+	initQueue(&self->burstReadQueue);
+
 	self->readByte = &readByte;
 	self->writeByte = &writeByte;
 	self->refreshRASonly = &refreshRASonly;

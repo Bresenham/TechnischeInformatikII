@@ -75,7 +75,7 @@ reset:
 .L__stack_usage = 0
 	.loc 1 11 0
 	movw r30,r24	 ; , self
-	std Z+10,__zero_reg__	 ;  self_2(D)->idx,
+	std Z+14,__zero_reg__	 ;  self_2(D)->idx,
 	ret
 	.cfi_endproc
 .LFE0:
@@ -94,7 +94,7 @@ getLength:
 .L__stack_usage = 0
 	.loc 1 16 0
 	movw r30,r24	 ; , self
-	ldd r24,Z+10	 ; , self_2(D)->idx
+	ldd r24,Z+14	 ; , self_2(D)->idx
 .LVL2:
 	ret
 	.cfi_endproc
@@ -114,18 +114,18 @@ push:
 .L__stack_usage = 0
 	movw r30,r24	 ;  self, self
 	.loc 1 19 0
-	ldd r25,Z+10	 ;  D.1656, self_3(D)->idx
-	cpi r25,lo8(5)	 ;  D.1656,
+	ldd r25,Z+14	 ;  D.1660, self_3(D)->idx
+	cpi r25,lo8(7)	 ;  D.1660,
 	brsh .L3	 ; ,
 	.loc 1 20 0
 	movw r26,r30	 ;  tmp48, self
-	add r26,r25	 ;  tmp48, D.1656
+	add r26,r25	 ;  tmp48, D.1660
 	adc r27,__zero_reg__	 ;  tmp48
-	adiw r26,11	 ;  self_3(D)->data
+	adiw r26,15	 ;  self_3(D)->data
 	st X,r22	 ;  data
 	.loc 1 21 0
-	subi r25,lo8(-(1))	 ;  D.1656,
-	std Z+10,r25	 ;  self_3(D)->idx, D.1656
+	subi r25,lo8(-(1))	 ;  D.1660,
+	std Z+14,r25	 ;  self_3(D)->idx, D.1660
 .L3:
 	ret
 	.cfi_endproc
@@ -145,44 +145,52 @@ initBuffer:
 .L__stack_usage = 0
 	movw r30,r24	 ;  self, self
 	.loc 1 26 0
-	ldi r24,lo8(gs(push))	 ;  tmp48,
+	ldi r24,lo8(gs(push))	 ;  tmp50,
 	ldi r25,hi8(gs(push))	 ; ,
 .LVL5:
-	std Z+16,r24	 ;  self_2(D)->push, tmp48
-	std Z+17,r25	 ;  self_2(D)->push, tmp48
+	std Z+22,r24	 ;  self_2(D)->push, tmp50
+	std Z+23,r25	 ;  self_2(D)->push, tmp50
 	.loc 1 27 0
-	ldi r24,lo8(gs(reset))	 ;  tmp49,
+	ldi r24,lo8(gs(reset))	 ;  tmp51,
 	ldi r25,hi8(gs(reset))	 ; ,
-	std Z+20,r24	 ;  self_2(D)->reset, tmp49
-	std Z+21,r25	 ;  self_2(D)->reset, tmp49
+	std Z+26,r24	 ;  self_2(D)->reset, tmp51
+	std Z+27,r25	 ;  self_2(D)->reset, tmp51
 	.loc 1 28 0
-	ldi r24,lo8(gs(getLength))	 ;  tmp50,
+	ldi r24,lo8(gs(getLength))	 ;  tmp52,
 	ldi r25,hi8(gs(getLength))	 ; ,
-	std Z+18,r24	 ;  self_2(D)->getLength, tmp50
-	std Z+19,r25	 ;  self_2(D)->getLength, tmp50
+	std Z+24,r24	 ;  self_2(D)->getLength, tmp52
+	std Z+25,r25	 ;  self_2(D)->getLength, tmp52
 	.loc 1 30 0
-	movw r24,r30	 ;  D.1660, self
-	adiw r24,11	 ;  D.1660,
-	st Z,r24	 ;  self_2(D)->PTR.cmd, D.1660
-	std Z+1,r25	 ;  self_2(D)->PTR.cmd, D.1660
+	movw r24,r30	 ;  D.1664, self
+	adiw r24,15	 ;  D.1664,
+	st Z,r24	 ;  self_2(D)->PTR.cmd, D.1664
+	std Z+1,r25	 ;  self_2(D)->PTR.cmd, D.1664
 	.loc 1 31 0
-	adiw r24,1	 ;  D.1660,
-	std Z+2,r24	 ;  self_2(D)->PTR.addr1, D.1660
-	std Z+3,r25	 ;  self_2(D)->PTR.addr1, D.1660
+	adiw r24,1	 ;  D.1664,
+	std Z+2,r24	 ;  self_2(D)->PTR.addr1, D.1664
+	std Z+3,r25	 ;  self_2(D)->PTR.addr1, D.1664
 	.loc 1 32 0
-	adiw r24,1	 ;  D.1660,
-	std Z+4,r24	 ;  self_2(D)->PTR.addr2, D.1660
-	std Z+5,r25	 ;  self_2(D)->PTR.addr2, D.1660
+	adiw r24,1	 ;  D.1664,
+	std Z+4,r24	 ;  self_2(D)->PTR.addr2, D.1664
+	std Z+5,r25	 ;  self_2(D)->PTR.addr2, D.1664
 	.loc 1 33 0
-	adiw r24,1	 ;  D.1660,
-	std Z+6,r24	 ;  self_2(D)->PTR.addr3, D.1660
-	std Z+7,r25	 ;  self_2(D)->PTR.addr3, D.1660
+	adiw r24,1	 ;  D.1664,
+	std Z+6,r24	 ;  self_2(D)->PTR.addr3, D.1664
+	std Z+7,r25	 ;  self_2(D)->PTR.addr3, D.1664
 	.loc 1 34 0
-	adiw r24,1	 ;  D.1660,
-	std Z+8,r24	 ;  self_2(D)->PTR.param1, D.1660
-	std Z+9,r25	 ;  self_2(D)->PTR.param1, D.1660
+	adiw r24,1	 ;  D.1664,
+	std Z+8,r24	 ;  self_2(D)->PTR.param1, D.1664
+	std Z+9,r25	 ;  self_2(D)->PTR.param1, D.1664
+	.loc 1 35 0
+	adiw r24,1	 ;  D.1664,
+	std Z+10,r24	 ;  self_2(D)->PTR.param2, D.1664
+	std Z+11,r25	 ;  self_2(D)->PTR.param2, D.1664
 	.loc 1 36 0
-	std Z+10,__zero_reg__	 ;  self_2(D)->idx,
+	adiw r24,1	 ;  D.1664,
+	std Z+12,r24	 ;  self_2(D)->PTR.param3, D.1664
+	std Z+13,r25	 ;  self_2(D)->PTR.param3, D.1664
+	.loc 1 38 0
+	std Z+14,__zero_reg__	 ;  self_2(D)->idx,
 	ret
 	.cfi_endproc
 .LFE3:
@@ -193,15 +201,15 @@ initBuffer:
 	.file 3 "c:\\program files (x86)\\atmel\\studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\stdint.h"
 	.section	.debug_info,"",@progbits
 .Ldebug_info0:
-	.long	0x24b
+	.long	0x267
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF19
-	.byte	0xc
-	.long	.LASF20
 	.long	.LASF21
+	.byte	0xc
+	.long	.LASF22
+	.long	.LASF23
 	.long	.Ldebug_ranges0+0
 	.long	0
 	.long	0
@@ -211,7 +219,7 @@ initBuffer:
 	.byte	0x6
 	.long	.LASF0
 	.uleb128 0x3
-	.long	.LASF17
+	.long	.LASF19
 	.byte	0x3
 	.byte	0x7e
 	.long	0x3b
@@ -245,15 +253,15 @@ initBuffer:
 	.long	.LASF6
 	.uleb128 0x5
 	.string	"PTR"
-	.byte	0xa
+	.byte	0xe
 	.byte	0x2
 	.byte	0x12
-	.long	0xbf
+	.long	0xdb
 	.uleb128 0x6
 	.string	"cmd"
 	.byte	0x2
 	.byte	0x13
-	.long	0xbf
+	.long	0xdb
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0
@@ -261,7 +269,7 @@ initBuffer:
 	.long	.LASF7
 	.byte	0x2
 	.byte	0x14
-	.long	0xbf
+	.long	0xdb
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -269,7 +277,7 @@ initBuffer:
 	.long	.LASF8
 	.byte	0x2
 	.byte	0x15
-	.long	0xbf
+	.long	0xdb
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
@@ -277,7 +285,7 @@ initBuffer:
 	.long	.LASF9
 	.byte	0x2
 	.byte	0x16
-	.long	0xbf
+	.long	0xdb
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x6
@@ -285,24 +293,40 @@ initBuffer:
 	.long	.LASF10
 	.byte	0x2
 	.byte	0x17
-	.long	0xbf
+	.long	0xdb
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x8
+	.uleb128 0x7
+	.long	.LASF11
+	.byte	0x2
+	.byte	0x18
+	.long	0xdb
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0xa
+	.uleb128 0x7
+	.long	.LASF12
+	.byte	0x2
+	.byte	0x19
+	.long	0xdb
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0xc
 	.byte	0
 	.uleb128 0x8
 	.byte	0x2
 	.long	0x30
 	.uleb128 0x9
-	.long	.LASF11
-	.byte	0x16
+	.long	.LASF13
+	.byte	0x1c
 	.byte	0x2
 	.byte	0x10
-	.long	0x126
+	.long	0x142
 	.uleb128 0x6
 	.string	"PTR"
 	.byte	0x2
-	.byte	0x18
+	.byte	0x1a
 	.long	0x6c
 	.byte	0x2
 	.byte	0x23
@@ -310,96 +334,96 @@ initBuffer:
 	.uleb128 0x6
 	.string	"idx"
 	.byte	0x2
-	.byte	0x1a
+	.byte	0x1c
 	.long	0x30
 	.byte	0x2
 	.byte	0x23
-	.uleb128 0xa
-	.uleb128 0x7
-	.long	.LASF12
-	.byte	0x2
-	.byte	0x1b
-	.long	0x126
-	.byte	0x2
-	.byte	0x23
-	.uleb128 0xb
-	.uleb128 0x7
-	.long	.LASF13
-	.byte	0x2
-	.byte	0x1d
-	.long	0x154
-	.byte	0x2
-	.byte	0x23
-	.uleb128 0x10
+	.uleb128 0xe
 	.uleb128 0x7
 	.long	.LASF14
 	.byte	0x2
-	.byte	0x1e
-	.long	0x16a
+	.byte	0x1d
+	.long	0x142
 	.byte	0x2
 	.byte	0x23
-	.uleb128 0x12
+	.uleb128 0xf
 	.uleb128 0x7
 	.long	.LASF15
 	.byte	0x2
 	.byte	0x1f
-	.long	0x17c
+	.long	0x170
 	.byte	0x2
 	.byte	0x23
-	.uleb128 0x14
+	.uleb128 0x16
+	.uleb128 0x7
+	.long	.LASF16
+	.byte	0x2
+	.byte	0x20
+	.long	0x186
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x18
+	.uleb128 0x7
+	.long	.LASF17
+	.byte	0x2
+	.byte	0x21
+	.long	0x198
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x1a
 	.byte	0
 	.uleb128 0xa
 	.long	0x30
-	.long	0x136
+	.long	0x152
 	.uleb128 0xb
-	.long	0x136
-	.byte	0x4
+	.long	0x152
+	.byte	0x6
 	.byte	0
 	.uleb128 0x2
 	.byte	0x2
 	.byte	0x7
-	.long	.LASF16
+	.long	.LASF18
 	.uleb128 0xc
 	.byte	0x1
-	.long	0x14e
+	.long	0x16a
 	.uleb128 0xd
-	.long	0x14e
+	.long	0x16a
 	.uleb128 0xd
 	.long	0x30
 	.byte	0
 	.uleb128 0x8
 	.byte	0x2
-	.long	0xc5
+	.long	0xe1
 	.uleb128 0x8
 	.byte	0x2
-	.long	0x13d
+	.long	0x159
 	.uleb128 0xe
 	.byte	0x1
 	.long	0x30
-	.long	0x16a
+	.long	0x186
 	.uleb128 0xd
-	.long	0x14e
+	.long	0x16a
 	.byte	0
 	.uleb128 0x8
 	.byte	0x2
-	.long	0x15a
+	.long	0x176
 	.uleb128 0xc
 	.byte	0x1
-	.long	0x17c
+	.long	0x198
 	.uleb128 0xd
-	.long	0x14e
+	.long	0x16a
 	.byte	0
 	.uleb128 0x8
 	.byte	0x2
-	.long	0x170
+	.long	0x18c
 	.uleb128 0x3
-	.long	.LASF11
+	.long	.LASF13
 	.byte	0x2
-	.byte	0x20
-	.long	0xc5
+	.byte	0x22
+	.long	0xe1
 	.uleb128 0xf
 	.byte	0x1
-	.long	.LASF15
+	.long	.LASF17
 	.byte	0x1
 	.byte	0xa
 	.byte	0x1
@@ -410,12 +434,12 @@ initBuffer:
 	.uleb128 0x20
 	.sleb128 2
 	.byte	0x1
-	.long	0x1ba
+	.long	0x1d6
 	.uleb128 0x10
-	.long	.LASF18
+	.long	.LASF20
 	.byte	0x1
 	.byte	0xa
-	.long	0x1ba
+	.long	0x1d6
 	.byte	0x6
 	.byte	0x68
 	.byte	0x93
@@ -426,10 +450,10 @@ initBuffer:
 	.byte	0
 	.uleb128 0x8
 	.byte	0x2
-	.long	0x182
+	.long	0x19e
 	.uleb128 0x11
 	.byte	0x1
-	.long	.LASF14
+	.long	.LASF16
 	.byte	0x1
 	.byte	0xe
 	.byte	0x1
@@ -441,17 +465,17 @@ initBuffer:
 	.uleb128 0x20
 	.sleb128 2
 	.byte	0x1
-	.long	0x1ee
+	.long	0x20a
 	.uleb128 0x12
-	.long	.LASF18
+	.long	.LASF20
 	.byte	0x1
 	.byte	0xe
-	.long	0x1ba
+	.long	0x1d6
 	.long	.LLST0
 	.byte	0
 	.uleb128 0xf
 	.byte	0x1
-	.long	.LASF13
+	.long	.LASF15
 	.byte	0x1
 	.byte	0x12
 	.byte	0x1
@@ -462,12 +486,12 @@ initBuffer:
 	.uleb128 0x20
 	.sleb128 2
 	.byte	0x1
-	.long	0x228
+	.long	0x244
 	.uleb128 0x10
-	.long	.LASF18
+	.long	.LASF20
 	.byte	0x1
 	.byte	0x12
-	.long	0x1ba
+	.long	0x1d6
 	.byte	0x6
 	.byte	0x68
 	.byte	0x93
@@ -476,7 +500,7 @@ initBuffer:
 	.byte	0x93
 	.uleb128 0x1
 	.uleb128 0x10
-	.long	.LASF12
+	.long	.LASF14
 	.byte	0x1
 	.byte	0x12
 	.long	0x30
@@ -485,7 +509,7 @@ initBuffer:
 	.byte	0
 	.uleb128 0x13
 	.byte	0x1
-	.long	.LASF22
+	.long	.LASF24
 	.byte	0x1
 	.byte	0x19
 	.byte	0x1
@@ -497,10 +521,10 @@ initBuffer:
 	.sleb128 2
 	.byte	0x1
 	.uleb128 0x12
-	.long	.LASF18
+	.long	.LASF20
 	.byte	0x1
 	.byte	0x19
-	.long	0x1ba
+	.long	0x1d6
 	.long	.LLST1
 	.byte	0
 	.byte	0
@@ -859,46 +883,50 @@ initBuffer:
 	.section	.debug_line,"",@progbits
 .Ldebug_line0:
 	.section	.debug_str,"MS",@progbits,1
-.LASF15:
+.LASF17:
 	.string	"reset"
-.LASF20:
+.LASF22:
 	.string	"../Buffer/Buffer.c"
-.LASF19:
+.LASF21:
 	.string	"GNU C99 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avrxmega3 -mshort-calls -g2 -Os -std=gnu99 -funsigned-char -funsigned-bitfields -ffunction-sections -fdata-sections -fpack-struct -fshort-enums"
-.LASF12:
+.LASF14:
 	.string	"data"
-.LASF13:
+.LASF15:
 	.string	"push"
 .LASF1:
 	.string	"unsigned char"
 .LASF4:
 	.string	"long unsigned int"
-.LASF22:
+.LASF24:
 	.string	"initBuffer"
-.LASF14:
+.LASF16:
 	.string	"getLength"
-.LASF18:
+.LASF20:
 	.string	"self"
 .LASF2:
 	.string	"unsigned int"
 .LASF6:
 	.string	"long long unsigned int"
-.LASF17:
+.LASF19:
 	.string	"uint8_t"
-.LASF16:
+.LASF18:
 	.string	"sizetype"
 .LASF5:
 	.string	"long long int"
-.LASF21:
+.LASF23:
 	.string	"C:\\\\Users\\\\test\\\\Documents\\\\Studium\\\\TechnischeInformatikIIProject\\\\ATmega809\\\\TestProject\\\\Debug"
 .LASF3:
 	.string	"long int"
-.LASF11:
+.LASF13:
 	.string	"BUFFER"
 .LASF0:
 	.string	"signed char"
 .LASF10:
 	.string	"param1"
+.LASF11:
+	.string	"param2"
+.LASF12:
+	.string	"param3"
 .LASF7:
 	.string	"addr1"
 .LASF8:

@@ -25,8 +25,13 @@ ISR(TCA0_CMP0_vect) {
 ISR(SPI0_INT_vect) {
 	if(SPI0.INTFLAGS & SPI_RXCIE_bm) {
 		const uint8_t data = SPI0.DATA;
-		dramHandler.buffer.push(&dramHandler.buffer, data);
-		dramHandler.hasPendingBufferUpdate = true;
+		if(!dramHandler.burstReadQueue.isEmpty(&dramHandler.burstReadQueue)) {
+			const uint8_t data = dramHandler.burstReadQueue.pop(&dramHandler.burstReadQueue);
+			SPI0.DATA = data;
+		} else {
+			dramHandler.msgBuffer.push(&dramHandler.msgBuffer, data);
+			dramHandler.hasPendingBufferUpdate = true;
+		}
 	}
 }
 

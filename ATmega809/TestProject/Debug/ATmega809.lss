@@ -3,31 +3,31 @@ ATmega809.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00803c00  00803c00  00000774  2**0
+  0 .data         00000000  00803c00  00803c00  00000934  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000700  00000000  00000000  00000074  2**1
+  1 .text         000008c0  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000038  00803c00  00803c00  00000774  2**0
+  2 .bss          0000004b  00803c00  00803c00  00000934  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000774  2**0
+  3 .comment      00000030  00000000  00000000  00000934  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000007a4  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000964  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000d0  00000000  00000000  000007e0  2**0
+  5 .debug_aranges 00000108  00000000  00000000  000009a0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00004154  00000000  00000000  000008b0  2**0
+  6 .debug_info   00004766  00000000  00000000  00000aa8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00002862  00000000  00000000  00004a04  2**0
+  7 .debug_abbrev 000029ae  00000000  00000000  0000520e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000009dd  00000000  00000000  00007266  2**0
+  8 .debug_line   00000c1f  00000000  00000000  00007bbc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000244  00000000  00000000  00007c44  2**2
+  9 .debug_frame  000002c4  00000000  00000000  000087dc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000018de  00000000  00000000  00007e88  2**0
+ 10 .debug_str    0000198c  00000000  00000000  00008aa0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000822  00000000  00000000  00009766  2**0
+ 11 .debug_loc    00000a4c  00000000  00000000  0000a42c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000a0  00000000  00000000  00009f88  2**0
+ 12 .debug_ranges 000000e0  00000000  00000000  0000ae78  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -42,14 +42,14 @@ Disassembly of section .text:
   18:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
   1c:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
   20:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
-  24:	0c 94 e7 02 	jmp	0x5ce	; 0x5ce <__vector_9>
+  24:	0c 94 32 03 	jmp	0x664	; 0x664 <__vector_9>
   28:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
   2c:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
   30:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
   34:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
   38:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
   3c:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
-  40:	0c 94 ff 02 	jmp	0x5fe	; 0x5fe <__vector_16>
+  40:	0c 94 4a 03 	jmp	0x694	; 0x694 <__vector_16>
   44:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
   48:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
   4c:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__bad_interrupt>
@@ -92,11 +92,11 @@ Disassembly of section .text:
   b4:	1d 92       	st	X+, r1
 
 000000b6 <.do_clear_bss_start>:
-  b6:	a8 33       	cpi	r26, 0x38	; 56
+  b6:	ab 34       	cpi	r26, 0x4B	; 75
   b8:	b2 07       	cpc	r27, r18
   ba:	e1 f7       	brne	.-8      	; 0xb4 <.do_clear_bss_loop>
-  bc:	fe d2       	rcall	.+1532   	; 0x6ba <main>
-  be:	1e c3       	rjmp	.+1596   	; 0x6fc <_exit>
+  bc:	5f d3       	rcall	.+1726   	; 0x77c <main>
+  be:	fe c3       	rjmp	.+2044   	; 0x8bc <_exit>
 
 000000c0 <__bad_interrupt>:
   c0:	9f cf       	rjmp	.-194    	; 0x0 <__vectors>
@@ -109,7 +109,7 @@ Disassembly of section .text:
 void reset(BUFFER *self) {
 	self->idx = 0;
   c2:	fc 01       	movw	r30, r24
-  c4:	12 86       	std	Z+10, r1	; 0x0a
+  c4:	16 86       	std	Z+14, r1	; 0x0e
   c6:	08 95       	ret
 
 000000c8 <getLength>:
@@ -119,7 +119,7 @@ uint8_t getLength(BUFFER *self) {
 	return self->idx;
 }
   c8:	fc 01       	movw	r30, r24
-  ca:	82 85       	ldd	r24, Z+10	; 0x0a
+  ca:	86 85       	ldd	r24, Z+14	; 0x0e
   cc:	08 95       	ret
 
 000000ce <push>:
@@ -127,18 +127,18 @@ uint8_t getLength(BUFFER *self) {
 void push(BUFFER *self, uint8_t data) {
   ce:	fc 01       	movw	r30, r24
 	if(self->idx < BUFFER_SIZE) {
-  d0:	92 85       	ldd	r25, Z+10	; 0x0a
-  d2:	95 30       	cpi	r25, 0x05	; 5
+  d0:	96 85       	ldd	r25, Z+14	; 0x0e
+  d2:	97 30       	cpi	r25, 0x07	; 7
   d4:	38 f4       	brcc	.+14     	; 0xe4 <push+0x16>
 		self->data[self->idx] = data;
   d6:	df 01       	movw	r26, r30
   d8:	a9 0f       	add	r26, r25
   da:	b1 1d       	adc	r27, r1
-  dc:	1b 96       	adiw	r26, 0x0b	; 11
+  dc:	1f 96       	adiw	r26, 0x0f	; 15
   de:	6c 93       	st	X, r22
 		self->idx++;
   e0:	9f 5f       	subi	r25, 0xFF	; 255
-  e2:	92 87       	std	Z+10, r25	; 0x0a
+  e2:	96 87       	std	Z+14, r25	; 0x0e
   e4:	08 95       	ret
 
 000000e6 <initBuffer>:
@@ -150,22 +150,22 @@ void initBuffer(BUFFER *self) {
 	self->push = &push;
   e8:	87 e6       	ldi	r24, 0x67	; 103
   ea:	90 e0       	ldi	r25, 0x00	; 0
-  ec:	80 8b       	std	Z+16, r24	; 0x10
-  ee:	91 8b       	std	Z+17, r25	; 0x11
+  ec:	86 8b       	std	Z+22, r24	; 0x16
+  ee:	97 8b       	std	Z+23, r25	; 0x17
 	self->reset = &reset;
   f0:	81 e6       	ldi	r24, 0x61	; 97
   f2:	90 e0       	ldi	r25, 0x00	; 0
-  f4:	84 8b       	std	Z+20, r24	; 0x14
-  f6:	95 8b       	std	Z+21, r25	; 0x15
+  f4:	82 8f       	std	Z+26, r24	; 0x1a
+  f6:	93 8f       	std	Z+27, r25	; 0x1b
 	self->getLength = &getLength;
   f8:	84 e6       	ldi	r24, 0x64	; 100
   fa:	90 e0       	ldi	r25, 0x00	; 0
-  fc:	82 8b       	std	Z+18, r24	; 0x12
-  fe:	93 8b       	std	Z+19, r25	; 0x13
+  fc:	80 8f       	std	Z+24, r24	; 0x18
+  fe:	91 8f       	std	Z+25, r25	; 0x19
 
 	self->PTR.cmd = &self->data[0];
  100:	cf 01       	movw	r24, r30
- 102:	0b 96       	adiw	r24, 0x0b	; 11
+ 102:	0f 96       	adiw	r24, 0x0f	; 15
  104:	80 83       	st	Z, r24
  106:	91 83       	std	Z+1, r25	; 0x01
 	self->PTR.addr1 = &self->data[1];
@@ -184,1059 +184,1393 @@ void initBuffer(BUFFER *self) {
  11a:	01 96       	adiw	r24, 0x01	; 1
  11c:	80 87       	std	Z+8, r24	; 0x08
  11e:	91 87       	std	Z+9, r25	; 0x09
+	self->PTR.param2 = &self->data[5];
+ 120:	01 96       	adiw	r24, 0x01	; 1
+ 122:	82 87       	std	Z+10, r24	; 0x0a
+ 124:	93 87       	std	Z+11, r25	; 0x0b
+	self->PTR.param3 = &self->data[6];
+ 126:	01 96       	adiw	r24, 0x01	; 1
+ 128:	84 87       	std	Z+12, r24	; 0x0c
+ 12a:	95 87       	std	Z+13, r25	; 0x0d
 	
 	self->idx = 0;
- 120:	12 86       	std	Z+10, r1	; 0x0a
- 122:	08 95       	ret
+ 12c:	16 86       	std	Z+14, r1	; 0x0e
+ 12e:	08 95       	ret
 
-00000124 <processAndRespondBuffer>:
-	
+00000130 <processAndRespondBuffer>:
 	self->DATA_PORT->OUT = 0;
 	writeToAddrPort(self, 0x00);
+	sei();
 }
 
 void processAndRespondBuffer(DRAM_HANDLER *self) {
- 124:	cf 92       	push	r12
- 126:	df 92       	push	r13
- 128:	ef 92       	push	r14
- 12a:	ff 92       	push	r15
- 12c:	0f 93       	push	r16
- 12e:	1f 93       	push	r17
- 130:	cf 93       	push	r28
- 132:	df 93       	push	r29
- 134:	00 d0       	rcall	.+0      	; 0x136 <processAndRespondBuffer+0x12>
- 136:	00 d0       	rcall	.+0      	; 0x138 <processAndRespondBuffer+0x14>
- 138:	cd b7       	in	r28, 0x3d	; 61
- 13a:	de b7       	in	r29, 0x3e	; 62
- 13c:	8c 01       	movw	r16, r24
-	const uint8_t cmd = *self->buffer.PTR.cmd;
- 13e:	dc 01       	movw	r26, r24
- 140:	58 96       	adiw	r26, 0x18	; 24
- 142:	ed 91       	ld	r30, X+
- 144:	fc 91       	ld	r31, X
- 146:	59 97       	sbiw	r26, 0x19	; 25
- 148:	d0 80       	ld	r13, Z
-	if(cmd == READ_CMD || cmd == WRITE_CMD) {
- 14a:	8e ee       	ldi	r24, 0xEE	; 238
- 14c:	8d 0d       	add	r24, r13
- 14e:	f8 01       	movw	r30, r16
- 150:	78 96       	adiw	r30, 0x18	; 24
- 152:	7f 01       	movw	r14, r30
- 154:	82 30       	cpi	r24, 0x02	; 2
- 156:	08 f0       	brcs	.+2      	; 0x15a <processAndRespondBuffer+0x36>
- 158:	48 c0       	rjmp	.+144    	; 0x1ea <processAndRespondBuffer+0xc6>
-		volatile uint32_t addr = ( ((uint32_t)*self->buffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->buffer.PTR.addr2) << 8 ) | (*self->buffer.PTR.addr3);
- 15a:	5a 96       	adiw	r26, 0x1a	; 26
- 15c:	ed 91       	ld	r30, X+
- 15e:	fc 91       	ld	r31, X
- 160:	5b 97       	sbiw	r26, 0x1b	; 27
- 162:	20 81       	ld	r18, Z
- 164:	5c 96       	adiw	r26, 0x1c	; 28
- 166:	ed 91       	ld	r30, X+
- 168:	fc 91       	ld	r31, X
- 16a:	5d 97       	sbiw	r26, 0x1d	; 29
- 16c:	80 81       	ld	r24, Z
- 16e:	90 e0       	ldi	r25, 0x00	; 0
- 170:	a0 e0       	ldi	r26, 0x00	; 0
- 172:	b0 e0       	ldi	r27, 0x00	; 0
- 174:	ba 2f       	mov	r27, r26
- 176:	a9 2f       	mov	r26, r25
- 178:	98 2f       	mov	r25, r24
- 17a:	88 27       	eor	r24, r24
- 17c:	a2 2b       	or	r26, r18
- 17e:	f8 01       	movw	r30, r16
- 180:	26 8d       	ldd	r18, Z+30	; 0x1e
- 182:	37 8d       	ldd	r19, Z+31	; 0x1f
- 184:	f9 01       	movw	r30, r18
- 186:	20 81       	ld	r18, Z
- 188:	82 2b       	or	r24, r18
- 18a:	89 83       	std	Y+1, r24	; 0x01
- 18c:	9a 83       	std	Y+2, r25	; 0x02
- 18e:	ab 83       	std	Y+3, r26	; 0x03
- 190:	bc 83       	std	Y+4, r27	; 0x04
-		const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
- 192:	d8 01       	movw	r26, r16
- 194:	9a 96       	adiw	r26, 0x2a	; 42
- 196:	ed 91       	ld	r30, X+
- 198:	fc 91       	ld	r31, X
- 19a:	9b 97       	sbiw	r26, 0x2b	; 43
- 19c:	c7 01       	movw	r24, r14
- 19e:	09 95       	icall
+ 130:	4f 92       	push	r4
+ 132:	5f 92       	push	r5
+ 134:	6f 92       	push	r6
+ 136:	7f 92       	push	r7
+ 138:	af 92       	push	r10
+ 13a:	bf 92       	push	r11
+ 13c:	cf 92       	push	r12
+ 13e:	df 92       	push	r13
+ 140:	ef 92       	push	r14
+ 142:	ff 92       	push	r15
+ 144:	0f 93       	push	r16
+ 146:	1f 93       	push	r17
+ 148:	cf 93       	push	r28
+ 14a:	df 93       	push	r29
+ 14c:	ec 01       	movw	r28, r24
+	const uint8_t cmd = *self->msgBuffer.PTR.cmd;
+ 14e:	e8 8d       	ldd	r30, Y+24	; 0x18
+ 150:	f9 8d       	ldd	r31, Y+25	; 0x19
+ 152:	b0 80       	ld	r11, Z
+	if(cmd == READ_CMD || cmd == WRITE_CMD || cmd == READ_BURST_CMD) {
+ 154:	8f ee       	ldi	r24, 0xEF	; 239
+ 156:	8b 0d       	add	r24, r11
+ 158:	8e 01       	movw	r16, r28
+ 15a:	08 5e       	subi	r16, 0xE8	; 232
+ 15c:	1f 4f       	sbci	r17, 0xFF	; 255
+ 15e:	83 30       	cpi	r24, 0x03	; 3
+ 160:	08 f0       	brcs	.+2      	; 0x164 <processAndRespondBuffer+0x34>
+ 162:	71 c0       	rjmp	.+226    	; 0x246 <processAndRespondBuffer+0x116>
+		const uint32_t addr = ( ((uint32_t)*self->msgBuffer.PTR.addr1) << 16 ) | ( ((uint32_t)*self->msgBuffer.PTR.addr2) << 8 ) | (*self->msgBuffer.PTR.addr3);
+ 164:	ea 8d       	ldd	r30, Y+26	; 0x1a
+ 166:	fb 8d       	ldd	r31, Y+27	; 0x1b
+ 168:	80 81       	ld	r24, Z
+ 16a:	ec 8d       	ldd	r30, Y+28	; 0x1c
+ 16c:	fd 8d       	ldd	r31, Y+29	; 0x1d
+ 16e:	c0 80       	ld	r12, Z
+ 170:	d1 2c       	mov	r13, r1
+ 172:	e1 2c       	mov	r14, r1
+ 174:	f1 2c       	mov	r15, r1
+ 176:	fe 2c       	mov	r15, r14
+ 178:	ed 2c       	mov	r14, r13
+ 17a:	dc 2c       	mov	r13, r12
+ 17c:	cc 24       	eor	r12, r12
+ 17e:	e8 2a       	or	r14, r24
+ 180:	ee 8d       	ldd	r30, Y+30	; 0x1e
+ 182:	ff 8d       	ldd	r31, Y+31	; 0x1f
+ 184:	80 81       	ld	r24, Z
+ 186:	c8 2a       	or	r12, r24
+		const uint8_t bufferLen = self->msgBuffer.getLength(&self->msgBuffer);
+ 188:	e8 a9       	ldd	r30, Y+48	; 0x30
+ 18a:	f9 a9       	ldd	r31, Y+49	; 0x31
+ 18c:	c8 01       	movw	r24, r16
+ 18e:	09 95       	icall
 		if(bufferLen == READ_CMD_LEN && cmd == READ_CMD) {
- 1a0:	84 30       	cpi	r24, 0x04	; 4
- 1a2:	89 f4       	brne	.+34     	; 0x1c6 <processAndRespondBuffer+0xa2>
- 1a4:	b3 e1       	ldi	r27, 0x13	; 19
- 1a6:	db 12       	cpse	r13, r27
- 1a8:	27 c0       	rjmp	.+78     	; 0x1f8 <processAndRespondBuffer+0xd4>
+ 190:	84 30       	cpi	r24, 0x04	; 4
+ 192:	81 f4       	brne	.+32     	; 0x1b4 <processAndRespondBuffer+0x84>
+ 194:	83 e1       	ldi	r24, 0x13	; 19
+ 196:	b8 12       	cpse	r11, r24
+ 198:	68 c0       	rjmp	.+208    	; 0x26a <processAndRespondBuffer+0x13a>
 			SPI0.DATA = self->readByte(self, addr);
- 1aa:	49 81       	ldd	r20, Y+1	; 0x01
- 1ac:	5a 81       	ldd	r21, Y+2	; 0x02
- 1ae:	6b 81       	ldd	r22, Y+3	; 0x03
- 1b0:	7c 81       	ldd	r23, Y+4	; 0x04
- 1b2:	d8 01       	movw	r26, r16
- 1b4:	d0 96       	adiw	r26, 0x30	; 48
- 1b6:	ed 91       	ld	r30, X+
- 1b8:	fc 91       	ld	r31, X
- 1ba:	d1 97       	sbiw	r26, 0x31	; 49
- 1bc:	c8 01       	movw	r24, r16
- 1be:	09 95       	icall
- 1c0:	80 93 c4 08 	sts	0x08C4, r24	; 0x8008c4 <__RODATA_PM_OFFSET__+0x7fc8c4>
- 1c4:	12 c0       	rjmp	.+36     	; 0x1ea <processAndRespondBuffer+0xc6>
-			self->buffer.reset(&self->buffer);
+ 19a:	fe 01       	movw	r30, r28
+ 19c:	ee 5b       	subi	r30, 0xBE	; 190
+ 19e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1a0:	01 90       	ld	r0, Z+
+ 1a2:	f0 81       	ld	r31, Z
+ 1a4:	e0 2d       	mov	r30, r0
+ 1a6:	b7 01       	movw	r22, r14
+ 1a8:	a6 01       	movw	r20, r12
+ 1aa:	ce 01       	movw	r24, r28
+ 1ac:	09 95       	icall
+ 1ae:	80 93 c4 08 	sts	0x08C4, r24	; 0x8008c4 <__RODATA_PM_OFFSET__+0x7fc8c4>
+ 1b2:	49 c0       	rjmp	.+146    	; 0x246 <processAndRespondBuffer+0x116>
+			self->msgBuffer.reset(&self->msgBuffer);
 		} else if(bufferLen == WRITE_CMD_LEN && cmd == WRITE_CMD) {
- 1c6:	85 30       	cpi	r24, 0x05	; 5
- 1c8:	b9 f4       	brne	.+46     	; 0x1f8 <processAndRespondBuffer+0xd4>
- 1ca:	b2 e1       	ldi	r27, 0x12	; 18
- 1cc:	db 12       	cpse	r13, r27
- 1ce:	14 c0       	rjmp	.+40     	; 0x1f8 <processAndRespondBuffer+0xd4>
-			const uint8_t data = *self->buffer.PTR.param1;
+ 1b4:	85 30       	cpi	r24, 0x05	; 5
+ 1b6:	89 f4       	brne	.+34     	; 0x1da <processAndRespondBuffer+0xaa>
+ 1b8:	a2 e1       	ldi	r26, 0x12	; 18
+ 1ba:	ba 12       	cpse	r11, r26
+ 1bc:	56 c0       	rjmp	.+172    	; 0x26a <processAndRespondBuffer+0x13a>
+			const uint8_t data = *self->msgBuffer.PTR.param1;
+ 1be:	a8 a1       	ldd	r26, Y+32	; 0x20
+ 1c0:	b9 a1       	ldd	r27, Y+33	; 0x21
 			self->writeByte(self, addr, data);
- 1d0:	49 81       	ldd	r20, Y+1	; 0x01
- 1d2:	5a 81       	ldd	r21, Y+2	; 0x02
- 1d4:	6b 81       	ldd	r22, Y+3	; 0x03
- 1d6:	7c 81       	ldd	r23, Y+4	; 0x04
-		const uint8_t bufferLen = self->buffer.getLength(&self->buffer);
-		if(bufferLen == READ_CMD_LEN && cmd == READ_CMD) {
-			SPI0.DATA = self->readByte(self, addr);
-			self->buffer.reset(&self->buffer);
-		} else if(bufferLen == WRITE_CMD_LEN && cmd == WRITE_CMD) {
-			const uint8_t data = *self->buffer.PTR.param1;
- 1d8:	f8 01       	movw	r30, r16
- 1da:	a0 a1       	ldd	r26, Z+32	; 0x20
- 1dc:	b1 a1       	ldd	r27, Z+33	; 0x21
+ 1c2:	fe 01       	movw	r30, r28
+ 1c4:	ec 5b       	subi	r30, 0xBC	; 188
+ 1c6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1c8:	01 90       	ld	r0, Z+
+ 1ca:	f0 81       	ld	r31, Z
+ 1cc:	e0 2d       	mov	r30, r0
+ 1ce:	2c 91       	ld	r18, X
+ 1d0:	b7 01       	movw	r22, r14
+ 1d2:	a6 01       	movw	r20, r12
+ 1d4:	ce 01       	movw	r24, r28
+ 1d6:	09 95       	icall
+ 1d8:	36 c0       	rjmp	.+108    	; 0x246 <processAndRespondBuffer+0x116>
+			self->msgBuffer.reset(&self->msgBuffer);
+		} else if(bufferLen == READ_BURST_CMD_LEN && cmd == READ_BURST_CMD) {
+ 1da:	87 30       	cpi	r24, 0x07	; 7
+ 1dc:	09 f0       	breq	.+2      	; 0x1e0 <processAndRespondBuffer+0xb0>
+ 1de:	45 c0       	rjmp	.+138    	; 0x26a <processAndRespondBuffer+0x13a>
+ 1e0:	b1 e1       	ldi	r27, 0x11	; 17
+ 1e2:	bb 12       	cpse	r11, r27
+ 1e4:	42 c0       	rjmp	.+132    	; 0x26a <processAndRespondBuffer+0x13a>
+			const uint32_t addrTo = ( ((uint32_t)*self->msgBuffer.PTR.param1) << 16 ) | ( ((uint32_t)*self->msgBuffer.PTR.param2) << 8 ) | (*self->msgBuffer.PTR.param3);
+ 1e6:	e8 a1       	ldd	r30, Y+32	; 0x20
+ 1e8:	f9 a1       	ldd	r31, Y+33	; 0x21
+ 1ea:	80 81       	ld	r24, Z
+ 1ec:	ea a1       	ldd	r30, Y+34	; 0x22
+ 1ee:	fb a1       	ldd	r31, Y+35	; 0x23
+ 1f0:	40 80       	ld	r4, Z
+ 1f2:	51 2c       	mov	r5, r1
+ 1f4:	61 2c       	mov	r6, r1
+ 1f6:	71 2c       	mov	r7, r1
+ 1f8:	76 2c       	mov	r7, r6
+ 1fa:	65 2c       	mov	r6, r5
+ 1fc:	54 2c       	mov	r5, r4
+ 1fe:	44 24       	eor	r4, r4
+ 200:	68 2a       	or	r6, r24
+ 202:	ec a1       	ldd	r30, Y+36	; 0x24
+ 204:	fd a1       	ldd	r31, Y+37	; 0x25
+ 206:	80 81       	ld	r24, Z
+ 208:	48 2a       	or	r4, r24
+			for(uint32_t i = addr; i <= addrTo; i++) {
+				const uint8_t data = self->readByte(self, i);
+ 20a:	8e 01       	movw	r16, r28
+ 20c:	0e 5b       	subi	r16, 0xBE	; 190
+ 20e:	1f 4f       	sbci	r17, 0xFF	; 255
+				self->burstReadQueue.push(&self->burstReadQueue, data);
+ 210:	5e 01       	movw	r10, r28
+ 212:	84 e3       	ldi	r24, 0x34	; 52
+ 214:	a8 0e       	add	r10, r24
+ 216:	b1 1c       	adc	r11, r1
+			const uint8_t data = *self->msgBuffer.PTR.param1;
 			self->writeByte(self, addr, data);
- 1de:	c2 a8       	ldd	r12, Z+50	; 0x32
- 1e0:	d3 a8       	ldd	r13, Z+51	; 0x33
- 1e2:	2c 91       	ld	r18, X
- 1e4:	c8 01       	movw	r24, r16
- 1e6:	f6 01       	movw	r30, r12
- 1e8:	09 95       	icall
-			self->buffer.reset(&self->buffer);
+			self->msgBuffer.reset(&self->msgBuffer);
+		} else if(bufferLen == READ_BURST_CMD_LEN && cmd == READ_BURST_CMD) {
+			const uint32_t addrTo = ( ((uint32_t)*self->msgBuffer.PTR.param1) << 16 ) | ( ((uint32_t)*self->msgBuffer.PTR.param2) << 8 ) | (*self->msgBuffer.PTR.param3);
+			for(uint32_t i = addr; i <= addrTo; i++) {
+ 218:	4c 14       	cp	r4, r12
+ 21a:	5d 04       	cpc	r5, r13
+ 21c:	6e 04       	cpc	r6, r14
+ 21e:	7f 04       	cpc	r7, r15
+ 220:	20 f1       	brcs	.+72     	; 0x26a <processAndRespondBuffer+0x13a>
+				const uint8_t data = self->readByte(self, i);
+ 222:	d8 01       	movw	r26, r16
+ 224:	ed 91       	ld	r30, X+
+ 226:	fc 91       	ld	r31, X
+ 228:	b7 01       	movw	r22, r14
+ 22a:	a6 01       	movw	r20, r12
+ 22c:	ce 01       	movw	r24, r28
+ 22e:	09 95       	icall
+				self->burstReadQueue.push(&self->burstReadQueue, data);
+ 230:	ea ad       	ldd	r30, Y+58	; 0x3a
+ 232:	fb ad       	ldd	r31, Y+59	; 0x3b
+ 234:	68 2f       	mov	r22, r24
+ 236:	c5 01       	movw	r24, r10
+ 238:	09 95       	icall
+			const uint8_t data = *self->msgBuffer.PTR.param1;
+			self->writeByte(self, addr, data);
+			self->msgBuffer.reset(&self->msgBuffer);
+		} else if(bufferLen == READ_BURST_CMD_LEN && cmd == READ_BURST_CMD) {
+			const uint32_t addrTo = ( ((uint32_t)*self->msgBuffer.PTR.param1) << 16 ) | ( ((uint32_t)*self->msgBuffer.PTR.param2) << 8 ) | (*self->msgBuffer.PTR.param3);
+			for(uint32_t i = addr; i <= addrTo; i++) {
+ 23a:	bf ef       	ldi	r27, 0xFF	; 255
+ 23c:	cb 1a       	sub	r12, r27
+ 23e:	db 0a       	sbc	r13, r27
+ 240:	eb 0a       	sbc	r14, r27
+ 242:	fb 0a       	sbc	r15, r27
+ 244:	e9 cf       	rjmp	.-46     	; 0x218 <processAndRespondBuffer+0xe8>
+				const uint8_t data = self->readByte(self, i);
+				self->burstReadQueue.push(&self->burstReadQueue, data);
+			}
 		}
 	} else {
-		self->buffer.reset(&self->buffer);
- 1ea:	d8 01       	movw	r26, r16
- 1ec:	9c 96       	adiw	r26, 0x2c	; 44
- 1ee:	ed 91       	ld	r30, X+
- 1f0:	fc 91       	ld	r31, X
- 1f2:	9d 97       	sbiw	r26, 0x2d	; 45
- 1f4:	c7 01       	movw	r24, r14
- 1f6:	09 95       	icall
+		self->msgBuffer.reset(&self->msgBuffer);
+ 246:	ea a9       	ldd	r30, Y+50	; 0x32
+ 248:	fb a9       	ldd	r31, Y+51	; 0x33
+ 24a:	c8 01       	movw	r24, r16
 	}
 }
- 1f8:	24 96       	adiw	r28, 0x04	; 4
- 1fa:	cd bf       	out	0x3d, r28	; 61
- 1fc:	de bf       	out	0x3e, r29	; 62
- 1fe:	df 91       	pop	r29
- 200:	cf 91       	pop	r28
- 202:	1f 91       	pop	r17
- 204:	0f 91       	pop	r16
- 206:	ff 90       	pop	r15
- 208:	ef 90       	pop	r14
- 20a:	df 90       	pop	r13
- 20c:	cf 90       	pop	r12
- 20e:	08 95       	ret
+ 24c:	df 91       	pop	r29
+ 24e:	cf 91       	pop	r28
+ 250:	1f 91       	pop	r17
+ 252:	0f 91       	pop	r16
+ 254:	ff 90       	pop	r15
+ 256:	ef 90       	pop	r14
+ 258:	df 90       	pop	r13
+ 25a:	cf 90       	pop	r12
+ 25c:	bf 90       	pop	r11
+ 25e:	af 90       	pop	r10
+ 260:	7f 90       	pop	r7
+ 262:	6f 90       	pop	r6
+ 264:	5f 90       	pop	r5
+ 266:	4f 90       	pop	r4
+				const uint8_t data = self->readByte(self, i);
+				self->burstReadQueue.push(&self->burstReadQueue, data);
+			}
+		}
+	} else {
+		self->msgBuffer.reset(&self->msgBuffer);
+ 268:	09 94       	ijmp
+	}
+}
+ 26a:	df 91       	pop	r29
+ 26c:	cf 91       	pop	r28
+ 26e:	1f 91       	pop	r17
+ 270:	0f 91       	pop	r16
+ 272:	ff 90       	pop	r15
+ 274:	ef 90       	pop	r14
+ 276:	df 90       	pop	r13
+ 278:	cf 90       	pop	r12
+ 27a:	bf 90       	pop	r11
+ 27c:	af 90       	pop	r10
+ 27e:	7f 90       	pop	r7
+ 280:	6f 90       	pop	r6
+ 282:	5f 90       	pop	r5
+ 284:	4f 90       	pop	r4
+ 286:	08 95       	ret
 
-00000210 <writeToAddrPort>:
+00000288 <writeToAddrPort>:
 
-#define WRITE_CMD			0x12
-#define WRITE_CMD_LEN		5
+#define READ_BURST_CMD		0x11
+#define READ_BURST_CMD_LEN	7	/* [ID][ADDR1_MSB][ADDR1_MLSB][ADDR1_LSB][ADDR2_MSB][ADDR2_MLSB][ADDR2_LSB] */
 
 void writeToAddrPort(DRAM_HANDLER *self, uint16_t addr) {
 	self->ADDR_PORT.P1->OUT = (addr << ADDR_PORT1_SHIFT);
- 210:	dc 01       	movw	r26, r24
- 212:	1e 96       	adiw	r26, 0x0e	; 14
- 214:	ed 91       	ld	r30, X+
- 216:	fc 91       	ld	r31, X
- 218:	1f 97       	sbiw	r26, 0x0f	; 15
- 21a:	26 2f       	mov	r18, r22
- 21c:	22 95       	swap	r18
- 21e:	22 0f       	add	r18, r18
- 220:	20 7e       	andi	r18, 0xE0	; 224
- 222:	24 83       	std	Z+4, r18	; 0x04
+ 288:	dc 01       	movw	r26, r24
+ 28a:	1e 96       	adiw	r26, 0x0e	; 14
+ 28c:	ed 91       	ld	r30, X+
+ 28e:	fc 91       	ld	r31, X
+ 290:	1f 97       	sbiw	r26, 0x0f	; 15
+ 292:	26 2f       	mov	r18, r22
+ 294:	22 95       	swap	r18
+ 296:	22 0f       	add	r18, r18
+ 298:	20 7e       	andi	r18, 0xE0	; 224
+ 29a:	24 83       	std	Z+4, r18	; 0x04
 	self->ADDR_PORT.P2->OUT = (addr >> ADDR_PORT2_SHIFT);
- 224:	50 96       	adiw	r26, 0x10	; 16
- 226:	ed 91       	ld	r30, X+
- 228:	fc 91       	ld	r31, X
- 22a:	51 97       	sbiw	r26, 0x11	; 17
- 22c:	83 e0       	ldi	r24, 0x03	; 3
- 22e:	76 95       	lsr	r23
- 230:	67 95       	ror	r22
- 232:	8a 95       	dec	r24
- 234:	e1 f7       	brne	.-8      	; 0x22e <writeToAddrPort+0x1e>
- 236:	64 83       	std	Z+4, r22	; 0x04
- 238:	08 95       	ret
+ 29c:	50 96       	adiw	r26, 0x10	; 16
+ 29e:	ed 91       	ld	r30, X+
+ 2a0:	fc 91       	ld	r31, X
+ 2a2:	51 97       	sbiw	r26, 0x11	; 17
+ 2a4:	83 e0       	ldi	r24, 0x03	; 3
+ 2a6:	76 95       	lsr	r23
+ 2a8:	67 95       	ror	r22
+ 2aa:	8a 95       	dec	r24
+ 2ac:	e1 f7       	brne	.-8      	; 0x2a6 <writeToAddrPort+0x1e>
+ 2ae:	64 83       	std	Z+4, r22	; 0x04
+ 2b0:	08 95       	ret
 
-0000023a <refreshRASonly>:
+000002b2 <refreshRASonly>:
 	self->OE.PORT->OUT &= ~self->OE.PIN;
 	self->W.PORT->DIR |= self->W.PIN;
 	self->W.PORT->OUT |= self->W.PIN;
 }
 
 void refreshRASonly(DRAM_HANDLER *self) {
- 23a:	0f 93       	push	r16
- 23c:	1f 93       	push	r17
- 23e:	cf 93       	push	r28
- 240:	df 93       	push	r29
- 242:	ec 01       	movw	r28, r24
+ 2b2:	0f 93       	push	r16
+ 2b4:	1f 93       	push	r17
+ 2b6:	cf 93       	push	r28
+ 2b8:	df 93       	push	r29
+ 2ba:	ec 01       	movw	r28, r24
 	self->RAS.PORT->OUT |= self->RAS.PIN;
- 244:	ea 81       	ldd	r30, Y+2	; 0x02
- 246:	fb 81       	ldd	r31, Y+3	; 0x03
- 248:	94 81       	ldd	r25, Z+4	; 0x04
- 24a:	8c 81       	ldd	r24, Y+4	; 0x04
- 24c:	89 2b       	or	r24, r25
- 24e:	84 83       	std	Z+4, r24	; 0x04
+ 2bc:	ea 81       	ldd	r30, Y+2	; 0x02
+ 2be:	fb 81       	ldd	r31, Y+3	; 0x03
+ 2c0:	94 81       	ldd	r25, Z+4	; 0x04
+ 2c2:	8c 81       	ldd	r24, Y+4	; 0x04
+ 2c4:	89 2b       	or	r24, r25
+ 2c6:	84 83       	std	Z+4, r24	; 0x04
 	self->CAS.PORT->OUT &= ~self->CAS.PIN;
- 250:	ed 81       	ldd	r30, Y+5	; 0x05
- 252:	fe 81       	ldd	r31, Y+6	; 0x06
- 254:	94 81       	ldd	r25, Z+4	; 0x04
- 256:	8f 81       	ldd	r24, Y+7	; 0x07
- 258:	80 95       	com	r24
- 25a:	89 23       	and	r24, r25
- 25c:	84 83       	std	Z+4, r24	; 0x04
+ 2c8:	ed 81       	ldd	r30, Y+5	; 0x05
+ 2ca:	fe 81       	ldd	r31, Y+6	; 0x06
+ 2cc:	94 81       	ldd	r25, Z+4	; 0x04
+ 2ce:	8f 81       	ldd	r24, Y+7	; 0x07
+ 2d0:	80 95       	com	r24
+ 2d2:	89 23       	and	r24, r25
+ 2d4:	84 83       	std	Z+4, r24	; 0x04
 
 	for(uint16_t row = 0; row < AMOUNT_OF_ROWS; row++) {
- 25e:	00 e0       	ldi	r16, 0x00	; 0
- 260:	10 e0       	ldi	r17, 0x00	; 0
+ 2d6:	00 e0       	ldi	r16, 0x00	; 0
+ 2d8:	10 e0       	ldi	r17, 0x00	; 0
 		self->CAS.PORT->OUT |= self->CAS.PIN;
- 262:	ed 81       	ldd	r30, Y+5	; 0x05
- 264:	fe 81       	ldd	r31, Y+6	; 0x06
- 266:	94 81       	ldd	r25, Z+4	; 0x04
- 268:	8f 81       	ldd	r24, Y+7	; 0x07
- 26a:	89 2b       	or	r24, r25
- 26c:	84 83       	std	Z+4, r24	; 0x04
+ 2da:	ed 81       	ldd	r30, Y+5	; 0x05
+ 2dc:	fe 81       	ldd	r31, Y+6	; 0x06
+ 2de:	94 81       	ldd	r25, Z+4	; 0x04
+ 2e0:	8f 81       	ldd	r24, Y+7	; 0x07
+ 2e2:	89 2b       	or	r24, r25
+ 2e4:	84 83       	std	Z+4, r24	; 0x04
 		writeToAddrPort(self, row);
- 26e:	b8 01       	movw	r22, r16
- 270:	ce 01       	movw	r24, r28
- 272:	ce df       	rcall	.-100    	; 0x210 <writeToAddrPort>
+ 2e6:	b8 01       	movw	r22, r16
+ 2e8:	ce 01       	movw	r24, r28
+ 2ea:	ce df       	rcall	.-100    	; 0x288 <writeToAddrPort>
 		self->RAS.PORT->OUT &= ~self->RAS.PIN;
- 274:	ea 81       	ldd	r30, Y+2	; 0x02
- 276:	fb 81       	ldd	r31, Y+3	; 0x03
- 278:	94 81       	ldd	r25, Z+4	; 0x04
- 27a:	8c 81       	ldd	r24, Y+4	; 0x04
- 27c:	80 95       	com	r24
- 27e:	89 23       	and	r24, r25
- 280:	84 83       	std	Z+4, r24	; 0x04
+ 2ec:	ea 81       	ldd	r30, Y+2	; 0x02
+ 2ee:	fb 81       	ldd	r31, Y+3	; 0x03
+ 2f0:	94 81       	ldd	r25, Z+4	; 0x04
+ 2f2:	8c 81       	ldd	r24, Y+4	; 0x04
+ 2f4:	80 95       	com	r24
+ 2f6:	89 23       	and	r24, r25
+ 2f8:	84 83       	std	Z+4, r24	; 0x04
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 282:	8d e0       	ldi	r24, 0x0D	; 13
- 284:	8a 95       	dec	r24
- 286:	f1 f7       	brne	.-4      	; 0x284 <refreshRASonly+0x4a>
- 288:	00 00       	nop
+ 2fa:	8d e0       	ldi	r24, 0x0D	; 13
+ 2fc:	8a 95       	dec	r24
+ 2fe:	f1 f7       	brne	.-4      	; 0x2fc <refreshRASonly+0x4a>
+ 300:	00 00       	nop
 		
 		_delay_us(2);
 		
 		self->RAS.PORT->OUT |= self->RAS.PIN;
- 28a:	ea 81       	ldd	r30, Y+2	; 0x02
- 28c:	fb 81       	ldd	r31, Y+3	; 0x03
- 28e:	94 81       	ldd	r25, Z+4	; 0x04
- 290:	8c 81       	ldd	r24, Y+4	; 0x04
- 292:	89 2b       	or	r24, r25
- 294:	84 83       	std	Z+4, r24	; 0x04
- 296:	86 e0       	ldi	r24, 0x06	; 6
- 298:	8a 95       	dec	r24
- 29a:	f1 f7       	brne	.-4      	; 0x298 <refreshRASonly+0x5e>
- 29c:	00 c0       	rjmp	.+0      	; 0x29e <refreshRASonly+0x64>
+ 302:	ea 81       	ldd	r30, Y+2	; 0x02
+ 304:	fb 81       	ldd	r31, Y+3	; 0x03
+ 306:	94 81       	ldd	r25, Z+4	; 0x04
+ 308:	8c 81       	ldd	r24, Y+4	; 0x04
+ 30a:	89 2b       	or	r24, r25
+ 30c:	84 83       	std	Z+4, r24	; 0x04
+ 30e:	86 e0       	ldi	r24, 0x06	; 6
+ 310:	8a 95       	dec	r24
+ 312:	f1 f7       	brne	.-4      	; 0x310 <refreshRASonly+0x5e>
+ 314:	00 c0       	rjmp	.+0      	; 0x316 <refreshRASonly+0x64>
 		_delay_us(1);
 
 		self->CAS.PORT->OUT &= ~self->CAS.PIN;
- 29e:	ed 81       	ldd	r30, Y+5	; 0x05
- 2a0:	fe 81       	ldd	r31, Y+6	; 0x06
- 2a2:	94 81       	ldd	r25, Z+4	; 0x04
- 2a4:	8f 81       	ldd	r24, Y+7	; 0x07
- 2a6:	80 95       	com	r24
- 2a8:	89 23       	and	r24, r25
- 2aa:	84 83       	std	Z+4, r24	; 0x04
+ 316:	ed 81       	ldd	r30, Y+5	; 0x05
+ 318:	fe 81       	ldd	r31, Y+6	; 0x06
+ 31a:	94 81       	ldd	r25, Z+4	; 0x04
+ 31c:	8f 81       	ldd	r24, Y+7	; 0x07
+ 31e:	80 95       	com	r24
+ 320:	89 23       	and	r24, r25
+ 322:	84 83       	std	Z+4, r24	; 0x04
 		self->CAS.PORT->OUT |= self->CAS.PIN;
- 2ac:	ed 81       	ldd	r30, Y+5	; 0x05
- 2ae:	fe 81       	ldd	r31, Y+6	; 0x06
- 2b0:	94 81       	ldd	r25, Z+4	; 0x04
- 2b2:	8f 81       	ldd	r24, Y+7	; 0x07
- 2b4:	89 2b       	or	r24, r25
- 2b6:	84 83       	std	Z+4, r24	; 0x04
- 2b8:	86 e0       	ldi	r24, 0x06	; 6
- 2ba:	8a 95       	dec	r24
- 2bc:	f1 f7       	brne	.-4      	; 0x2ba <refreshRASonly+0x80>
- 2be:	00 c0       	rjmp	.+0      	; 0x2c0 <refreshRASonly+0x86>
+ 324:	ed 81       	ldd	r30, Y+5	; 0x05
+ 326:	fe 81       	ldd	r31, Y+6	; 0x06
+ 328:	94 81       	ldd	r25, Z+4	; 0x04
+ 32a:	8f 81       	ldd	r24, Y+7	; 0x07
+ 32c:	89 2b       	or	r24, r25
+ 32e:	84 83       	std	Z+4, r24	; 0x04
+ 330:	86 e0       	ldi	r24, 0x06	; 6
+ 332:	8a 95       	dec	r24
+ 334:	f1 f7       	brne	.-4      	; 0x332 <refreshRASonly+0x80>
+ 336:	00 c0       	rjmp	.+0      	; 0x338 <refreshRASonly+0x86>
 		_delay_us(1);
 		
 		self->CAS.PORT->OUT &= ~self->CAS.PIN;
- 2c0:	ed 81       	ldd	r30, Y+5	; 0x05
- 2c2:	fe 81       	ldd	r31, Y+6	; 0x06
- 2c4:	94 81       	ldd	r25, Z+4	; 0x04
- 2c6:	8f 81       	ldd	r24, Y+7	; 0x07
- 2c8:	80 95       	com	r24
- 2ca:	89 23       	and	r24, r25
- 2cc:	84 83       	std	Z+4, r24	; 0x04
+ 338:	ed 81       	ldd	r30, Y+5	; 0x05
+ 33a:	fe 81       	ldd	r31, Y+6	; 0x06
+ 33c:	94 81       	ldd	r25, Z+4	; 0x04
+ 33e:	8f 81       	ldd	r24, Y+7	; 0x07
+ 340:	80 95       	com	r24
+ 342:	89 23       	and	r24, r25
+ 344:	84 83       	std	Z+4, r24	; 0x04
 
 void refreshRASonly(DRAM_HANDLER *self) {
 	self->RAS.PORT->OUT |= self->RAS.PIN;
 	self->CAS.PORT->OUT &= ~self->CAS.PIN;
 
 	for(uint16_t row = 0; row < AMOUNT_OF_ROWS; row++) {
- 2ce:	0f 5f       	subi	r16, 0xFF	; 255
- 2d0:	1f 4f       	sbci	r17, 0xFF	; 255
- 2d2:	01 15       	cp	r16, r1
- 2d4:	82 e0       	ldi	r24, 0x02	; 2
- 2d6:	18 07       	cpc	r17, r24
- 2d8:	21 f6       	brne	.-120    	; 0x262 <refreshRASonly+0x28>
+ 346:	0f 5f       	subi	r16, 0xFF	; 255
+ 348:	1f 4f       	sbci	r17, 0xFF	; 255
+ 34a:	01 15       	cp	r16, r1
+ 34c:	82 e0       	ldi	r24, 0x02	; 2
+ 34e:	18 07       	cpc	r17, r24
+ 350:	21 f6       	brne	.-120    	; 0x2da <refreshRASonly+0x28>
 		self->CAS.PORT->OUT |= self->CAS.PIN;
 		_delay_us(1);
 		
 		self->CAS.PORT->OUT &= ~self->CAS.PIN;
 	}
 }
- 2da:	df 91       	pop	r29
- 2dc:	cf 91       	pop	r28
- 2de:	1f 91       	pop	r17
- 2e0:	0f 91       	pop	r16
- 2e2:	08 95       	ret
+ 352:	df 91       	pop	r29
+ 354:	cf 91       	pop	r28
+ 356:	1f 91       	pop	r17
+ 358:	0f 91       	pop	r16
+ 35a:	08 95       	ret
 
-000002e4 <readByte>:
+0000035c <readByte>:
 
 uint8_t readByte(DRAM_HANDLER *self, uint32_t addr) {
- 2e4:	cf 92       	push	r12
- 2e6:	df 92       	push	r13
- 2e8:	ef 92       	push	r14
- 2ea:	ff 92       	push	r15
- 2ec:	cf 93       	push	r28
- 2ee:	df 93       	push	r29
- 2f0:	ec 01       	movw	r28, r24
- 2f2:	6a 01       	movw	r12, r20
- 2f4:	7b 01       	movw	r14, r22
+ 35c:	cf 92       	push	r12
+ 35e:	df 92       	push	r13
+ 360:	ef 92       	push	r14
+ 362:	ff 92       	push	r15
+ 364:	cf 93       	push	r28
+ 366:	df 93       	push	r29
+ 368:	ec 01       	movw	r28, r24
+ 36a:	6a 01       	movw	r12, r20
+ 36c:	7b 01       	movw	r14, r22
+	cli();
+ 36e:	f8 94       	cli
 	const uint16_t rowAddr = (addr & ADDR_MASK) >> HIGH_ADDR_SHIFT;
 	const uint16_t colAddr = (addr & LOW_ADDR_MASK);
 	self->DATA_PORT->DIR = 0;	/* Set DATA_PORT as input */
- 2f6:	e8 81       	ld	r30, Y
- 2f8:	f9 81       	ldd	r31, Y+1	; 0x01
- 2fa:	10 82       	st	Z, r1
+ 370:	e8 81       	ld	r30, Y
+ 372:	f9 81       	ldd	r31, Y+1	; 0x01
+ 374:	10 82       	st	Z, r1
 	
 	self->CAS.PORT->OUT |= self->CAS.PIN;
- 2fc:	ed 81       	ldd	r30, Y+5	; 0x05
- 2fe:	fe 81       	ldd	r31, Y+6	; 0x06
- 300:	94 81       	ldd	r25, Z+4	; 0x04
- 302:	8f 81       	ldd	r24, Y+7	; 0x07
- 304:	89 2b       	or	r24, r25
- 306:	84 83       	std	Z+4, r24	; 0x04
+ 376:	ed 81       	ldd	r30, Y+5	; 0x05
+ 378:	fe 81       	ldd	r31, Y+6	; 0x06
+ 37a:	94 81       	ldd	r25, Z+4	; 0x04
+ 37c:	8f 81       	ldd	r24, Y+7	; 0x07
+ 37e:	89 2b       	or	r24, r25
+ 380:	84 83       	std	Z+4, r24	; 0x04
 	writeToAddrPort(self, rowAddr);
- 308:	db 01       	movw	r26, r22
- 30a:	ca 01       	movw	r24, r20
- 30c:	a3 70       	andi	r26, 0x03	; 3
- 30e:	bb 27       	eor	r27, r27
- 310:	bc 01       	movw	r22, r24
- 312:	cd 01       	movw	r24, r26
- 314:	29 e0       	ldi	r18, 0x09	; 9
- 316:	96 95       	lsr	r25
- 318:	87 95       	ror	r24
- 31a:	77 95       	ror	r23
- 31c:	67 95       	ror	r22
- 31e:	2a 95       	dec	r18
- 320:	d1 f7       	brne	.-12     	; 0x316 <readByte+0x32>
- 322:	ce 01       	movw	r24, r28
- 324:	75 df       	rcall	.-278    	; 0x210 <writeToAddrPort>
+ 382:	db 01       	movw	r26, r22
+ 384:	ca 01       	movw	r24, r20
+ 386:	a3 70       	andi	r26, 0x03	; 3
+ 388:	bb 27       	eor	r27, r27
+ 38a:	bc 01       	movw	r22, r24
+ 38c:	cd 01       	movw	r24, r26
+ 38e:	29 e0       	ldi	r18, 0x09	; 9
+ 390:	96 95       	lsr	r25
+ 392:	87 95       	ror	r24
+ 394:	77 95       	ror	r23
+ 396:	67 95       	ror	r22
+ 398:	2a 95       	dec	r18
+ 39a:	d1 f7       	brne	.-12     	; 0x390 <readByte+0x34>
+ 39c:	ce 01       	movw	r24, r28
+ 39e:	74 df       	rcall	.-280    	; 0x288 <writeToAddrPort>
 	
 	self->RAS.PORT->OUT &= ~self->RAS.PIN;
- 326:	ea 81       	ldd	r30, Y+2	; 0x02
- 328:	fb 81       	ldd	r31, Y+3	; 0x03
- 32a:	94 81       	ldd	r25, Z+4	; 0x04
- 32c:	8c 81       	ldd	r24, Y+4	; 0x04
- 32e:	80 95       	com	r24
- 330:	89 23       	and	r24, r25
- 332:	84 83       	std	Z+4, r24	; 0x04
+ 3a0:	ea 81       	ldd	r30, Y+2	; 0x02
+ 3a2:	fb 81       	ldd	r31, Y+3	; 0x03
+ 3a4:	94 81       	ldd	r25, Z+4	; 0x04
+ 3a6:	8c 81       	ldd	r24, Y+4	; 0x04
+ 3a8:	80 95       	com	r24
+ 3aa:	89 23       	and	r24, r25
+ 3ac:	84 83       	std	Z+4, r24	; 0x04
 	
 	self->W.PORT->OUT |= self->W.PIN;
- 334:	eb 85       	ldd	r30, Y+11	; 0x0b
- 336:	fc 85       	ldd	r31, Y+12	; 0x0c
- 338:	94 81       	ldd	r25, Z+4	; 0x04
- 33a:	8d 85       	ldd	r24, Y+13	; 0x0d
- 33c:	89 2b       	or	r24, r25
- 33e:	84 83       	std	Z+4, r24	; 0x04
+ 3ae:	eb 85       	ldd	r30, Y+11	; 0x0b
+ 3b0:	fc 85       	ldd	r31, Y+12	; 0x0c
+ 3b2:	94 81       	ldd	r25, Z+4	; 0x04
+ 3b4:	8d 85       	ldd	r24, Y+13	; 0x0d
+ 3b6:	89 2b       	or	r24, r25
+ 3b8:	84 83       	std	Z+4, r24	; 0x04
 	writeToAddrPort(self, colAddr);
- 340:	b6 01       	movw	r22, r12
- 342:	71 70       	andi	r23, 0x01	; 1
- 344:	ce 01       	movw	r24, r28
- 346:	64 df       	rcall	.-312    	; 0x210 <writeToAddrPort>
+ 3ba:	b6 01       	movw	r22, r12
+ 3bc:	71 70       	andi	r23, 0x01	; 1
+ 3be:	ce 01       	movw	r24, r28
+ 3c0:	63 df       	rcall	.-314    	; 0x288 <writeToAddrPort>
 	self->CAS.PORT->OUT &= ~self->CAS.PIN;
- 348:	ed 81       	ldd	r30, Y+5	; 0x05
- 34a:	fe 81       	ldd	r31, Y+6	; 0x06
- 34c:	94 81       	ldd	r25, Z+4	; 0x04
- 34e:	8f 81       	ldd	r24, Y+7	; 0x07
- 350:	80 95       	com	r24
- 352:	89 23       	and	r24, r25
- 354:	84 83       	std	Z+4, r24	; 0x04
-	
-	self->OE.PORT->OUT &= ~self->OE.PIN;
- 356:	e8 85       	ldd	r30, Y+8	; 0x08
- 358:	f9 85       	ldd	r31, Y+9	; 0x09
- 35a:	94 81       	ldd	r25, Z+4	; 0x04
- 35c:	8a 85       	ldd	r24, Y+10	; 0x0a
- 35e:	80 95       	com	r24
- 360:	89 23       	and	r24, r25
- 362:	84 83       	std	Z+4, r24	; 0x04
-	
-	const uint8_t validDataOut = self->DATA_PORT->IN;
- 364:	e8 81       	ld	r30, Y
- 366:	f9 81       	ldd	r31, Y+1	; 0x01
- 368:	80 85       	ldd	r24, Z+8	; 0x08
-	
-	self->CAS.PORT->OUT |= self->CAS.PIN;
- 36a:	ed 81       	ldd	r30, Y+5	; 0x05
- 36c:	fe 81       	ldd	r31, Y+6	; 0x06
- 36e:	24 81       	ldd	r18, Z+4	; 0x04
- 370:	9f 81       	ldd	r25, Y+7	; 0x07
- 372:	92 2b       	or	r25, r18
- 374:	94 83       	std	Z+4, r25	; 0x04
-	self->RAS.PORT->OUT |= self->RAS.PIN;
- 376:	ea 81       	ldd	r30, Y+2	; 0x02
- 378:	fb 81       	ldd	r31, Y+3	; 0x03
- 37a:	24 81       	ldd	r18, Z+4	; 0x04
- 37c:	9c 81       	ldd	r25, Y+4	; 0x04
- 37e:	92 2b       	or	r25, r18
- 380:	94 83       	std	Z+4, r25	; 0x04
-	
-	self->DATA_PORT->DIR = 0xFF; /* Set DATA_PORT to output */
- 382:	e8 81       	ld	r30, Y
- 384:	f9 81       	ldd	r31, Y+1	; 0x01
- 386:	9f ef       	ldi	r25, 0xFF	; 255
- 388:	90 83       	st	Z, r25
-	
-	return validDataOut;
-}
- 38a:	df 91       	pop	r29
- 38c:	cf 91       	pop	r28
- 38e:	ff 90       	pop	r15
- 390:	ef 90       	pop	r14
- 392:	df 90       	pop	r13
- 394:	cf 90       	pop	r12
- 396:	08 95       	ret
-
-00000398 <writeByte>:
-
-void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
- 398:	cf 92       	push	r12
- 39a:	df 92       	push	r13
- 39c:	ef 92       	push	r14
- 39e:	ff 92       	push	r15
- 3a0:	1f 93       	push	r17
- 3a2:	cf 93       	push	r28
- 3a4:	df 93       	push	r29
- 3a6:	ec 01       	movw	r28, r24
- 3a8:	6a 01       	movw	r12, r20
- 3aa:	7b 01       	movw	r14, r22
- 3ac:	12 2f       	mov	r17, r18
-	const uint16_t rowAddr = (addr & ADDR_MASK) >> HIGH_ADDR_SHIFT;
-	const uint16_t colAddr = (addr & LOW_ADDR_MASK);
-	self->DATA_PORT->DIR = 0xFF; /* Set DATA_PORT as output */
- 3ae:	e8 81       	ld	r30, Y
- 3b0:	f9 81       	ldd	r31, Y+1	; 0x01
- 3b2:	8f ef       	ldi	r24, 0xFF	; 255
- 3b4:	80 83       	st	Z, r24
-	self->RAS.PORT->OUT |= self->RAS.PIN;
- 3b6:	ea 81       	ldd	r30, Y+2	; 0x02
- 3b8:	fb 81       	ldd	r31, Y+3	; 0x03
- 3ba:	94 81       	ldd	r25, Z+4	; 0x04
- 3bc:	8c 81       	ldd	r24, Y+4	; 0x04
- 3be:	89 2b       	or	r24, r25
- 3c0:	84 83       	std	Z+4, r24	; 0x04
-	
-	self->CAS.PORT->OUT |= self->CAS.PIN;
  3c2:	ed 81       	ldd	r30, Y+5	; 0x05
  3c4:	fe 81       	ldd	r31, Y+6	; 0x06
  3c6:	94 81       	ldd	r25, Z+4	; 0x04
  3c8:	8f 81       	ldd	r24, Y+7	; 0x07
- 3ca:	89 2b       	or	r24, r25
- 3cc:	84 83       	std	Z+4, r24	; 0x04
-	writeToAddrPort(self, rowAddr);
- 3ce:	db 01       	movw	r26, r22
- 3d0:	ca 01       	movw	r24, r20
- 3d2:	a3 70       	andi	r26, 0x03	; 3
- 3d4:	bb 27       	eor	r27, r27
- 3d6:	bc 01       	movw	r22, r24
- 3d8:	cd 01       	movw	r24, r26
- 3da:	29 e0       	ldi	r18, 0x09	; 9
- 3dc:	96 95       	lsr	r25
- 3de:	87 95       	ror	r24
- 3e0:	77 95       	ror	r23
- 3e2:	67 95       	ror	r22
- 3e4:	2a 95       	dec	r18
- 3e6:	d1 f7       	brne	.-12     	; 0x3dc <writeByte+0x44>
- 3e8:	ce 01       	movw	r24, r28
- 3ea:	12 df       	rcall	.-476    	; 0x210 <writeToAddrPort>
-	self->RAS.PORT->OUT &= ~self->RAS.PIN;
- 3ec:	ea 81       	ldd	r30, Y+2	; 0x02
- 3ee:	fb 81       	ldd	r31, Y+3	; 0x03
- 3f0:	94 81       	ldd	r25, Z+4	; 0x04
- 3f2:	8c 81       	ldd	r24, Y+4	; 0x04
- 3f4:	80 95       	com	r24
- 3f6:	89 23       	and	r24, r25
- 3f8:	84 83       	std	Z+4, r24	; 0x04
-	
-	self->OE.PORT->OUT |= self->OE.PIN;
- 3fa:	e8 85       	ldd	r30, Y+8	; 0x08
- 3fc:	f9 85       	ldd	r31, Y+9	; 0x09
- 3fe:	94 81       	ldd	r25, Z+4	; 0x04
- 400:	8a 85       	ldd	r24, Y+10	; 0x0a
- 402:	89 2b       	or	r24, r25
- 404:	84 83       	std	Z+4, r24	; 0x04
-	writeToAddrPort(self, colAddr);
- 406:	b6 01       	movw	r22, r12
- 408:	71 70       	andi	r23, 0x01	; 1
- 40a:	ce 01       	movw	r24, r28
- 40c:	01 df       	rcall	.-510    	; 0x210 <writeToAddrPort>
-	self->CAS.PORT->OUT &= ~self->CAS.PIN;
- 40e:	ed 81       	ldd	r30, Y+5	; 0x05
- 410:	fe 81       	ldd	r31, Y+6	; 0x06
- 412:	94 81       	ldd	r25, Z+4	; 0x04
- 414:	8f 81       	ldd	r24, Y+7	; 0x07
- 416:	80 95       	com	r24
- 418:	89 23       	and	r24, r25
- 41a:	84 83       	std	Z+4, r24	; 0x04
-	self->DATA_PORT->OUT = data;
- 41c:	e8 81       	ld	r30, Y
- 41e:	f9 81       	ldd	r31, Y+1	; 0x01
- 420:	14 83       	std	Z+4, r17	; 0x04
-	self->W.PORT->OUT &= ~self->W.PIN;
- 422:	eb 85       	ldd	r30, Y+11	; 0x0b
- 424:	fc 85       	ldd	r31, Y+12	; 0x0c
- 426:	94 81       	ldd	r25, Z+4	; 0x04
- 428:	8d 85       	ldd	r24, Y+13	; 0x0d
- 42a:	80 95       	com	r24
- 42c:	89 23       	and	r24, r25
- 42e:	84 83       	std	Z+4, r24	; 0x04
+ 3ca:	80 95       	com	r24
+ 3cc:	89 23       	and	r24, r25
+ 3ce:	84 83       	std	Z+4, r24	; 0x04
 	
 	self->OE.PORT->OUT &= ~self->OE.PIN;
- 430:	e8 85       	ldd	r30, Y+8	; 0x08
- 432:	f9 85       	ldd	r31, Y+9	; 0x09
- 434:	94 81       	ldd	r25, Z+4	; 0x04
- 436:	8a 85       	ldd	r24, Y+10	; 0x0a
- 438:	80 95       	com	r24
- 43a:	89 23       	and	r24, r25
- 43c:	84 83       	std	Z+4, r24	; 0x04
+ 3d0:	e8 85       	ldd	r30, Y+8	; 0x08
+ 3d2:	f9 85       	ldd	r31, Y+9	; 0x09
+ 3d4:	94 81       	ldd	r25, Z+4	; 0x04
+ 3d6:	8a 85       	ldd	r24, Y+10	; 0x0a
+ 3d8:	80 95       	com	r24
+ 3da:	89 23       	and	r24, r25
+ 3dc:	84 83       	std	Z+4, r24	; 0x04
+	
+	const uint8_t validDataOut = self->DATA_PORT->IN;
+ 3de:	e8 81       	ld	r30, Y
+ 3e0:	f9 81       	ldd	r31, Y+1	; 0x01
+ 3e2:	80 85       	ldd	r24, Z+8	; 0x08
 	
 	self->CAS.PORT->OUT |= self->CAS.PIN;
- 43e:	ed 81       	ldd	r30, Y+5	; 0x05
- 440:	fe 81       	ldd	r31, Y+6	; 0x06
- 442:	94 81       	ldd	r25, Z+4	; 0x04
- 444:	8f 81       	ldd	r24, Y+7	; 0x07
- 446:	89 2b       	or	r24, r25
- 448:	84 83       	std	Z+4, r24	; 0x04
+ 3e4:	ed 81       	ldd	r30, Y+5	; 0x05
+ 3e6:	fe 81       	ldd	r31, Y+6	; 0x06
+ 3e8:	24 81       	ldd	r18, Z+4	; 0x04
+ 3ea:	9f 81       	ldd	r25, Y+7	; 0x07
+ 3ec:	92 2b       	or	r25, r18
+ 3ee:	94 83       	std	Z+4, r25	; 0x04
 	self->RAS.PORT->OUT |= self->RAS.PIN;
- 44a:	ea 81       	ldd	r30, Y+2	; 0x02
- 44c:	fb 81       	ldd	r31, Y+3	; 0x03
- 44e:	94 81       	ldd	r25, Z+4	; 0x04
- 450:	8c 81       	ldd	r24, Y+4	; 0x04
- 452:	89 2b       	or	r24, r25
- 454:	84 83       	std	Z+4, r24	; 0x04
+ 3f0:	ea 81       	ldd	r30, Y+2	; 0x02
+ 3f2:	fb 81       	ldd	r31, Y+3	; 0x03
+ 3f4:	24 81       	ldd	r18, Z+4	; 0x04
+ 3f6:	9c 81       	ldd	r25, Y+4	; 0x04
+ 3f8:	92 2b       	or	r25, r18
+ 3fa:	94 83       	std	Z+4, r25	; 0x04
+	
+	self->DATA_PORT->DIR = 0xFF; /* Set DATA_PORT to output */
+ 3fc:	e8 81       	ld	r30, Y
+ 3fe:	f9 81       	ldd	r31, Y+1	; 0x01
+ 400:	9f ef       	ldi	r25, 0xFF	; 255
+ 402:	90 83       	st	Z, r25
+	sei();
+ 404:	78 94       	sei
+
+	return validDataOut;
+}
+ 406:	df 91       	pop	r29
+ 408:	cf 91       	pop	r28
+ 40a:	ff 90       	pop	r15
+ 40c:	ef 90       	pop	r14
+ 40e:	df 90       	pop	r13
+ 410:	cf 90       	pop	r12
+ 412:	08 95       	ret
+
+00000414 <writeByte>:
+
+void writeByte(DRAM_HANDLER *self, uint32_t addr, uint8_t data) {
+ 414:	cf 92       	push	r12
+ 416:	df 92       	push	r13
+ 418:	ef 92       	push	r14
+ 41a:	ff 92       	push	r15
+ 41c:	1f 93       	push	r17
+ 41e:	cf 93       	push	r28
+ 420:	df 93       	push	r29
+ 422:	ec 01       	movw	r28, r24
+ 424:	6a 01       	movw	r12, r20
+ 426:	7b 01       	movw	r14, r22
+ 428:	12 2f       	mov	r17, r18
+	cli();
+ 42a:	f8 94       	cli
+	const uint16_t rowAddr = (addr & ADDR_MASK) >> HIGH_ADDR_SHIFT;
+	const uint16_t colAddr = (addr & LOW_ADDR_MASK);
+	self->DATA_PORT->DIR = 0xFF; /* Set DATA_PORT as output */
+ 42c:	e8 81       	ld	r30, Y
+ 42e:	f9 81       	ldd	r31, Y+1	; 0x01
+ 430:	8f ef       	ldi	r24, 0xFF	; 255
+ 432:	80 83       	st	Z, r24
+	self->RAS.PORT->OUT |= self->RAS.PIN;
+ 434:	ea 81       	ldd	r30, Y+2	; 0x02
+ 436:	fb 81       	ldd	r31, Y+3	; 0x03
+ 438:	94 81       	ldd	r25, Z+4	; 0x04
+ 43a:	8c 81       	ldd	r24, Y+4	; 0x04
+ 43c:	89 2b       	or	r24, r25
+ 43e:	84 83       	std	Z+4, r24	; 0x04
+	
+	self->CAS.PORT->OUT |= self->CAS.PIN;
+ 440:	ed 81       	ldd	r30, Y+5	; 0x05
+ 442:	fe 81       	ldd	r31, Y+6	; 0x06
+ 444:	94 81       	ldd	r25, Z+4	; 0x04
+ 446:	8f 81       	ldd	r24, Y+7	; 0x07
+ 448:	89 2b       	or	r24, r25
+ 44a:	84 83       	std	Z+4, r24	; 0x04
+	writeToAddrPort(self, rowAddr);
+ 44c:	db 01       	movw	r26, r22
+ 44e:	ca 01       	movw	r24, r20
+ 450:	a3 70       	andi	r26, 0x03	; 3
+ 452:	bb 27       	eor	r27, r27
+ 454:	bc 01       	movw	r22, r24
+ 456:	cd 01       	movw	r24, r26
+ 458:	29 e0       	ldi	r18, 0x09	; 9
+ 45a:	96 95       	lsr	r25
+ 45c:	87 95       	ror	r24
+ 45e:	77 95       	ror	r23
+ 460:	67 95       	ror	r22
+ 462:	2a 95       	dec	r18
+ 464:	d1 f7       	brne	.-12     	; 0x45a <writeByte+0x46>
+ 466:	ce 01       	movw	r24, r28
+ 468:	0f df       	rcall	.-482    	; 0x288 <writeToAddrPort>
+	self->RAS.PORT->OUT &= ~self->RAS.PIN;
+ 46a:	ea 81       	ldd	r30, Y+2	; 0x02
+ 46c:	fb 81       	ldd	r31, Y+3	; 0x03
+ 46e:	94 81       	ldd	r25, Z+4	; 0x04
+ 470:	8c 81       	ldd	r24, Y+4	; 0x04
+ 472:	80 95       	com	r24
+ 474:	89 23       	and	r24, r25
+ 476:	84 83       	std	Z+4, r24	; 0x04
+	
+	self->OE.PORT->OUT |= self->OE.PIN;
+ 478:	e8 85       	ldd	r30, Y+8	; 0x08
+ 47a:	f9 85       	ldd	r31, Y+9	; 0x09
+ 47c:	94 81       	ldd	r25, Z+4	; 0x04
+ 47e:	8a 85       	ldd	r24, Y+10	; 0x0a
+ 480:	89 2b       	or	r24, r25
+ 482:	84 83       	std	Z+4, r24	; 0x04
+	writeToAddrPort(self, colAddr);
+ 484:	b6 01       	movw	r22, r12
+ 486:	71 70       	andi	r23, 0x01	; 1
+ 488:	ce 01       	movw	r24, r28
+ 48a:	fe de       	rcall	.-516    	; 0x288 <writeToAddrPort>
+	self->CAS.PORT->OUT &= ~self->CAS.PIN;
+ 48c:	ed 81       	ldd	r30, Y+5	; 0x05
+ 48e:	fe 81       	ldd	r31, Y+6	; 0x06
+ 490:	94 81       	ldd	r25, Z+4	; 0x04
+ 492:	8f 81       	ldd	r24, Y+7	; 0x07
+ 494:	80 95       	com	r24
+ 496:	89 23       	and	r24, r25
+ 498:	84 83       	std	Z+4, r24	; 0x04
+	self->DATA_PORT->OUT = data;
+ 49a:	e8 81       	ld	r30, Y
+ 49c:	f9 81       	ldd	r31, Y+1	; 0x01
+ 49e:	14 83       	std	Z+4, r17	; 0x04
+	self->W.PORT->OUT &= ~self->W.PIN;
+ 4a0:	eb 85       	ldd	r30, Y+11	; 0x0b
+ 4a2:	fc 85       	ldd	r31, Y+12	; 0x0c
+ 4a4:	94 81       	ldd	r25, Z+4	; 0x04
+ 4a6:	8d 85       	ldd	r24, Y+13	; 0x0d
+ 4a8:	80 95       	com	r24
+ 4aa:	89 23       	and	r24, r25
+ 4ac:	84 83       	std	Z+4, r24	; 0x04
+	
+	self->OE.PORT->OUT &= ~self->OE.PIN;
+ 4ae:	e8 85       	ldd	r30, Y+8	; 0x08
+ 4b0:	f9 85       	ldd	r31, Y+9	; 0x09
+ 4b2:	94 81       	ldd	r25, Z+4	; 0x04
+ 4b4:	8a 85       	ldd	r24, Y+10	; 0x0a
+ 4b6:	80 95       	com	r24
+ 4b8:	89 23       	and	r24, r25
+ 4ba:	84 83       	std	Z+4, r24	; 0x04
+	
+	self->CAS.PORT->OUT |= self->CAS.PIN;
+ 4bc:	ed 81       	ldd	r30, Y+5	; 0x05
+ 4be:	fe 81       	ldd	r31, Y+6	; 0x06
+ 4c0:	94 81       	ldd	r25, Z+4	; 0x04
+ 4c2:	8f 81       	ldd	r24, Y+7	; 0x07
+ 4c4:	89 2b       	or	r24, r25
+ 4c6:	84 83       	std	Z+4, r24	; 0x04
+	self->RAS.PORT->OUT |= self->RAS.PIN;
+ 4c8:	ea 81       	ldd	r30, Y+2	; 0x02
+ 4ca:	fb 81       	ldd	r31, Y+3	; 0x03
+ 4cc:	94 81       	ldd	r25, Z+4	; 0x04
+ 4ce:	8c 81       	ldd	r24, Y+4	; 0x04
+ 4d0:	89 2b       	or	r24, r25
+ 4d2:	84 83       	std	Z+4, r24	; 0x04
 	
 	self->CAS.PORT->OUT &= ~self->CAS.PIN;
- 456:	ed 81       	ldd	r30, Y+5	; 0x05
- 458:	fe 81       	ldd	r31, Y+6	; 0x06
- 45a:	94 81       	ldd	r25, Z+4	; 0x04
- 45c:	8f 81       	ldd	r24, Y+7	; 0x07
- 45e:	80 95       	com	r24
- 460:	89 23       	and	r24, r25
- 462:	84 83       	std	Z+4, r24	; 0x04
+ 4d4:	ed 81       	ldd	r30, Y+5	; 0x05
+ 4d6:	fe 81       	ldd	r31, Y+6	; 0x06
+ 4d8:	94 81       	ldd	r25, Z+4	; 0x04
+ 4da:	8f 81       	ldd	r24, Y+7	; 0x07
+ 4dc:	80 95       	com	r24
+ 4de:	89 23       	and	r24, r25
+ 4e0:	84 83       	std	Z+4, r24	; 0x04
 	self->W.PORT->OUT |= self->W.PIN;
- 464:	eb 85       	ldd	r30, Y+11	; 0x0b
- 466:	fc 85       	ldd	r31, Y+12	; 0x0c
- 468:	94 81       	ldd	r25, Z+4	; 0x04
- 46a:	8d 85       	ldd	r24, Y+13	; 0x0d
- 46c:	89 2b       	or	r24, r25
- 46e:	84 83       	std	Z+4, r24	; 0x04
+ 4e2:	eb 85       	ldd	r30, Y+11	; 0x0b
+ 4e4:	fc 85       	ldd	r31, Y+12	; 0x0c
+ 4e6:	94 81       	ldd	r25, Z+4	; 0x04
+ 4e8:	8d 85       	ldd	r24, Y+13	; 0x0d
+ 4ea:	89 2b       	or	r24, r25
+ 4ec:	84 83       	std	Z+4, r24	; 0x04
 	
 	self->DATA_PORT->OUT = 0;
- 470:	e8 81       	ld	r30, Y
- 472:	f9 81       	ldd	r31, Y+1	; 0x01
- 474:	14 82       	std	Z+4, r1	; 0x04
+ 4ee:	e8 81       	ld	r30, Y
+ 4f0:	f9 81       	ldd	r31, Y+1	; 0x01
+ 4f2:	14 82       	std	Z+4, r1	; 0x04
 
-#define WRITE_CMD			0x12
-#define WRITE_CMD_LEN		5
+#define READ_BURST_CMD		0x11
+#define READ_BURST_CMD_LEN	7	/* [ID][ADDR1_MSB][ADDR1_MLSB][ADDR1_LSB][ADDR2_MSB][ADDR2_MLSB][ADDR2_LSB] */
 
 void writeToAddrPort(DRAM_HANDLER *self, uint16_t addr) {
 	self->ADDR_PORT.P1->OUT = (addr << ADDR_PORT1_SHIFT);
- 476:	ee 85       	ldd	r30, Y+14	; 0x0e
- 478:	ff 85       	ldd	r31, Y+15	; 0x0f
- 47a:	14 82       	std	Z+4, r1	; 0x04
+ 4f4:	ee 85       	ldd	r30, Y+14	; 0x0e
+ 4f6:	ff 85       	ldd	r31, Y+15	; 0x0f
+ 4f8:	14 82       	std	Z+4, r1	; 0x04
 	self->ADDR_PORT.P2->OUT = (addr >> ADDR_PORT2_SHIFT);
- 47c:	e8 89       	ldd	r30, Y+16	; 0x10
- 47e:	f9 89       	ldd	r31, Y+17	; 0x11
- 480:	14 82       	std	Z+4, r1	; 0x04
+ 4fa:	e8 89       	ldd	r30, Y+16	; 0x10
+ 4fc:	f9 89       	ldd	r31, Y+17	; 0x11
+ 4fe:	14 82       	std	Z+4, r1	; 0x04
 	self->CAS.PORT->OUT &= ~self->CAS.PIN;
 	self->W.PORT->OUT |= self->W.PIN;
 	
 	self->DATA_PORT->OUT = 0;
 	writeToAddrPort(self, 0x00);
+	sei();
+ 500:	78 94       	sei
 }
- 482:	df 91       	pop	r29
- 484:	cf 91       	pop	r28
- 486:	1f 91       	pop	r17
- 488:	ff 90       	pop	r15
- 48a:	ef 90       	pop	r14
- 48c:	df 90       	pop	r13
- 48e:	cf 90       	pop	r12
- 490:	08 95       	ret
+ 502:	df 91       	pop	r29
+ 504:	cf 91       	pop	r28
+ 506:	1f 91       	pop	r17
+ 508:	ff 90       	pop	r15
+ 50a:	ef 90       	pop	r14
+ 50c:	df 90       	pop	r13
+ 50e:	cf 90       	pop	r12
+ 510:	08 95       	ret
 
-00000492 <resetPins>:
+00000512 <resetPins>:
 void writeToAddrPort(DRAM_HANDLER *self, uint16_t addr) {
 	self->ADDR_PORT.P1->OUT = (addr << ADDR_PORT1_SHIFT);
 	self->ADDR_PORT.P2->OUT = (addr >> ADDR_PORT2_SHIFT);
 }
 
 void resetPins(DRAM_HANDLER *self) {
- 492:	fc 01       	movw	r30, r24
+ 512:	fc 01       	movw	r30, r24
 	self->RAS.PORT->DIR |= self->RAS.PIN;
- 494:	a2 81       	ldd	r26, Z+2	; 0x02
- 496:	b3 81       	ldd	r27, Z+3	; 0x03
- 498:	9c 91       	ld	r25, X
- 49a:	84 81       	ldd	r24, Z+4	; 0x04
- 49c:	89 2b       	or	r24, r25
- 49e:	8c 93       	st	X, r24
+ 514:	a2 81       	ldd	r26, Z+2	; 0x02
+ 516:	b3 81       	ldd	r27, Z+3	; 0x03
+ 518:	9c 91       	ld	r25, X
+ 51a:	84 81       	ldd	r24, Z+4	; 0x04
+ 51c:	89 2b       	or	r24, r25
+ 51e:	8c 93       	st	X, r24
 	self->RAS.PORT->OUT |= self->RAS.PIN;
- 4a0:	a2 81       	ldd	r26, Z+2	; 0x02
- 4a2:	b3 81       	ldd	r27, Z+3	; 0x03
- 4a4:	14 96       	adiw	r26, 0x04	; 4
- 4a6:	9c 91       	ld	r25, X
- 4a8:	14 97       	sbiw	r26, 0x04	; 4
- 4aa:	84 81       	ldd	r24, Z+4	; 0x04
- 4ac:	89 2b       	or	r24, r25
- 4ae:	14 96       	adiw	r26, 0x04	; 4
- 4b0:	8c 93       	st	X, r24
+ 520:	a2 81       	ldd	r26, Z+2	; 0x02
+ 522:	b3 81       	ldd	r27, Z+3	; 0x03
+ 524:	14 96       	adiw	r26, 0x04	; 4
+ 526:	9c 91       	ld	r25, X
+ 528:	14 97       	sbiw	r26, 0x04	; 4
+ 52a:	84 81       	ldd	r24, Z+4	; 0x04
+ 52c:	89 2b       	or	r24, r25
+ 52e:	14 96       	adiw	r26, 0x04	; 4
+ 530:	8c 93       	st	X, r24
 	self->CAS.PORT->DIR |= self->CAS.PIN;
- 4b2:	a5 81       	ldd	r26, Z+5	; 0x05
- 4b4:	b6 81       	ldd	r27, Z+6	; 0x06
- 4b6:	9c 91       	ld	r25, X
- 4b8:	87 81       	ldd	r24, Z+7	; 0x07
- 4ba:	89 2b       	or	r24, r25
- 4bc:	8c 93       	st	X, r24
+ 532:	a5 81       	ldd	r26, Z+5	; 0x05
+ 534:	b6 81       	ldd	r27, Z+6	; 0x06
+ 536:	9c 91       	ld	r25, X
+ 538:	87 81       	ldd	r24, Z+7	; 0x07
+ 53a:	89 2b       	or	r24, r25
+ 53c:	8c 93       	st	X, r24
 	self->CAS.PORT->OUT &= ~self->CAS.PIN;
- 4be:	a5 81       	ldd	r26, Z+5	; 0x05
- 4c0:	b6 81       	ldd	r27, Z+6	; 0x06
- 4c2:	14 96       	adiw	r26, 0x04	; 4
- 4c4:	9c 91       	ld	r25, X
- 4c6:	14 97       	sbiw	r26, 0x04	; 4
- 4c8:	87 81       	ldd	r24, Z+7	; 0x07
- 4ca:	80 95       	com	r24
- 4cc:	89 23       	and	r24, r25
- 4ce:	14 96       	adiw	r26, 0x04	; 4
- 4d0:	8c 93       	st	X, r24
+ 53e:	a5 81       	ldd	r26, Z+5	; 0x05
+ 540:	b6 81       	ldd	r27, Z+6	; 0x06
+ 542:	14 96       	adiw	r26, 0x04	; 4
+ 544:	9c 91       	ld	r25, X
+ 546:	14 97       	sbiw	r26, 0x04	; 4
+ 548:	87 81       	ldd	r24, Z+7	; 0x07
+ 54a:	80 95       	com	r24
+ 54c:	89 23       	and	r24, r25
+ 54e:	14 96       	adiw	r26, 0x04	; 4
+ 550:	8c 93       	st	X, r24
 	self->OE.PORT->DIR |= self->OE.PIN;
- 4d2:	a0 85       	ldd	r26, Z+8	; 0x08
- 4d4:	b1 85       	ldd	r27, Z+9	; 0x09
- 4d6:	9c 91       	ld	r25, X
- 4d8:	82 85       	ldd	r24, Z+10	; 0x0a
- 4da:	89 2b       	or	r24, r25
- 4dc:	8c 93       	st	X, r24
+ 552:	a0 85       	ldd	r26, Z+8	; 0x08
+ 554:	b1 85       	ldd	r27, Z+9	; 0x09
+ 556:	9c 91       	ld	r25, X
+ 558:	82 85       	ldd	r24, Z+10	; 0x0a
+ 55a:	89 2b       	or	r24, r25
+ 55c:	8c 93       	st	X, r24
 	self->OE.PORT->OUT &= ~self->OE.PIN;
- 4de:	a0 85       	ldd	r26, Z+8	; 0x08
- 4e0:	b1 85       	ldd	r27, Z+9	; 0x09
- 4e2:	14 96       	adiw	r26, 0x04	; 4
- 4e4:	9c 91       	ld	r25, X
- 4e6:	14 97       	sbiw	r26, 0x04	; 4
- 4e8:	82 85       	ldd	r24, Z+10	; 0x0a
- 4ea:	80 95       	com	r24
- 4ec:	89 23       	and	r24, r25
- 4ee:	14 96       	adiw	r26, 0x04	; 4
- 4f0:	8c 93       	st	X, r24
+ 55e:	a0 85       	ldd	r26, Z+8	; 0x08
+ 560:	b1 85       	ldd	r27, Z+9	; 0x09
+ 562:	14 96       	adiw	r26, 0x04	; 4
+ 564:	9c 91       	ld	r25, X
+ 566:	14 97       	sbiw	r26, 0x04	; 4
+ 568:	82 85       	ldd	r24, Z+10	; 0x0a
+ 56a:	80 95       	com	r24
+ 56c:	89 23       	and	r24, r25
+ 56e:	14 96       	adiw	r26, 0x04	; 4
+ 570:	8c 93       	st	X, r24
 	self->W.PORT->DIR |= self->W.PIN;
- 4f2:	a3 85       	ldd	r26, Z+11	; 0x0b
- 4f4:	b4 85       	ldd	r27, Z+12	; 0x0c
- 4f6:	9c 91       	ld	r25, X
- 4f8:	85 85       	ldd	r24, Z+13	; 0x0d
- 4fa:	89 2b       	or	r24, r25
- 4fc:	8c 93       	st	X, r24
+ 572:	a3 85       	ldd	r26, Z+11	; 0x0b
+ 574:	b4 85       	ldd	r27, Z+12	; 0x0c
+ 576:	9c 91       	ld	r25, X
+ 578:	85 85       	ldd	r24, Z+13	; 0x0d
+ 57a:	89 2b       	or	r24, r25
+ 57c:	8c 93       	st	X, r24
 	self->W.PORT->OUT |= self->W.PIN;
- 4fe:	a3 85       	ldd	r26, Z+11	; 0x0b
- 500:	b4 85       	ldd	r27, Z+12	; 0x0c
- 502:	14 96       	adiw	r26, 0x04	; 4
- 504:	9c 91       	ld	r25, X
- 506:	14 97       	sbiw	r26, 0x04	; 4
- 508:	85 85       	ldd	r24, Z+13	; 0x0d
- 50a:	89 2b       	or	r24, r25
- 50c:	14 96       	adiw	r26, 0x04	; 4
- 50e:	8c 93       	st	X, r24
- 510:	08 95       	ret
+ 57e:	a3 85       	ldd	r26, Z+11	; 0x0b
+ 580:	b4 85       	ldd	r27, Z+12	; 0x0c
+ 582:	14 96       	adiw	r26, 0x04	; 4
+ 584:	9c 91       	ld	r25, X
+ 586:	14 97       	sbiw	r26, 0x04	; 4
+ 588:	85 85       	ldd	r24, Z+13	; 0x0d
+ 58a:	89 2b       	or	r24, r25
+ 58c:	14 96       	adiw	r26, 0x04	; 4
+ 58e:	8c 93       	st	X, r24
+ 590:	08 95       	ret
 
-00000512 <initDRAMHandler>:
+00000592 <initDRAMHandler>:
 	} else {
-		self->buffer.reset(&self->buffer);
+		self->msgBuffer.reset(&self->msgBuffer);
 	}
 }
 
 void initDRAMHandler(DRAM_HANDLER *self) {
- 512:	cf 93       	push	r28
- 514:	df 93       	push	r29
- 516:	ec 01       	movw	r28, r24
-	initBuffer(&self->buffer);
- 518:	48 96       	adiw	r24, 0x18	; 24
- 51a:	e5 dd       	rcall	.-1078   	; 0xe6 <initBuffer>
+ 592:	cf 93       	push	r28
+ 594:	df 93       	push	r29
+ 596:	ec 01       	movw	r28, r24
+	initBuffer(&self->msgBuffer);
+ 598:	48 96       	adiw	r24, 0x18	; 24
+ 59a:	a5 dd       	rcall	.-1206   	; 0xe6 <initBuffer>
+	initQueue(&self->burstReadQueue);
+ 59c:	ce 01       	movw	r24, r28
+ 59e:	c4 96       	adiw	r24, 0x34	; 52
+ 5a0:	53 d1       	rcall	.+678    	; 0x848 <initQueue>
+
 	self->readByte = &readByte;
- 51c:	82 e7       	ldi	r24, 0x72	; 114
- 51e:	91 e0       	ldi	r25, 0x01	; 1
- 520:	88 ab       	std	Y+48, r24	; 0x30
- 522:	99 ab       	std	Y+49, r25	; 0x31
+ 5a2:	fe 01       	movw	r30, r28
+ 5a4:	ee 5b       	subi	r30, 0xBE	; 190
+ 5a6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5a8:	8e ea       	ldi	r24, 0xAE	; 174
+ 5aa:	91 e0       	ldi	r25, 0x01	; 1
+ 5ac:	80 83       	st	Z, r24
+ 5ae:	91 83       	std	Z+1, r25	; 0x01
 	self->writeByte = &writeByte;
- 524:	8c ec       	ldi	r24, 0xCC	; 204
- 526:	91 e0       	ldi	r25, 0x01	; 1
- 528:	8a ab       	std	Y+50, r24	; 0x32
- 52a:	9b ab       	std	Y+51, r25	; 0x33
+ 5b0:	32 96       	adiw	r30, 0x02	; 2
+ 5b2:	8a e0       	ldi	r24, 0x0A	; 10
+ 5b4:	92 e0       	ldi	r25, 0x02	; 2
+ 5b6:	80 83       	st	Z, r24
+ 5b8:	91 83       	std	Z+1, r25	; 0x01
 	self->refreshRASonly = &refreshRASonly;
- 52c:	8d e1       	ldi	r24, 0x1D	; 29
- 52e:	91 e0       	ldi	r25, 0x01	; 1
- 530:	8c ab       	std	Y+52, r24	; 0x34
- 532:	9d ab       	std	Y+53, r25	; 0x35
+ 5ba:	32 96       	adiw	r30, 0x02	; 2
+ 5bc:	89 e5       	ldi	r24, 0x59	; 89
+ 5be:	91 e0       	ldi	r25, 0x01	; 1
+ 5c0:	80 83       	st	Z, r24
+ 5c2:	91 83       	std	Z+1, r25	; 0x01
 	self->processAndRespondBuffer = &processAndRespondBuffer;
- 534:	82 e9       	ldi	r24, 0x92	; 146
- 536:	90 e0       	ldi	r25, 0x00	; 0
- 538:	8e ab       	std	Y+54, r24	; 0x36
- 53a:	9f ab       	std	Y+55, r25	; 0x37
+ 5c4:	32 96       	adiw	r30, 0x02	; 2
+ 5c6:	88 e9       	ldi	r24, 0x98	; 152
+ 5c8:	90 e0       	ldi	r25, 0x00	; 0
+ 5ca:	80 83       	st	Z, r24
+ 5cc:	91 83       	std	Z+1, r25	; 0x01
 	
 	self->hasPendingRefresh = false;
- 53c:	1e a6       	std	Y+46, r1	; 0x2e
+ 5ce:	38 97       	sbiw	r30, 0x08	; 8
+ 5d0:	10 82       	st	Z, r1
 	self->hasPendingBufferUpdate = false;
- 53e:	1f a6       	std	Y+47, r1	; 0x2f
+ 5d2:	31 96       	adiw	r30, 0x01	; 1
+ 5d4:	10 82       	st	Z, r1
 	
 	self->DATA_PORT = &PORTD;
- 540:	80 e6       	ldi	r24, 0x60	; 96
- 542:	94 e0       	ldi	r25, 0x04	; 4
- 544:	88 83       	st	Y, r24
- 546:	99 83       	std	Y+1, r25	; 0x01
+ 5d6:	80 e6       	ldi	r24, 0x60	; 96
+ 5d8:	94 e0       	ldi	r25, 0x04	; 4
+ 5da:	88 83       	st	Y, r24
+ 5dc:	99 83       	std	Y+1, r25	; 0x01
 	
 	self->RAS.PORT = &PORTE;
- 548:	80 e8       	ldi	r24, 0x80	; 128
- 54a:	94 e0       	ldi	r25, 0x04	; 4
- 54c:	8a 83       	std	Y+2, r24	; 0x02
- 54e:	9b 83       	std	Y+3, r25	; 0x03
+ 5de:	80 e8       	ldi	r24, 0x80	; 128
+ 5e0:	94 e0       	ldi	r25, 0x04	; 4
+ 5e2:	8a 83       	std	Y+2, r24	; 0x02
+ 5e4:	9b 83       	std	Y+3, r25	; 0x03
 	self->RAS.PIN = PIN0_bm;
- 550:	41 e0       	ldi	r20, 0x01	; 1
- 552:	4c 83       	std	Y+4, r20	; 0x04
+ 5e6:	41 e0       	ldi	r20, 0x01	; 1
+ 5e8:	4c 83       	std	Y+4, r20	; 0x04
 
 	self->CAS.PORT = &PORTE;
- 554:	8d 83       	std	Y+5, r24	; 0x05
- 556:	9e 83       	std	Y+6, r25	; 0x06
+ 5ea:	8d 83       	std	Y+5, r24	; 0x05
+ 5ec:	9e 83       	std	Y+6, r25	; 0x06
 	self->CAS.PIN = PIN1_bm;
- 558:	32 e0       	ldi	r19, 0x02	; 2
- 55a:	3f 83       	std	Y+7, r19	; 0x07
+ 5ee:	32 e0       	ldi	r19, 0x02	; 2
+ 5f0:	3f 83       	std	Y+7, r19	; 0x07
 	
 	self->OE.PORT = &PORTE;
- 55c:	88 87       	std	Y+8, r24	; 0x08
- 55e:	99 87       	std	Y+9, r25	; 0x09
+ 5f2:	88 87       	std	Y+8, r24	; 0x08
+ 5f4:	99 87       	std	Y+9, r25	; 0x09
 	self->OE.PIN = PIN2_bm;
- 560:	24 e0       	ldi	r18, 0x04	; 4
- 562:	2a 87       	std	Y+10, r18	; 0x0a
+ 5f6:	24 e0       	ldi	r18, 0x04	; 4
+ 5f8:	2a 87       	std	Y+10, r18	; 0x0a
 	
 	self->W.PORT = &PORTE;
- 564:	8b 87       	std	Y+11, r24	; 0x0b
- 566:	9c 87       	std	Y+12, r25	; 0x0c
+ 5fa:	8b 87       	std	Y+11, r24	; 0x0b
+ 5fc:	9c 87       	std	Y+12, r25	; 0x0c
 	self->W.PIN = PIN3_bm;
- 568:	88 e0       	ldi	r24, 0x08	; 8
- 56a:	8d 87       	std	Y+13, r24	; 0x0d
+ 5fe:	88 e0       	ldi	r24, 0x08	; 8
+ 600:	8d 87       	std	Y+13, r24	; 0x0d
 	
 	self->ADDR_PORT.P1 = &PORTA;
- 56c:	e0 e0       	ldi	r30, 0x00	; 0
- 56e:	f4 e0       	ldi	r31, 0x04	; 4
- 570:	ee 87       	std	Y+14, r30	; 0x0e
- 572:	ff 87       	std	Y+15, r31	; 0x0f
+ 602:	e0 e0       	ldi	r30, 0x00	; 0
+ 604:	f4 e0       	ldi	r31, 0x04	; 4
+ 606:	ee 87       	std	Y+14, r30	; 0x0e
+ 608:	ff 87       	std	Y+15, r31	; 0x0f
 	self->ADDR_PORT.P2 = &PORTB;
- 574:	60 e2       	ldi	r22, 0x20	; 32
- 576:	74 e0       	ldi	r23, 0x04	; 4
- 578:	68 8b       	std	Y+16, r22	; 0x10
- 57a:	79 8b       	std	Y+17, r23	; 0x11
+ 60a:	60 e2       	ldi	r22, 0x20	; 32
+ 60c:	74 e0       	ldi	r23, 0x04	; 4
+ 60e:	68 8b       	std	Y+16, r22	; 0x10
+ 610:	79 8b       	std	Y+17, r23	; 0x11
 	/* Set all address pins as output */
 	self->ADDR_PORT.P1->DIR = 0xFF;
- 57c:	9f ef       	ldi	r25, 0xFF	; 255
- 57e:	90 83       	st	Z, r25
+ 612:	9f ef       	ldi	r25, 0xFF	; 255
+ 614:	90 83       	st	Z, r25
 	self->ADDR_PORT.P2->DIR = 0xFF;
- 580:	e8 89       	ldd	r30, Y+16	; 0x10
- 582:	f9 89       	ldd	r31, Y+17	; 0x11
- 584:	90 83       	st	Z, r25
+ 616:	e8 89       	ldd	r30, Y+16	; 0x10
+ 618:	f9 89       	ldd	r31, Y+17	; 0x11
+ 61a:	90 83       	st	Z, r25
 	
 	self->SPI.PORT = &PORTC;
- 586:	e0 e4       	ldi	r30, 0x40	; 64
- 588:	f4 e0       	ldi	r31, 0x04	; 4
- 58a:	ea 8b       	std	Y+18, r30	; 0x12
- 58c:	fb 8b       	std	Y+19, r31	; 0x13
+ 61c:	e0 e4       	ldi	r30, 0x40	; 64
+ 61e:	f4 e0       	ldi	r31, 0x04	; 4
+ 620:	ea 8b       	std	Y+18, r30	; 0x12
+ 622:	fb 8b       	std	Y+19, r31	; 0x13
 	self->SPI.MOSI = PIN0_bm;
- 58e:	4d 8b       	std	Y+21, r20	; 0x15
+ 624:	4d 8b       	std	Y+21, r20	; 0x15
 	self->SPI.MISO = PIN1_bm;
- 590:	3e 8b       	std	Y+22, r19	; 0x16
+ 626:	3e 8b       	std	Y+22, r19	; 0x16
 	self->SPI.SCK = PIN2_bm;
- 592:	2f 8b       	std	Y+23, r18	; 0x17
+ 628:	2f 8b       	std	Y+23, r18	; 0x17
 	self->SPI.SS = PIN3_bm;
- 594:	8c 8b       	std	Y+20, r24	; 0x14
+ 62a:	8c 8b       	std	Y+20, r24	; 0x14
 	
 	self->SPI.PORT->DIR |= self->SPI.MISO;
- 596:	80 81       	ld	r24, Z
- 598:	82 60       	ori	r24, 0x02	; 2
- 59a:	80 83       	st	Z, r24
+ 62c:	80 81       	ld	r24, Z
+ 62e:	82 60       	ori	r24, 0x02	; 2
+ 630:	80 83       	st	Z, r24
 	self->SPI.PORT->DIR &= ~self->SPI.MOSI;
- 59c:	ea 89       	ldd	r30, Y+18	; 0x12
- 59e:	fb 89       	ldd	r31, Y+19	; 0x13
- 5a0:	90 81       	ld	r25, Z
- 5a2:	8d 89       	ldd	r24, Y+21	; 0x15
- 5a4:	80 95       	com	r24
- 5a6:	89 23       	and	r24, r25
- 5a8:	80 83       	st	Z, r24
+ 632:	ea 89       	ldd	r30, Y+18	; 0x12
+ 634:	fb 89       	ldd	r31, Y+19	; 0x13
+ 636:	90 81       	ld	r25, Z
+ 638:	8d 89       	ldd	r24, Y+21	; 0x15
+ 63a:	80 95       	com	r24
+ 63c:	89 23       	and	r24, r25
+ 63e:	80 83       	st	Z, r24
 	self->SPI.PORT->DIR &= ~self->SPI.SS;
- 5aa:	ea 89       	ldd	r30, Y+18	; 0x12
- 5ac:	fb 89       	ldd	r31, Y+19	; 0x13
- 5ae:	90 81       	ld	r25, Z
- 5b0:	8c 89       	ldd	r24, Y+20	; 0x14
- 5b2:	80 95       	com	r24
- 5b4:	89 23       	and	r24, r25
- 5b6:	80 83       	st	Z, r24
+ 640:	ea 89       	ldd	r30, Y+18	; 0x12
+ 642:	fb 89       	ldd	r31, Y+19	; 0x13
+ 644:	90 81       	ld	r25, Z
+ 646:	8c 89       	ldd	r24, Y+20	; 0x14
+ 648:	80 95       	com	r24
+ 64a:	89 23       	and	r24, r25
+ 64c:	80 83       	st	Z, r24
 	self->SPI.PORT->DIR &= ~self->SPI.SCK;
- 5b8:	ea 89       	ldd	r30, Y+18	; 0x12
- 5ba:	fb 89       	ldd	r31, Y+19	; 0x13
- 5bc:	90 81       	ld	r25, Z
- 5be:	8f 89       	ldd	r24, Y+23	; 0x17
- 5c0:	80 95       	com	r24
- 5c2:	89 23       	and	r24, r25
- 5c4:	80 83       	st	Z, r24
+ 64e:	ea 89       	ldd	r30, Y+18	; 0x12
+ 650:	fb 89       	ldd	r31, Y+19	; 0x13
+ 652:	90 81       	ld	r25, Z
+ 654:	8f 89       	ldd	r24, Y+23	; 0x17
+ 656:	80 95       	com	r24
+ 658:	89 23       	and	r24, r25
+ 65a:	80 83       	st	Z, r24
 	
 	resetPins(self);
- 5c6:	ce 01       	movw	r24, r28
+ 65c:	ce 01       	movw	r24, r28
 }
- 5c8:	df 91       	pop	r29
- 5ca:	cf 91       	pop	r28
+ 65e:	df 91       	pop	r29
+ 660:	cf 91       	pop	r28
 	self->SPI.PORT->DIR |= self->SPI.MISO;
 	self->SPI.PORT->DIR &= ~self->SPI.MOSI;
 	self->SPI.PORT->DIR &= ~self->SPI.SS;
 	self->SPI.PORT->DIR &= ~self->SPI.SCK;
 	
 	resetPins(self);
- 5cc:	62 cf       	rjmp	.-316    	; 0x492 <resetPins>
+ 662:	57 cf       	rjmp	.-338    	; 0x512 <resetPins>
 
-000005ce <__vector_9>:
+00000664 <__vector_9>:
 
 #define RAM_READ_LENGTH		0xFF
 
 DRAM_HANDLER dramHandler;
 
 ISR(TCA0_CMP0_vect) {
- 5ce:	1f 92       	push	r1
- 5d0:	0f 92       	push	r0
- 5d2:	0f b6       	in	r0, 0x3f	; 63
- 5d4:	0f 92       	push	r0
- 5d6:	11 24       	eor	r1, r1
- 5d8:	8f 93       	push	r24
- 5da:	ef 93       	push	r30
- 5dc:	ff 93       	push	r31
+ 664:	1f 92       	push	r1
+ 666:	0f 92       	push	r0
+ 668:	0f b6       	in	r0, 0x3f	; 63
+ 66a:	0f 92       	push	r0
+ 66c:	11 24       	eor	r1, r1
+ 66e:	8f 93       	push	r24
+ 670:	ef 93       	push	r30
+ 672:	ff 93       	push	r31
 	dramHandler.hasPendingRefresh = true;
- 5de:	81 e0       	ldi	r24, 0x01	; 1
- 5e0:	80 93 2e 3c 	sts	0x3C2E, r24	; 0x803c2e <__DATA_REGION_ORIGIN__+0x2e>
+ 674:	81 e0       	ldi	r24, 0x01	; 1
+ 676:	80 93 41 3c 	sts	0x3C41, r24	; 0x803c41 <dramHandler+0x40>
 
 	/* Clear interrupt flag */
 	TCA0.SINGLE.INTFLAGS |= (1 << TCA_SINGLE_CMP0EN_bp);
- 5e4:	e0 e0       	ldi	r30, 0x00	; 0
- 5e6:	fa e0       	ldi	r31, 0x0A	; 10
- 5e8:	83 85       	ldd	r24, Z+11	; 0x0b
- 5ea:	80 61       	ori	r24, 0x10	; 16
- 5ec:	83 87       	std	Z+11, r24	; 0x0b
+ 67a:	e0 e0       	ldi	r30, 0x00	; 0
+ 67c:	fa e0       	ldi	r31, 0x0A	; 10
+ 67e:	83 85       	ldd	r24, Z+11	; 0x0b
+ 680:	80 61       	ori	r24, 0x10	; 16
+ 682:	83 87       	std	Z+11, r24	; 0x0b
 }
- 5ee:	ff 91       	pop	r31
- 5f0:	ef 91       	pop	r30
- 5f2:	8f 91       	pop	r24
- 5f4:	0f 90       	pop	r0
- 5f6:	0f be       	out	0x3f, r0	; 63
- 5f8:	0f 90       	pop	r0
- 5fa:	1f 90       	pop	r1
- 5fc:	18 95       	reti
+ 684:	ff 91       	pop	r31
+ 686:	ef 91       	pop	r30
+ 688:	8f 91       	pop	r24
+ 68a:	0f 90       	pop	r0
+ 68c:	0f be       	out	0x3f, r0	; 63
+ 68e:	0f 90       	pop	r0
+ 690:	1f 90       	pop	r1
+ 692:	18 95       	reti
 
-000005fe <__vector_16>:
+00000694 <__vector_16>:
 
 ISR(SPI0_INT_vect) {
- 5fe:	1f 92       	push	r1
- 600:	0f 92       	push	r0
- 602:	0f b6       	in	r0, 0x3f	; 63
- 604:	0f 92       	push	r0
- 606:	11 24       	eor	r1, r1
- 608:	2f 93       	push	r18
- 60a:	3f 93       	push	r19
- 60c:	4f 93       	push	r20
- 60e:	5f 93       	push	r21
- 610:	6f 93       	push	r22
- 612:	7f 93       	push	r23
- 614:	8f 93       	push	r24
- 616:	9f 93       	push	r25
- 618:	af 93       	push	r26
- 61a:	bf 93       	push	r27
- 61c:	ef 93       	push	r30
- 61e:	ff 93       	push	r31
+ 694:	1f 92       	push	r1
+ 696:	0f 92       	push	r0
+ 698:	0f b6       	in	r0, 0x3f	; 63
+ 69a:	0f 92       	push	r0
+ 69c:	11 24       	eor	r1, r1
+ 69e:	2f 93       	push	r18
+ 6a0:	3f 93       	push	r19
+ 6a2:	4f 93       	push	r20
+ 6a4:	5f 93       	push	r21
+ 6a6:	6f 93       	push	r22
+ 6a8:	7f 93       	push	r23
+ 6aa:	8f 93       	push	r24
+ 6ac:	9f 93       	push	r25
+ 6ae:	af 93       	push	r26
+ 6b0:	bf 93       	push	r27
+ 6b2:	cf 93       	push	r28
+ 6b4:	ef 93       	push	r30
+ 6b6:	ff 93       	push	r31
 	if(SPI0.INTFLAGS & SPI_RXCIE_bm) {
- 620:	80 91 c3 08 	lds	r24, 0x08C3	; 0x8008c3 <__RODATA_PM_OFFSET__+0x7fc8c3>
- 624:	87 ff       	sbrs	r24, 7
- 626:	0c c0       	rjmp	.+24     	; 0x640 <__vector_16+0x42>
+ 6b8:	80 91 c3 08 	lds	r24, 0x08C3	; 0x8008c3 <__RODATA_PM_OFFSET__+0x7fc8c3>
+ 6bc:	87 ff       	sbrs	r24, 7
+ 6be:	20 c0       	rjmp	.+64     	; 0x700 <__vector_16+0x6c>
 		const uint8_t data = SPI0.DATA;
- 628:	60 91 c4 08 	lds	r22, 0x08C4	; 0x8008c4 <__RODATA_PM_OFFSET__+0x7fc8c4>
-		dramHandler.buffer.push(&dramHandler.buffer, data);
- 62c:	e0 91 28 3c 	lds	r30, 0x3C28	; 0x803c28 <__DATA_REGION_ORIGIN__+0x28>
- 630:	f0 91 29 3c 	lds	r31, 0x3C29	; 0x803c29 <__DATA_REGION_ORIGIN__+0x29>
- 634:	88 e1       	ldi	r24, 0x18	; 24
- 636:	9c e3       	ldi	r25, 0x3C	; 60
- 638:	09 95       	icall
-		dramHandler.hasPendingBufferUpdate = true;
- 63a:	81 e0       	ldi	r24, 0x01	; 1
- 63c:	80 93 2f 3c 	sts	0x3C2F, r24	; 0x803c2f <__DATA_REGION_ORIGIN__+0x2f>
+ 6c0:	c0 91 c4 08 	lds	r28, 0x08C4	; 0x8008c4 <__RODATA_PM_OFFSET__+0x7fc8c4>
+		if(!dramHandler.burstReadQueue.isEmpty(&dramHandler.burstReadQueue)) {
+ 6c4:	e0 91 3f 3c 	lds	r30, 0x3C3F	; 0x803c3f <dramHandler+0x3e>
+ 6c8:	f0 91 40 3c 	lds	r31, 0x3C40	; 0x803c40 <dramHandler+0x3f>
+ 6cc:	85 e3       	ldi	r24, 0x35	; 53
+ 6ce:	9c e3       	ldi	r25, 0x3C	; 60
+ 6d0:	09 95       	icall
+ 6d2:	81 11       	cpse	r24, r1
+ 6d4:	0a c0       	rjmp	.+20     	; 0x6ea <__vector_16+0x56>
+			const uint8_t data = dramHandler.burstReadQueue.pop(&dramHandler.burstReadQueue);
+ 6d6:	e0 91 3d 3c 	lds	r30, 0x3C3D	; 0x803c3d <dramHandler+0x3c>
+ 6da:	f0 91 3e 3c 	lds	r31, 0x3C3E	; 0x803c3e <dramHandler+0x3d>
+ 6de:	85 e3       	ldi	r24, 0x35	; 53
+ 6e0:	9c e3       	ldi	r25, 0x3C	; 60
+ 6e2:	09 95       	icall
+			SPI0.DATA = data;
+ 6e4:	80 93 c4 08 	sts	0x08C4, r24	; 0x8008c4 <__RODATA_PM_OFFSET__+0x7fc8c4>
+ 6e8:	0b c0       	rjmp	.+22     	; 0x700 <__vector_16+0x6c>
+		} else {
+			dramHandler.msgBuffer.push(&dramHandler.msgBuffer, data);
+ 6ea:	e0 91 2f 3c 	lds	r30, 0x3C2F	; 0x803c2f <dramHandler+0x2e>
+ 6ee:	f0 91 30 3c 	lds	r31, 0x3C30	; 0x803c30 <dramHandler+0x2f>
+ 6f2:	6c 2f       	mov	r22, r28
+ 6f4:	89 e1       	ldi	r24, 0x19	; 25
+ 6f6:	9c e3       	ldi	r25, 0x3C	; 60
+ 6f8:	09 95       	icall
+			dramHandler.hasPendingBufferUpdate = true;
+ 6fa:	81 e0       	ldi	r24, 0x01	; 1
+ 6fc:	80 93 42 3c 	sts	0x3C42, r24	; 0x803c42 <dramHandler+0x41>
+		}
 	}
 }
- 640:	ff 91       	pop	r31
- 642:	ef 91       	pop	r30
- 644:	bf 91       	pop	r27
- 646:	af 91       	pop	r26
- 648:	9f 91       	pop	r25
- 64a:	8f 91       	pop	r24
- 64c:	7f 91       	pop	r23
- 64e:	6f 91       	pop	r22
- 650:	5f 91       	pop	r21
- 652:	4f 91       	pop	r20
- 654:	3f 91       	pop	r19
- 656:	2f 91       	pop	r18
- 658:	0f 90       	pop	r0
- 65a:	0f be       	out	0x3f, r0	; 63
- 65c:	0f 90       	pop	r0
- 65e:	1f 90       	pop	r1
- 660:	18 95       	reti
+ 700:	ff 91       	pop	r31
+ 702:	ef 91       	pop	r30
+ 704:	cf 91       	pop	r28
+ 706:	bf 91       	pop	r27
+ 708:	af 91       	pop	r26
+ 70a:	9f 91       	pop	r25
+ 70c:	8f 91       	pop	r24
+ 70e:	7f 91       	pop	r23
+ 710:	6f 91       	pop	r22
+ 712:	5f 91       	pop	r21
+ 714:	4f 91       	pop	r20
+ 716:	3f 91       	pop	r19
+ 718:	2f 91       	pop	r18
+ 71a:	0f 90       	pop	r0
+ 71c:	0f be       	out	0x3f, r0	; 63
+ 71e:	0f 90       	pop	r0
+ 720:	1f 90       	pop	r1
+ 722:	18 95       	reti
 
-00000662 <initTimer0>:
+00000724 <initTimer0>:
 
 void initTimer0() {
 	/* Set Prescaler */
 	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV16_gc;
- 662:	e0 e0       	ldi	r30, 0x00	; 0
- 664:	fa e0       	ldi	r31, 0x0A	; 10
- 666:	88 e0       	ldi	r24, 0x08	; 8
- 668:	80 83       	st	Z, r24
+ 724:	e0 e0       	ldi	r30, 0x00	; 0
+ 726:	fa e0       	ldi	r31, 0x0A	; 10
+ 728:	88 e0       	ldi	r24, 0x08	; 8
+ 72a:	80 83       	st	Z, r24
 	/* Set to Frequency Mode */
 	TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_FRQ_gc;
- 66a:	81 e0       	ldi	r24, 0x01	; 1
- 66c:	81 83       	std	Z+1, r24	; 0x01
+ 72c:	81 e0       	ldi	r24, 0x01	; 1
+ 72e:	81 83       	std	Z+1, r24	; 0x01
 	/* Set CMP value */
 	TCA0.SINGLE.CMP0BUF = TIM0_COMP_VAL;
- 66e:	8e e3       	ldi	r24, 0x3E	; 62
- 670:	99 e4       	ldi	r25, 0x49	; 73
- 672:	80 af       	std	Z+56, r24	; 0x38
- 674:	91 af       	std	Z+57, r25	; 0x39
+ 730:	8e e3       	ldi	r24, 0x3E	; 62
+ 732:	99 e4       	ldi	r25, 0x49	; 73
+ 734:	80 af       	std	Z+56, r24	; 0x38
+ 736:	91 af       	std	Z+57, r25	; 0x39
 	/* Enable Compare Channel 0 Interrupt */
 	TCA0.SINGLE.INTCTRL = TCA_SINGLE_CMP0EN_bm;
- 676:	80 e1       	ldi	r24, 0x10	; 16
- 678:	82 87       	std	Z+10, r24	; 0x0a
+ 738:	80 e1       	ldi	r24, 0x10	; 16
+ 73a:	82 87       	std	Z+10, r24	; 0x0a
 	/* Enable TCA0 */
 	TCA0.SINGLE.CTRLA |= TCA_SINGLE_ENABLE_bm;
- 67a:	80 81       	ld	r24, Z
- 67c:	81 60       	ori	r24, 0x01	; 1
- 67e:	80 83       	st	Z, r24
- 680:	08 95       	ret
+ 73c:	80 81       	ld	r24, Z
+ 73e:	81 60       	ori	r24, 0x01	; 1
+ 740:	80 83       	st	Z, r24
+ 742:	08 95       	ret
 
-00000682 <initSPI>:
+00000744 <initSPI>:
 }
 
 void initSPI() {
 	/* Set alternative SPI pins */
 	PORTMUX.TWISPIROUTEA |= PORTMUX_SPI0_ALT1_gc;
- 682:	e0 ee       	ldi	r30, 0xE0	; 224
- 684:	f5 e0       	ldi	r31, 0x05	; 5
- 686:	83 81       	ldd	r24, Z+3	; 0x03
- 688:	81 60       	ori	r24, 0x01	; 1
- 68a:	83 83       	std	Z+3, r24	; 0x03
+ 744:	e0 ee       	ldi	r30, 0xE0	; 224
+ 746:	f5 e0       	ldi	r31, 0x05	; 5
+ 748:	83 81       	ldd	r24, Z+3	; 0x03
+ 74a:	81 60       	ori	r24, 0x01	; 1
+ 74c:	83 83       	std	Z+3, r24	; 0x03
 	/* Enable Buffer Mode */
 	SPI0.CTRLB = SPI_BUFEN_bm;
- 68c:	e0 ec       	ldi	r30, 0xC0	; 192
- 68e:	f8 e0       	ldi	r31, 0x08	; 8
- 690:	90 e8       	ldi	r25, 0x80	; 128
- 692:	91 83       	std	Z+1, r25	; 0x01
+ 74e:	e0 ec       	ldi	r30, 0xC0	; 192
+ 750:	f8 e0       	ldi	r31, 0x08	; 8
+ 752:	90 e8       	ldi	r25, 0x80	; 128
+ 754:	91 83       	std	Z+1, r25	; 0x01
 	/* Directly write to Shift reg */
 	SPI0.CTRLB |= SPI_BUFWR_bm;
- 694:	81 81       	ldd	r24, Z+1	; 0x01
- 696:	80 64       	ori	r24, 0x40	; 64
- 698:	81 83       	std	Z+1, r24	; 0x01
+ 756:	81 81       	ldd	r24, Z+1	; 0x01
+ 758:	80 64       	ori	r24, 0x40	; 64
+ 75a:	81 83       	std	Z+1, r24	; 0x01
 	/* Enable Receive Interrupt */
 	SPI0.INTCTRL = SPI_RXCIE_bm;
- 69a:	92 83       	std	Z+2, r25	; 0x02
+ 75c:	92 83       	std	Z+2, r25	; 0x02
 	//SPI0.INTCTRL |= SPI_TXCIE_bm;
 	/* Enable SPI */
 	SPI0.CTRLA |= SPI_ENABLE_bm;
- 69c:	80 81       	ld	r24, Z
- 69e:	81 60       	ori	r24, 0x01	; 1
- 6a0:	80 83       	st	Z, r24
- 6a2:	08 95       	ret
+ 75e:	80 81       	ld	r24, Z
+ 760:	81 60       	ori	r24, 0x01	; 1
+ 762:	80 83       	st	Z, r24
+ 764:	08 95       	ret
 
-000006a4 <initCPU>:
+00000766 <initCPU>:
 }
 
 void initCPU() {
 	/* Disable Configuration Change Protection */
 	CCP = 0xD8;
- 6a4:	88 ed       	ldi	r24, 0xD8	; 216
- 6a6:	84 bf       	out	0x34, r24	; 52
+ 766:	88 ed       	ldi	r24, 0xD8	; 216
+ 768:	84 bf       	out	0x34, r24	; 52
 	/* Set Clock source to 20MHz internal oscillator */
 	CLKCTRL.MCLKCTRLA = CLKCTRL_CLKSEL_OSC20M_gc;
- 6a8:	e0 e6       	ldi	r30, 0x60	; 96
- 6aa:	f0 e0       	ldi	r31, 0x00	; 0
- 6ac:	10 82       	st	Z, r1
+ 76a:	e0 e6       	ldi	r30, 0x60	; 96
+ 76c:	f0 e0       	ldi	r31, 0x00	; 0
+ 76e:	10 82       	st	Z, r1
 	/* Disable Configuration Change Protection */
 	CCP = 0xD8;
- 6ae:	84 bf       	out	0x34, r24	; 52
+ 770:	84 bf       	out	0x34, r24	; 52
 	/* Disable prescaler */
 	CLKCTRL.MCLKCTRLB &= ~(1 << CLKCTRL_PEN_bp);
- 6b0:	81 81       	ldd	r24, Z+1	; 0x01
- 6b2:	8e 7f       	andi	r24, 0xFE	; 254
- 6b4:	81 83       	std	Z+1, r24	; 0x01
+ 772:	81 81       	ldd	r24, Z+1	; 0x01
+ 774:	8e 7f       	andi	r24, 0xFE	; 254
+ 776:	81 83       	std	Z+1, r24	; 0x01
 	
 	/* Enable interrupts globally */
 	sei();
- 6b6:	78 94       	sei
- 6b8:	08 95       	ret
+ 778:	78 94       	sei
+ 77a:	08 95       	ret
 
-000006ba <main>:
+0000077c <main>:
 }
 
 int main(void) {
 	initDRAMHandler(&dramHandler);
- 6ba:	80 e0       	ldi	r24, 0x00	; 0
- 6bc:	9c e3       	ldi	r25, 0x3C	; 60
- 6be:	29 df       	rcall	.-430    	; 0x512 <initDRAMHandler>
+ 77c:	81 e0       	ldi	r24, 0x01	; 1
+ 77e:	9c e3       	ldi	r25, 0x3C	; 60
+ 780:	08 df       	rcall	.-496    	; 0x592 <initDRAMHandler>
 
 	initCPU();
- 6c0:	f1 df       	rcall	.-30     	; 0x6a4 <initCPU>
+ 782:	f1 df       	rcall	.-30     	; 0x766 <initCPU>
 	initSPI();
- 6c2:	df df       	rcall	.-66     	; 0x682 <initSPI>
+ 784:	df df       	rcall	.-66     	; 0x744 <initSPI>
 	initTimer0();
- 6c4:	ce df       	rcall	.-100    	; 0x662 <initTimer0>
+ 786:	ce df       	rcall	.-100    	; 0x724 <initTimer0>
 	
     while (1) {
 		if(dramHandler.hasPendingRefresh) {
- 6c6:	80 91 2e 3c 	lds	r24, 0x3C2E	; 0x803c2e <__DATA_REGION_ORIGIN__+0x2e>
- 6ca:	88 23       	and	r24, r24
- 6cc:	49 f0       	breq	.+18     	; 0x6e0 <main+0x26>
+ 788:	80 91 41 3c 	lds	r24, 0x3C41	; 0x803c41 <dramHandler+0x40>
+ 78c:	88 23       	and	r24, r24
+ 78e:	49 f0       	breq	.+18     	; 0x7a2 <main+0x26>
 			dramHandler.refreshRASonly(&dramHandler);
- 6ce:	e0 91 34 3c 	lds	r30, 0x3C34	; 0x803c34 <__DATA_REGION_ORIGIN__+0x34>
- 6d2:	f0 91 35 3c 	lds	r31, 0x3C35	; 0x803c35 <__DATA_REGION_ORIGIN__+0x35>
- 6d6:	80 e0       	ldi	r24, 0x00	; 0
- 6d8:	9c e3       	ldi	r25, 0x3C	; 60
- 6da:	09 95       	icall
+ 790:	e0 91 47 3c 	lds	r30, 0x3C47	; 0x803c47 <dramHandler+0x46>
+ 794:	f0 91 48 3c 	lds	r31, 0x3C48	; 0x803c48 <dramHandler+0x47>
+ 798:	81 e0       	ldi	r24, 0x01	; 1
+ 79a:	9c e3       	ldi	r25, 0x3C	; 60
+ 79c:	09 95       	icall
 			dramHandler.hasPendingRefresh = false;
- 6dc:	10 92 2e 3c 	sts	0x3C2E, r1	; 0x803c2e <__DATA_REGION_ORIGIN__+0x2e>
+ 79e:	10 92 41 3c 	sts	0x3C41, r1	; 0x803c41 <dramHandler+0x40>
 		}
 		if(dramHandler.hasPendingBufferUpdate) {
- 6e0:	80 91 2f 3c 	lds	r24, 0x3C2F	; 0x803c2f <__DATA_REGION_ORIGIN__+0x2f>
- 6e4:	88 23       	and	r24, r24
- 6e6:	79 f3       	breq	.-34     	; 0x6c6 <main+0xc>
+ 7a2:	80 91 42 3c 	lds	r24, 0x3C42	; 0x803c42 <dramHandler+0x41>
+ 7a6:	88 23       	and	r24, r24
+ 7a8:	79 f3       	breq	.-34     	; 0x788 <main+0xc>
 			dramHandler.processAndRespondBuffer(&dramHandler);
- 6e8:	e0 91 36 3c 	lds	r30, 0x3C36	; 0x803c36 <__DATA_REGION_ORIGIN__+0x36>
- 6ec:	f0 91 37 3c 	lds	r31, 0x3C37	; 0x803c37 <__DATA_REGION_ORIGIN__+0x37>
- 6f0:	80 e0       	ldi	r24, 0x00	; 0
- 6f2:	9c e3       	ldi	r25, 0x3C	; 60
- 6f4:	09 95       	icall
+ 7aa:	e0 91 49 3c 	lds	r30, 0x3C49	; 0x803c49 <dramHandler+0x48>
+ 7ae:	f0 91 4a 3c 	lds	r31, 0x3C4A	; 0x803c4a <dramHandler+0x49>
+ 7b2:	81 e0       	ldi	r24, 0x01	; 1
+ 7b4:	9c e3       	ldi	r25, 0x3C	; 60
+ 7b6:	09 95       	icall
 			dramHandler.hasPendingBufferUpdate = false;
- 6f6:	10 92 2f 3c 	sts	0x3C2F, r1	; 0x803c2f <__DATA_REGION_ORIGIN__+0x2f>
- 6fa:	e5 cf       	rjmp	.-54     	; 0x6c6 <main+0xc>
+ 7b8:	10 92 42 3c 	sts	0x3C42, r1	; 0x803c42 <dramHandler+0x41>
+ 7bc:	e5 cf       	rjmp	.-54     	; 0x788 <main+0xc>
 
-000006fc <_exit>:
- 6fc:	f8 94       	cli
+000007be <pushFunc>:
 
-000006fe <__stop_program>:
- 6fe:	ff cf       	rjmp	.-2      	; 0x6fe <__stop_program>
+QUEUE_ITEM queueItems[QUEUE_ITEM_STORAGE_SIZE];
+
+uint8_t currentQueueItemsIdx = 0;
+
+void pushFunc(QUEUE *self, uint8_t data) {
+ 7be:	cf 93       	push	r28
+ 7c0:	df 93       	push	r29
+ 7c2:	00 d0       	rcall	.+0      	; 0x7c4 <pushFunc+0x6>
+ 7c4:	1f 92       	push	r1
+ 7c6:	cd b7       	in	r28, 0x3d	; 61
+ 7c8:	de b7       	in	r29, 0x3e	; 62
+ 7ca:	fc 01       	movw	r30, r24
+	if(self->length < QUEUE_ITEM_STORAGE_SIZE) {
+ 7cc:	85 81       	ldd	r24, Z+5	; 0x05
+ 7ce:	8f 3f       	cpi	r24, 0xFF	; 255
+ 7d0:	a9 f0       	breq	.+42     	; 0x7fc <pushFunc+0x3e>
+		QUEUE_ITEM item = queueItems[currentQueueItemsIdx];
+ 7d2:	80 91 00 3c 	lds	r24, 0x3C00	; 0x803c00 <__DATA_REGION_ORIGIN__>
+ 7d6:	90 e0       	ldi	r25, 0x00	; 0
+		item.next = NULL;
+		item.data = data;
+		
+		self->end->next = &item;
+ 7d8:	a3 81       	ldd	r26, Z+3	; 0x03
+ 7da:	b4 81       	ldd	r27, Z+4	; 0x04
+ 7dc:	9e 01       	movw	r18, r28
+ 7de:	2f 5f       	subi	r18, 0xFF	; 255
+ 7e0:	3f 4f       	sbci	r19, 0xFF	; 255
+ 7e2:	2d 93       	st	X+, r18
+ 7e4:	3c 93       	st	X, r19
+		self->end = &item;
+ 7e6:	23 83       	std	Z+3, r18	; 0x03
+ 7e8:	34 83       	std	Z+4, r19	; 0x04
+		
+		currentQueueItemsIdx = (currentQueueItemsIdx + 1) % QUEUE_ITEM_STORAGE_SIZE;
+ 7ea:	01 96       	adiw	r24, 0x01	; 1
+ 7ec:	6f ef       	ldi	r22, 0xFF	; 255
+ 7ee:	70 e0       	ldi	r23, 0x00	; 0
+ 7f0:	3e d0       	rcall	.+124    	; 0x86e <__divmodhi4>
+ 7f2:	80 93 00 3c 	sts	0x3C00, r24	; 0x803c00 <__DATA_REGION_ORIGIN__>
+		
+		self->length++;
+ 7f6:	85 81       	ldd	r24, Z+5	; 0x05
+ 7f8:	8f 5f       	subi	r24, 0xFF	; 255
+ 7fa:	85 83       	std	Z+5, r24	; 0x05
+	}
+}
+ 7fc:	23 96       	adiw	r28, 0x03	; 3
+ 7fe:	cd bf       	out	0x3d, r28	; 61
+ 800:	de bf       	out	0x3e, r29	; 62
+ 802:	df 91       	pop	r29
+ 804:	cf 91       	pop	r28
+ 806:	08 95       	ret
+
+00000808 <popFunc>:
+
+uint8_t popFunc(QUEUE *self) {
+ 808:	fc 01       	movw	r30, r24
+	if(self->length > 0) {
+ 80a:	85 81       	ldd	r24, Z+5	; 0x05
+ 80c:	88 23       	and	r24, r24
+ 80e:	a1 f0       	breq	.+40     	; 0x838 <popFunc+0x30>
+		const uint8_t data = self->root.next->data;
+ 810:	a0 81       	ld	r26, Z
+ 812:	b1 81       	ldd	r27, Z+1	; 0x01
+ 814:	12 96       	adiw	r26, 0x02	; 2
+ 816:	2c 91       	ld	r18, X
+ 818:	12 97       	sbiw	r26, 0x02	; 2
+		self->root.next = self->root.next->next;
+		
+		if(self->length == 1) {
+ 81a:	81 30       	cpi	r24, 0x01	; 1
+ 81c:	29 f0       	breq	.+10     	; 0x828 <popFunc+0x20>
+}
+
+uint8_t popFunc(QUEUE *self) {
+	if(self->length > 0) {
+		const uint8_t data = self->root.next->data;
+		self->root.next = self->root.next->next;
+ 81e:	4d 91       	ld	r20, X+
+ 820:	5c 91       	ld	r21, X
+ 822:	40 83       	st	Z, r20
+ 824:	51 83       	std	Z+1, r21	; 0x01
+ 826:	04 c0       	rjmp	.+8      	; 0x830 <popFunc+0x28>
+		
+		if(self->length == 1) {
+			self->root.next = NULL;
+ 828:	10 82       	st	Z, r1
+ 82a:	11 82       	std	Z+1, r1	; 0x01
+			self->end = &self->root;
+ 82c:	e3 83       	std	Z+3, r30	; 0x03
+ 82e:	f4 83       	std	Z+4, r31	; 0x04
+		}
+		
+		self->length--;
+ 830:	9f ef       	ldi	r25, 0xFF	; 255
+ 832:	98 0f       	add	r25, r24
+ 834:	95 83       	std	Z+5, r25	; 0x05
+		
+		return data;
+ 836:	82 2f       	mov	r24, r18
+	}
+	
+	return 0;
+}
+ 838:	08 95       	ret
+
+0000083a <isEmptyFunc>:
+
+bool isEmptyFunc(QUEUE *self) {
+	return self->length == 0;
+ 83a:	21 e0       	ldi	r18, 0x01	; 1
+ 83c:	fc 01       	movw	r30, r24
+ 83e:	85 81       	ldd	r24, Z+5	; 0x05
+ 840:	81 11       	cpse	r24, r1
+ 842:	20 e0       	ldi	r18, 0x00	; 0
+}
+ 844:	82 2f       	mov	r24, r18
+ 846:	08 95       	ret
+
+00000848 <initQueue>:
+
+void initQueue(QUEUE *self) {
+ 848:	fc 01       	movw	r30, r24
+	self->isEmpty = &isEmptyFunc;
+ 84a:	8d e1       	ldi	r24, 0x1D	; 29
+ 84c:	94 e0       	ldi	r25, 0x04	; 4
+ 84e:	82 87       	std	Z+10, r24	; 0x0a
+ 850:	93 87       	std	Z+11, r25	; 0x0b
+	self->push = &pushFunc;
+ 852:	8f ed       	ldi	r24, 0xDF	; 223
+ 854:	93 e0       	ldi	r25, 0x03	; 3
+ 856:	86 83       	std	Z+6, r24	; 0x06
+ 858:	97 83       	std	Z+7, r25	; 0x07
+	self->pop = &popFunc;
+ 85a:	84 e0       	ldi	r24, 0x04	; 4
+ 85c:	94 e0       	ldi	r25, 0x04	; 4
+ 85e:	80 87       	std	Z+8, r24	; 0x08
+ 860:	91 87       	std	Z+9, r25	; 0x09
+	
+	self->root.next = NULL;
+ 862:	10 82       	st	Z, r1
+ 864:	11 82       	std	Z+1, r1	; 0x01
+	self->end = &self->root;
+ 866:	e3 83       	std	Z+3, r30	; 0x03
+ 868:	f4 83       	std	Z+4, r31	; 0x04
+	
+	self->length = 0;
+ 86a:	15 82       	std	Z+5, r1	; 0x05
+ 86c:	08 95       	ret
+
+0000086e <__divmodhi4>:
+ 86e:	97 fb       	bst	r25, 7
+ 870:	07 2e       	mov	r0, r23
+ 872:	16 f4       	brtc	.+4      	; 0x878 <__divmodhi4+0xa>
+ 874:	00 94       	com	r0
+ 876:	06 d0       	rcall	.+12     	; 0x884 <__divmodhi4_neg1>
+ 878:	77 fd       	sbrc	r23, 7
+ 87a:	08 d0       	rcall	.+16     	; 0x88c <__divmodhi4_neg2>
+ 87c:	0b d0       	rcall	.+22     	; 0x894 <__udivmodhi4>
+ 87e:	07 fc       	sbrc	r0, 7
+ 880:	05 d0       	rcall	.+10     	; 0x88c <__divmodhi4_neg2>
+ 882:	3e f4       	brtc	.+14     	; 0x892 <__divmodhi4_exit>
+
+00000884 <__divmodhi4_neg1>:
+ 884:	90 95       	com	r25
+ 886:	81 95       	neg	r24
+ 888:	9f 4f       	sbci	r25, 0xFF	; 255
+ 88a:	08 95       	ret
+
+0000088c <__divmodhi4_neg2>:
+ 88c:	70 95       	com	r23
+ 88e:	61 95       	neg	r22
+ 890:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00000892 <__divmodhi4_exit>:
+ 892:	08 95       	ret
+
+00000894 <__udivmodhi4>:
+ 894:	aa 1b       	sub	r26, r26
+ 896:	bb 1b       	sub	r27, r27
+ 898:	51 e1       	ldi	r21, 0x11	; 17
+ 89a:	07 c0       	rjmp	.+14     	; 0x8aa <__udivmodhi4_ep>
+
+0000089c <__udivmodhi4_loop>:
+ 89c:	aa 1f       	adc	r26, r26
+ 89e:	bb 1f       	adc	r27, r27
+ 8a0:	a6 17       	cp	r26, r22
+ 8a2:	b7 07       	cpc	r27, r23
+ 8a4:	10 f0       	brcs	.+4      	; 0x8aa <__udivmodhi4_ep>
+ 8a6:	a6 1b       	sub	r26, r22
+ 8a8:	b7 0b       	sbc	r27, r23
+
+000008aa <__udivmodhi4_ep>:
+ 8aa:	88 1f       	adc	r24, r24
+ 8ac:	99 1f       	adc	r25, r25
+ 8ae:	5a 95       	dec	r21
+ 8b0:	a9 f7       	brne	.-22     	; 0x89c <__udivmodhi4_loop>
+ 8b2:	80 95       	com	r24
+ 8b4:	90 95       	com	r25
+ 8b6:	bc 01       	movw	r22, r24
+ 8b8:	cd 01       	movw	r24, r26
+ 8ba:	08 95       	ret
+
+000008bc <_exit>:
+ 8bc:	f8 94       	cli
+
+000008be <__stop_program>:
+ 8be:	ff cf       	rjmp	.-2      	; 0x8be <__stop_program>

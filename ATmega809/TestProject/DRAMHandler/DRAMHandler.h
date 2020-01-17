@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "../Buffer/Buffer.h"
+#include "../Queue/Queue.h"
 
 typedef enum DRAM_HANDLER_STATE {
 	
@@ -63,8 +64,9 @@ typedef struct DRAM_HANDLER {
 		uint8_t SCK;
 	} SPI;
 	
-	BUFFER buffer;
-	
+	BUFFER msgBuffer;
+	QUEUE burstReadQueue;
+
 	volatile bool hasPendingRefresh;
 	volatile bool hasPendingBufferUpdate;
 	
