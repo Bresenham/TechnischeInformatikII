@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Arch Linux) (preloaded format=xelatex 2019.12.13)  2 JAN 2020 16:21
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Arch Linux) (preloaded format=xelatex 2019.12.13)  2 JAN 2020 17:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1141,7 +1141,11 @@ LaTeX Info: Redefining \nameref on input line 79.
 \@outlinefile=\write7
 \openout7 = `document.out'.
 
- (/usr/share/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+(/usr/share/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/usr/share/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
 Dictionary: translator-bibliography-dictionary, Language: English 
@@ -1279,4 +1283,163 @@ Overfull \hbox (1.66241pt too wide) has occurred while \output is active
 
 ]
 File: images/DRAM_Read_Cycle.png Graphic file (type bmp)
-<i
+<images/DRAM_Read_Cycle.png>
+
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[7
+
+]
+File: images/DRAM_Write_Cycle.png Graphic file (type bmp)
+<images/DRAM_Write_Cycle.png>
+
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[8
+
+]
+File: images/DRAM_Refresh_Cycle.png Graphic file (type bmp)
+<images/DRAM_Refresh_Cycle.png>
+
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[9
+
+]
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[10
+
+] (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2019/09/10 1.8c listings language file
+) (/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2019/09/10 1.8c (Carsten Heinz)
+)
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[11
+
+]
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[12
+
+]
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[13
+
+]
+File: images/SPI_Write_CMD_capture.png Graphic file (type bmp)
+<images/SPI_Write_CMD_capture.png>
+
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[14
+
+]
+File: images/SPI_Read_CMD_capture_01.png Graphic file (type bmp)
+<images/SPI_Read_CMD_capture_01.png>
+File: images/SPI_Read_CMD_capture_02.png Graphic file (type bmp)
+<images/SPI_Read_CMD_capture_02.png>
+
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[15
+
+]
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[16
+
+]
+Overfull \hbox (1.66241pt too wide) has occurred while \output is active
+[][]  [] 
+ []
+
+[17
+
+]
+\tf@nav=\write8
+\openout8 = `document.nav'.
+
+\tf@toc=\write9
+\openout9 = `document.toc'.
+
+\tf@snm=\write10
+\openout10 = `document.snm'.
+
+The property list \polyglossia@langsetup contains the pairs (without outer
+braces):
+>  {latex/script}  =>  {latin}
+>  {latex/lcscript}  =>  {latin}
+>  {latex/scripttag}  =>  {}
+>  {latex/language}  =>  {Latex}
+>  {latex/langtag}  =>  {ENG}
+>  {latex/hyphennames}  =>  {english}
+>  {latex/direction}  =>  {LR}
+>  {latex/hyphenmins}  =>  {2,3}
+>  {latex/frenchspacing}  =>  {false}
+>  {latex/indentfirst}  =>  {false}
+>  {latex/fontsetup}  =>  {true}
+>  {latex/envname}  =>  {latex}
+>  {latex/babelname}  =>  {latex}
+>  {latex/localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {latex/Localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {german/script}  =>  {latin}
+>  {german/lcscript}  =>  {latin}
+>  {german/scripttag}  =>  {}
+>  {german/language}  =>  {German}
+>  {german/langtag}  =>  {DEU}
+>  {german/hyphennames}  =>  {}
+>  {german/direction}  =>  {LR}
+>  {german/hyphenmins}  =>  {2,2}
+>  {german/frenchspacing}  =>  {true}
+>  {german/indentfirst}  =>  {false}
+>  {german/fontsetup}  =>  {true}
+>  {german/envname}  =>  {german}
+>  {german/babelname}  =>  {ngerman}
+>  {german/localnumeral}  =>  {polyglossia@C@localnumeral}
+>  {german/Localnumeral}  =>  {polyglossia@C@localnumeral}.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 295.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 295.
+ (./document.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 295.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 295.
+Package rerunfilecheck Info: File `document.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 54648 strings out of 492483
+ 1249666 string characters out of 6134978
+ 1762965 words of memory out of 5000000
+ 58370 multiletter control sequences out of 15000+600000
+ 539927 words of font info for 77 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 60i,16n,97p,843b,1224s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on document.pdf (17 pages).
