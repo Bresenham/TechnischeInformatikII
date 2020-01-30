@@ -24,7 +24,7 @@
 	radiation/.style={decorate,decoration={expanding waves,angle=12,segment length=4pt}}
 }
 
-\setbeamertemplate{endpage}{%
+\setbeamertemplate{endpage}{
 	\begin{frame}
 		\begin{center}
 			\Huge Demo
@@ -84,7 +84,68 @@
 
 \begin{frame}
 
-	\frametitle{Das PCB}
+	\frametitle{Komponenten}
+	\framesubtitle{ATmega809}
+	\begin{center}
+		\includegraphics[scale=0.1125]{images/ATmega809.png}
+		\includegraphics[scale=0.325]{images/ATMEGA809_peripherals.png}
+	\end{center}
+
+\end{frame}
+
+\begin{frame}
+
+	\frametitle{Komponenten}
+	\framesubtitle{ATmega809}
+	\begin{itemize}
+		\item 5V-kompatibel (passend zum DRAM)
+		\item Modernste AVR-Architektur (u.a. Programmierschnittstelle mit nur noch einem Pin)
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+	\frametitle{Komponenten}
+	\framesubtitle{ESP8266}
+	\begin{center}
+		\raisebox{0.75\height}{\includegraphics[scale=0.1]{images/esp8266.jpg}}
+		\includegraphics[scale=0.2125]{images/esp8266_peripherals.png}
+	\end{center}
+
+\end{frame}
+
+\begin{frame}
+
+	\frametitle{Komponenten}
+	\framesubtitle{KM44C256BP-8}
+	\begin{center}
+		\raisebox{0.2275\height}{\includegraphics[scale=0.225]{images/dram.png}}
+		\includegraphics[scale=0.35]{images/dram_peripherals.png}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+
+	\frametitle{Komponenten}
+	\framesubtitle{KM44C256BP-8}
+	\begin{itemize}
+		\item 256K x 4 Bit CMOS Dynamic RAM
+		\item $A_0 - A_8$: Adressbus
+		\item $\overline{RAS}, \overline{CAS}, \overline{W}, \overline{OE}$: Steuerleitungen
+		\item $DQ_1 - DQ_4$: Datenbus
+		\item Max. Random read / write: $150ns = 150\cdot 10^{-9}s = 6.67MHz$
+		\begin{itemize}
+			\item Wird bei weitem nicht erreicht
+		\end{itemize}
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+
+	\frametitle{PCB}
 	\framesubtitle{Schematic}
 	\begin{center}
 		\includegraphics[scale=0.243]{images/KiCAD_Schematic_View.png}
@@ -94,8 +155,8 @@
 
 \begin{frame}
 
-	\frametitle{Das PCB}
-	\framesubtitle{Layout}
+	\frametitle{PCB}
+	\framesubtitle{Layout 2D}
 	\begin{center}
 		\includegraphics[scale=0.15]{images/KiCAD_2D_PCB_View.png}
 	\end{center}
@@ -104,8 +165,8 @@
 
 \begin{frame}
 
-	\frametitle{Das PCB}
-	\framesubtitle{Layout}
+	\frametitle{PCB}
+	\framesubtitle{Layout 3D}
 	\begin{center}
 		\includegraphics[scale=0.15]{images/KiCAD_3D_PCB_View.png}
 	\end{center}
@@ -114,32 +175,11 @@
 
 \begin{frame}
 
-	\frametitle{Das PCB}
+	\frametitle{PCB}
 	\framesubtitle{Fertige Platine}
 	\begin{center}
 		\includegraphics[scale=0.18]{images/PCB_assembled.png}
 	\end{center}
-	
-\end{frame}
-
-\begin{frame}
-
-	\frametitle{KM44C256BP-8}
-	\framesubtitle{}
-	\begin{itemize}
-		\item 9 Adresseingänge
-		\begin{itemize}
-			\item Werden sowohl für Spalten- als auch Zeilenadressen verwendet
-			\item $2^{18} = 262144$ RAM-Zellen
-		\end{itemize}
-		\item 4 Dateneingänge
-		\begin{itemize}
-			\item Mit 2 Stück erhält man volle 256kByte
-		\end{itemize}
-		\item 8ms Refresh Period
-		\item Asynchroner DRAM $\Rightarrow$ keinen Clock Eingang
-		\item Neuere SDR-DRAM oder DDR-DRAM erfordern zu hohe Geschwindigkeiten
-	\end{itemize}
 	
 \end{frame}
 
@@ -166,7 +206,7 @@
 \begin{frame}
 
 	\frametitle{KM44C256BP-8}
-	\framesubtitle{Refresh}
+	\framesubtitle{REFRESH}
 	\begin{center}
 		\includegraphics[scale=0.35]{images/DRAM_Refresh_Cycle.png}
 	\end{center}
@@ -178,9 +218,31 @@
 	\frametitle{ATmega809}
 	\framesubtitle{}
 	\begin{itemize}
-		\item Reagiert auf eintreffende SPI-Bytes
+		\item Reagiert auf eintreffende SPI-Bytes des ESP8266
 		\item Erkennt READ bzw. WRITE Befehle, steuert Adress- und Datenleitungen zum RAM entsprechend
-		\item Führt zyklische $\bar{RAS}$-Refreshes aus
+		\item Führt zyklische $\overline{RAS}$-Refreshes aus (Timer-Interrupt)
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+
+	\frametitle{Probleme zwischendurch}
+	\framesubtitle{Microchip Device Support Packs}
+	\begin{center}
+		\includegraphics[scale=0.4]{images/atmega_definition_update.png}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+
+	\frametitle{Probleme zwischendurch}
+	\framesubtitle{Spannungslevel}
+	\begin{itemize}
+		\item DRAM: 4.5V - 5.5V
+		\item ATmega809: 1.8V - 5.5V
+		\item ESP8266: 2.5V - 3.6V
 	\end{itemize}
 	
 \end{frame}
@@ -242,8 +304,8 @@ ISR(SPI0_INT_vect) {
 	\begin{itemize}
 		\item Der ESP8266 agiert als SPI-Master
 		\item Reagiert auf HTTP-Requests
-		\item Sendet ggf. \textit{READ}/\textit{WRITE}-Befehle an ATmega809
-		\item Zeigt Ergebnisse von READ-Befehlen an
+		\item Sendet \textit{READ}/\textit{WRITE}-Befehle an ATmega809
+		\item Sendet Ergebnis eines READ-Requests als HTML an Webbrowser
 	\end{itemize}
 	
 \end{frame}
@@ -253,11 +315,12 @@ ISR(SPI0_INT_vect) {
 	\frametitle{ESP8266}
 	\framesubtitle{WRITE-Befehl}
 	\begin{itemize}
-		\item Besteht aus \[0x12, ADDR\_MSB, ADDR\_MLSB, ADDR\_LSB, DATA\]
+		\item Besteht aus
+		\begin{itemize}
+			\item 0x12, ADDR\_MSB, ADDR\_MLSB, ADDR\_LSB, DATA\\
+			\includegraphics[scale=0.375]{images/SPI_Write_CMD_capture.png}
+		\end{itemize}
 	\end{itemize}
-	\begin{center}
-		\includegraphics[scale=0.4]{images/SPI_Write_CMD_capture.png}
-	\end{center}
 	
 \end{frame}
 
@@ -266,12 +329,14 @@ ISR(SPI0_INT_vect) {
 	\frametitle{ESP8266}
 	\framesubtitle{READ-Befehl}
 	\begin{itemize}
-		\item Besteht aus \[0x13, ADDR\_MSB, ADDR\_MLSB, ADDR\_LSB\]\\ \[RET\_VAL\]
+		\item Besteht aus
+		\begin{itemize}
+			\item 0x13, ADDR\_MSB, ADDR\_MLSB, ADDR\_LSB\\
+			\includegraphics[scale=0.4]{images/SPI_Read_CMD_capture_01.png}
+			\item RET\_VAL\\
+			\includegraphics[scale=0.4]{images/SPI_Read_CMD_capture_02.png}
+		\end{itemize}
 	\end{itemize}
-	\begin{center}
-		\includegraphics[scale=0.4]{images/SPI_Read_CMD_capture_01.png}
-		\includegraphics[scale=0.4]{images/SPI_Read_CMD_capture_02.png}
-	\end{center}
 	
 \end{frame}
 
@@ -280,11 +345,14 @@ ISR(SPI0_INT_vect) {
 	\frametitle{ESP8266}
 	\framesubtitle{Web-API}
 	\begin{itemize}
-		\item 192.168.4.1/get?addr=xxxxxx setzt READ-Befehl per SPI ab
+		\item READ-Befehl
 		\begin{itemize}
-			\item Zeigt ausgelesenen Wert auf der Webseite an
+			\item 192.168.4.1/get?addr=xxxxxx
 		\end{itemize}
-		\item 192.168.4.1/set?addr=xxxxxx\&value=yyy setzt WRITE-Befehl per SPI ab
+		\item WRITE-Befehl
+		\begin{itemize}
+			\item 192.168.4.1/set?addr=xxxxxx\&value=yyy
+		\end{itemize}
 	\end{itemize}
 	
 \end{frame}
