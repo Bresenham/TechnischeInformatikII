@@ -99,7 +99,7 @@
 	\framesubtitle{ATmega809}
 	\begin{itemize}
 		\item 5V-kompatibel (passend zum DRAM)
-		\item Modernste AVR-Architektur (u.a. Programmierschnittstelle mit nur noch einem Pin)
+		\item Modernste AVR-Architektur
 	\end{itemize}
 
 \end{frame}
@@ -136,9 +136,6 @@
 		\item $\overline{RAS}, \overline{CAS}, \overline{W}, \overline{OE}$: Steuerleitungen
 		\item $DQ_1 - DQ_4$: Datenbus
 		\item Max. Random read / write: $150ns = 150\cdot 10^{-9}s = 6.67MHz$
-		\begin{itemize}
-			\item Wird bei weitem nicht erreicht
-		\end{itemize}
 	\end{itemize}
 	
 \end{frame}
@@ -302,7 +299,7 @@ ISR(SPI0_INT_vect) {
 	\frametitle{ESP8266}
 	\framesubtitle{}
 	\begin{itemize}
-		\item Der ESP8266 agiert als SPI-Master
+		\item Agiert als SPI-Master
 		\item Reagiert auf HTTP-Requests
 		\item Sendet \textit{READ}/\textit{WRITE}-Befehle an ATmega809
 		\item Sendet Ergebnis eines READ-Requests als HTML an Webbrowser
@@ -333,7 +330,7 @@ ISR(SPI0_INT_vect) {
 		\begin{itemize}
 			\item 0x13, ADDR\_MSB, ADDR\_MLSB, ADDR\_LSB\\
 			\includegraphics[scale=0.4]{images/SPI_Read_CMD_capture_01.png}
-			\item RET\_VAL\\
+			\item Return-Value\\
 			\includegraphics[scale=0.4]{images/SPI_Read_CMD_capture_02.png}
 		\end{itemize}
 	\end{itemize}
@@ -353,6 +350,20 @@ ISR(SPI0_INT_vect) {
 		\begin{itemize}
 			\item 192.168.4.1/set?addr=xxxxxx\&value=yyy
 		\end{itemize}
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+
+	\frametitle{Zukünftiges}
+	\framesubtitle{}
+	\begin{itemize}
+		\item Burst-Read Befehl
+		\begin{itemize}
+			\item ATmega liefert Werte aller Speicheradressen zwischen einem Start- und Endwert
+		\end{itemize}
+		\item Spannungslevel korrekt angleichen durch Spannungsteiler oder Level-Shifter
 	\end{itemize}
 	
 \end{frame}
